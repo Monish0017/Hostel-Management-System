@@ -1,5 +1,21 @@
 import React, { useState } from 'react';
 import './CSS/Login.css';
+// Updated Firebase imports
+import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAB2Uq3XedJaloEfad8jfQR73dMHmBiuJU",
+  authDomain: "alpine-avatar-428418-b2.firebaseapp.com",
+  projectId: "alpine-avatar-428418-b2",
+  storageBucket: "alpine-avatar-428418-b2.appspot.com",
+  messagingSenderId: "809476538533",
+  appId: "1:809476538533:web:20fe12f918ff027d444d4c"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 const Login = () => {
   const [show, setShow] = useState(true);
@@ -13,6 +29,21 @@ const Login = () => {
     setUserType(e.target.value);
   };
 
+  const handleGoogleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log('Google user:', user);
+        // Implement your login logic with Google user data here
+      })
+      .catch((error) => {
+        console.error('Google sign-in error:', error.message); // Log error message
+        // Display error message to the user (optional)
+        alert(`Google sign-in error: ${error.message}`);
+      });
+  };
+  
   return (
     <div className='full'>
       <div className='login'>
@@ -55,6 +86,9 @@ const Login = () => {
             </button>
           </p>
         </div>
+
+        {/* Google Sign-in Button */}
+        <button className='but' onClick={handleGoogleLogin}>Sign in with Google</button>
       </div>
     </div>
   );
