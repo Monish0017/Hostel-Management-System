@@ -1,0 +1,94 @@
+
+/* Ensures the body takes up the full height of the viewport, and centers the content */
+.full {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.login {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    text-align: center;
+    max-width: 400px; /* Maximum width of the container */
+    width: 100%; /* Full width of the parent container */
+}
+
+.login h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.input {
+    margin-bottom: 1rem;
+}
+
+/* Styles for the input elements */
+.input input {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.forgot {
+    margin-top: 1rem;
+    margin-bottom: 20px;
+}
+
+.forgot a {
+    color: #007bff;
+    text-decoration: none; /* Remove underline */
+}
+
+.forgot a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.link-button {
+    background: none;
+    color: blue;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: inherit;
+    text-decoration: underline;
+}
+
+.but {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 50%;
+}
+
+.but:hover {
+    background-color: #127d36;
+}
+
+.signup {
+    margin-top: 1rem;
+}
+
+/* Remove margin from the paragraph */
+.signup p {
+    margin: 0;
+}
+
+.signup a {
+    color: #007bff;
+    text-decoration: none; /* Remove underline */
+}
+
+.signup a:hover {
+    text-decoration: underline; /* Underline on hover */
+}

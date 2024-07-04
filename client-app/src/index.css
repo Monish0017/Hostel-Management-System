@@ -1,87 +1,19 @@
+*{
+    margin: 0;
+}
+  
 body {
-    font-family: 'Courier New', Courier, monospace;
-}
-
-/* Ensures the body takes up the full height of the viewport, and centers the content */
-.full {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
-    background-color: #bdced1; 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'poppins';
 }
   
-.login {
-    background: #fff;
-    padding: 20px; 
-    border-radius: 8px; 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    text-align: center; 
-    max-width: 400px; /* Maximum width of the container */
-    width: 100%; /* Full width of the parent container */
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
 }
   
-.login h1 {
-    margin-bottom: 20px; 
-    font-size: 24px;
-}
-  
-.input {
-    margin-bottom: 15px; 
-}
-  
-/* Styles for the input elements */
-.input input {
-    width: calc(100% - 20px); /* Full width minus padding */
-    padding: 10px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-}
-  
-.forgot {
-    margin-bottom: 20px;
-}
-  
-.forgot a {
-    color: #007bff;
-    text-decoration: none; /* Remove underline */
-}
-  
-.forgot a:hover {
-    text-decoration: underline; /* Underline on hover */
-}
-  
-.but {
-    background-color: #20ae73; 
-    color: #fff; 
-    padding: 10px 20px; 
-    border: none; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    font-size: 16px; 
-    width: 50%;
-}
-  
-.but:hover {
-    background-color: #127d36; 
-}
-  
-.signup {
-    margin-top: 20px; 
-}
-  
-/* Remove margin from the paragraph */
-.signup p {
-    margin: 0;
-}
-  
-.signup a {
-    color: #007bff; 
-    text-decoration: none; /* Remove underline */
-}
-  
-.signup a:hover {
-    text-decoration: underline; /* Underline on hover */
-}
-
