@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CSS/Login.css';
-import logo from '../assets/logo.png'; 
-
 
 const Login = () => {
   const [userType, setUserType] = useState('Student'); // Default to Student
+  const navigate = useNavigate();
 
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
   };
 
-  
+  const handleLogin = () => {
+    if (userType === 'Student') {
+      navigate('/home');
+    } else {
+      alert('Only students can log in.');
+    }
+  };
+
   return (
     <div className='full'>
-      <div className='header'>
-        <img src={logo} alt="Logo" className="logo" />
-        <h1>Hostel Management System</h1>
-      </div>
 
       <div className='main'>
         <div className='login'>
@@ -58,7 +61,7 @@ const Login = () => {
             <p>Forgot password?</p>
           </div>
 
-          <button className='but'>Login</button>
+          <button className='but' onClick={handleLogin}>Login</button>
 
         </div>
 

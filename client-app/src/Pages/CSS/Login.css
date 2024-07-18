@@ -18,34 +18,6 @@ body, html {
     overflow: hidden; /* Prevents background image from overflowing */
 }
 
-.header {
-    background-color: rgba(0, 0, 0, 0.8); /* Darkened semi-transparent background color for header */
-    color: white;
-    padding: 15px;
-    text-align: center;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 1000; /* Ensures header stays above other content */
-    display: flex;
-    justify-content: center; /* Centers content horizontally */
-    align-items: center;
-}
-
-.header .logo {
-    width: 40px;
-    height: 50px;
-    margin-right: 10px; /* Adjust spacing between logo and title */
-}
-
-.header h1 {
-    margin: 0;
-    text-align: center; /* Aligns the heading text to the center */
-    display: flex;
-    align-items: center; /* Aligns text and logo vertically center */
-}
-
-
 .main {
     background: rgba(150, 164, 179, 0.9); /* Semi-transparent white background */
     padding: 2rem;
