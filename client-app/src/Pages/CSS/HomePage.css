@@ -1,47 +1,108 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logout-button {
-    margin-left: 20px;
-  }
-  
-  .main {
-    display: flex;
-    flex: 1;
-  }
-  
-  .sidebar {
-    width: 200px;
-    background-color: #f0f0f0;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    padding: 10px;
-  }
-  
-  .content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .image {
-    max-width: 100%;
-    height: auto;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: url('../../assets/hostel.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative; /* Ensure absolute positioning of child elements works correctly */
+}
+
+.back-button {
+  position: absolute;
+  left: 20px; /* Positioned on the left side of the header */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #0056b3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #004494;
+}
+
+.user-info-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque background */
+  padding: 1rem;
+  margin-top: 80px; /* Adjust for fixed header height */
+  display: flex;
+  justify-content: center; /* Center align items horizontally */
+  align-items: center;
+  position: relative; /* Relative positioning to keep the user-info in place */
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column; /* Ensure name and roll no stack vertically */
+  align-items: center; /* Center horizontally */
+  color: black; /* Change text color to ensure readability */
+  margin: 0 2rem; /* Margin to provide spacing between name and roll no */
+}
+
+.user-info span {
+  margin-right: 1.5rem; /* Add space between name and roll no */
+  margin-bottom: 0.5rem; /* Add space between name and roll no */
+}
+
+.logout-button {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  right: 20px; /* Positioned on the right side of the header */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+}
+
+.logout-button:hover {
+  background-color: #e60000;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  margin-top: 1rem; /* Ensure there's space below the user-info-container */
+}
+
+.sidebar {
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.8); /* Sidebar color */
+  color: white;
+  position: fixed;
+  top: 130px; /* Align with user-info-container */
+  height: calc(100vh - 80px); /* Adjust for header height */
+  left: 0; /* Position sidebar on the left side */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background-color: #0056b3;
+}
+
+.content {
+  flex: 1;
+  margin-left: 200px; /* Ensure content doesn't overlap with sidebar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+}

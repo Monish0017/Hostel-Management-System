@@ -4,6 +4,11 @@ import './CSS/Login.css';
 
 const Login = () => {
   const [userType, setUserType] = useState('Student'); // Default to Student
+  const [name, setName] = useState('');
+  const [rollNo, setRollNo] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleUserTypeChange = (e) => {
@@ -12,19 +17,33 @@ const Login = () => {
 
   const handleLogin = () => {
     if (userType === 'Student') {
-      navigate('/home');
-    } else {
-      alert('Only students can log in.');
+      if (name && rollNo && password) {
+        navigate('/home', { state: { name, rollNo } });
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } else if (userType === 'Admin') {
+      if (email && password) {
+        // Implement admin login logic here
+        alert('Admin login functionality not implemented.');
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    } else if (userType === 'Faculty') {
+      if (username && password) {
+        // Implement faculty login logic here
+        alert('Faculty login functionality not implemented.');
+      } else {
+        alert('Please fill in all required fields.');
+      }
     }
   };
 
   return (
     <div className='full'>
-
       <div className='main'>
         <div className='login'>
           <h1>LOGIN</h1>
-          
           <form>
             <div className='user'>
               <select value={userType} onChange={handleUserTypeChange}>
@@ -36,24 +55,50 @@ const Login = () => {
 
             {userType === 'Student' && (
               <div className='input'>
-                <input type='text' placeholder='Roll No' />
+                <input
+                  type='text'
+                  placeholder='Name'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  type='text'
+                  placeholder='Roll No'
+                  value={rollNo}
+                  onChange={(e) => setRollNo(e.target.value)}
+                />
               </div>
             )}
 
             {userType === 'Admin' && (
               <div className='input'>
-                <input type='text' placeholder='Email' />
+                <input
+                  type='text'
+                  placeholder='Email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
             )}
 
             {userType === 'Faculty' && (
               <div className='input'>
-                <input type='text' placeholder='Username' />
+                <input
+                  type='text'
+                  placeholder='Username'
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
             )}
 
             <div className='input'>
-              <input type='password' placeholder='Password' />
+              <input
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
           </form>
 
@@ -62,11 +107,8 @@ const Login = () => {
           </div>
 
           <button className='but' onClick={handleLogin}>Login</button>
-
         </div>
-
       </div>
-
     </div>
   );
 };
