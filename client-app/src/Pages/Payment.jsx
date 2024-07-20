@@ -24,8 +24,8 @@ const Payment = ({ block }) => {
 
   const handlePayment = () => {
     var options = {
-      key: 'your_key_here', // Add your Razorpay key here
-      key_secret: 'your_key_secret_here',
+      key: 'rzp_test_CVdxSwiW24pRpm', 
+      key_secret: 'ZFmi7pwvXwvfBz01zvcfjUAX',
       amount: totalFee * 100,
       currency: 'INR',
       name: 'Hostel Fee Payment',
