@@ -29,13 +29,13 @@
   background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque background */
   padding: 1rem;
   margin-top: 80px; /* Adjust for fixed header height */
+  height: 25px;
   display: flex;
   justify-content:space-around; /* Center align items horizontally */
   position: fixed; /* Relative positioning to keep the user-info in place */
   z-index: 1000;
   width: 100%;
   align-items: center;
-  
 }
 
 .user-info {
@@ -68,7 +68,7 @@
   background-color: #e60000;
 }
 
-.main {
+.main1 {
   display: flex;
   flex: 1;
   margin-top: 1rem; /* Ensure there's space below the user-info-container */
@@ -79,8 +79,8 @@
   background-color: rgba(0, 0, 0, 0.8); /* Sidebar color */
   color: white;
   position: fixed;
-  top: 130px; /* Align with user-info-container */
-  height: calc(100vh - 80px); /* Adjust for header height */
+  top: 135px; /* Align with user-info-container */
+  height: calc(100vh - 75px); /* Adjust for header height */
   left: 0; /* Position sidebar on the left side */
 }
 
@@ -92,6 +92,16 @@
 .sidebar li {
   padding: 10px;
   cursor: pointer;
+}
+
+.sidebar ul li.active {
+  background-color: #0056b3; /* Highlight color */
+  color: white;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .sidebar li:hover {

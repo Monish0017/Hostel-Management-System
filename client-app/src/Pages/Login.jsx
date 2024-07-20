@@ -4,21 +4,16 @@ import './CSS/Login.css';
 
 const Login = () => {
   const [userType, setUserType] = useState('Student'); // Default to Student
-  const [name, setName] = useState('');
   const [rollNo, setRollNo] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleUserTypeChange = (e) => {
-    setUserType(e.target.value);
-  };
-
   const handleLogin = () => {
     if (userType === 'Student') {
-      if (name && rollNo && password) {
-        navigate('/home', { state: { name, rollNo } });
+      if (rollNo && password) {
+        navigate('/home');
       } else {
         alert('Please fill in all required fields.');
       }
@@ -46,7 +41,7 @@ const Login = () => {
           <h1>LOGIN</h1>
           <form>
             <div className='user'>
-              <select value={userType} onChange={handleUserTypeChange}>
+              <select value={userType} onChange={(e) => setUserType(e.target.value)}>
                 <option value='Student'>Student</option>
                 <option value='Admin'>Admin</option>
                 <option value='Faculty'>Faculty</option>
@@ -55,12 +50,6 @@ const Login = () => {
 
             {userType === 'Student' && (
               <div className='input'>
-                <input
-                  type='text'
-                  placeholder='Name'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
                 <input
                   type='text'
                   placeholder='Roll No'
