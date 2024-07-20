@@ -28,14 +28,15 @@ const Layout = ({ children }) => {
       <div className="main1">
         <nav className="sidebar">
           <ul>
-            <li>Student Profile</li>
+          <li onclick={navigate('/StudentProfile')}><Link to="/home/StudentProfile" style={{textDecoration:'none',color:'inherit'}} >StudentProfile</Link></li>
+
             <li>IVRS</li>
             <li>Room</li>
             <li>Events</li>
             <li>Food</li>
             <li>Information</li>
             <li><Link to="/home/fee" style={{ textDecoration: 'none',color: 'inherit'}}>Fees</Link></li>
-
+            
 
           </ul>
         </nav>
