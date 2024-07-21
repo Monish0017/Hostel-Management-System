@@ -1,49 +1,74 @@
-// StudentProfile.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './CSS/StudentProfile.css';
-import profile from '../assets/profile.jpg'; 
+import profile from '../assets/profile.jpg';
 
 const StudentProfile = () => {
+  const [profileData, setProfileData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const fetchProfile = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch('http://localhost:3000/students/profile', {
+        method: 'GET',
+        headers: {
+          'x-auth-token': token
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch profile');
+      }
+
+      const data = await response.json();
+      setProfileData(data);
+    } catch (error) {
+      setError('Error fetching profile');
+      console.error('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!profileData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <main2>
       <div className="profile-wrapper">
         <div className="profile">
           <div className="profile-header">
             <img src={profile} alt="Profile" className="profile-picture" />
-            <h2>Student Name</h2>
+            <h2>{profileData.fullName}</h2>
           </div>
           <div className="profile-details">
             <div className="general-info">
               <h3>General Information</h3>
-              <p><strong>Roll No:</strong> </p>
-              <p><strong>Gender:</strong></p>
-              <p><strong>Father's Name:</strong></p>
-              <p><strong>Date Of Birth:</strong></p>
-              <p><strong>Email:</strong></p>
-              <p><strong>Student Mobile No:</strong></p>
-              <p><strong>IVR No:</strong></p>
+              <p><strong>Roll No:</strong> {profileData.rollNo}</p>
+              <p><strong>Father's Name:</strong> {profileData.fatherName}</p>
+              <p><strong>Email:</strong> {profileData.email}</p>
+              <p><strong>Contact Phone:</strong> {profileData.contactPhone}</p>
+              <p><strong>Primary Mobile No:</strong> {profileData.primaryMobileNumber}</p>
+              <p><strong>Secondary Mobile No:</strong> {profileData.secondaryMobileNumber}</p>
+              <p><strong>Residential Address:</strong> {profileData.residentialAddress}</p>
             </div>
             <div className="academic-info">
               <h3>Academic Information</h3>
-              <p><strong>Department:</strong></p>
-              <p><strong>Program:</strong></p>
-              <p><strong>Batch:</strong></p>
-              <p><strong>Admission Type:</strong></p>
-              <p><strong>Register No:</strong></p>
-            </div>
-            <div className="hostel-info">
-              <h3>Hostel Information</h3>
-              <p><strong>Hostel:</strong></p>
-              <p><strong>Room No:</strong></p>
-              <p><strong>Finger Print ID:</strong></p>
-              <p><strong>Approval No:</strong></p>
-              <p><strong>Language:</strong></p>
+              <p><strong>Programme:</strong> {profileData.programme}</p>
+              <p><strong>Class Year:</strong> {profileData.classYear}</p>
             </div>
           </div>
         </div>
       </div>
     </main2>
   );
-}
+};
 
 export default StudentProfile;

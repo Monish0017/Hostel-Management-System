@@ -2,9 +2,9 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-}
-
-.full {
+  }
+  
+  .full {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,9 +15,9 @@ body, html {
     background-position: center;
     position: relative;
     overflow: hidden;
-}
-
-.main {
+  }
+  
+  .main {
     background: rgba(150, 164, 179, 0.9);
     padding: 2rem;
     border-radius: 8px;
@@ -27,29 +27,29 @@ body, html {
     width: 100%;
     margin-top: 2rem; /* Space between header and login box */
     margin-bottom: 2rem; /* Space below the login box */
-}
-
-.main h1 {
+  }
+  
+  .main h1 {
     margin-bottom: 2rem;
     margin-top: 1rem;
     font-size: 24px;
     text-align: center;
-}
-
-.user, .input {
+  }
+  
+  .user, .input {
     margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     width: 100%;
-}
-
-.input {
+  }
+  
+  .input {
     display: flex;
     flex-direction: column; /* Ensure inputs are stacked vertically */
     width: 100%;
   }
   
-.input input {
+  .input input {
     margin-bottom: 1rem; /* Space below each input field */
     width: 100%;
     max-width: 320px; /* Ensure input boxes are not too wide */
@@ -60,18 +60,17 @@ body, html {
     background-color: #e0dee4;
     color: #333;
     text-align: center;
-}
+  }
   
-.input input:last-of-type {
+  .input input:last-of-type {
     margin-bottom: 0; /* Remove margin for the last input */
-}
+  }
   
-.input input:not(:last-of-type) {
+  .input input:not(:last-of-type) {
     margin-bottom: 1rem; /* Space between inputs */
-}
+  }
   
-
-.user select, .input input {
+  .user select, .input input {
     width: 100%;
     max-width: fit-content; 
     padding: 0.5rem;
@@ -81,37 +80,36 @@ body, html {
     background-color: #e0dee4;
     color: #333;
     text-align: center;
-}
-
-.user select:focus, .input input:focus {
+  }
+  
+  .user select:focus, .input input:focus {
     border-color: #007bff;
     background-color: #fff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.input input::placeholder {
+  }
+  
+  .input input::placeholder {
     color: transparent; /* Hide placeholder text when input is focused */
-}
-
-.input input:not(:focus)::placeholder {
+  }
+  
+  .input input:not(:focus)::placeholder {
     color: #999; /* Show placeholder text when input is not focused */
-}
-
-
-.forgot {
+  }
+  
+  .forgot {
     margin-top: 1rem;
     margin-bottom: 20px;
     color: #4635ba;
     text-decoration: none;
-}
-
-.forgot:hover {
+  }
+  
+  .forgot:hover {
     text-decoration: underline;
     cursor: pointer;
-}
-
-.but {
+  }
+  
+  .but {
     background-color: #2fbd65;
     color: white;
     border: none;
@@ -121,8 +119,17 @@ body, html {
     font-size: 16px;
     width: 50%;
     margin: 0 auto; /* Center the button */
-}
-
-.but:hover {
+  }
+  
+  .but:hover {
     background-color: #24964a;
-}
+  }
+  
+  .error-popup {
+    background-color: #f44336; /* Red background for error */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+  }
