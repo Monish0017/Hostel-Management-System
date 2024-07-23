@@ -6,10 +6,6 @@ import Fee from './Pages/Fee';
 import StudentProfile from './Pages/StudentProfile';
 import Header from './Pages/Header';
 import Layout from './Pages/Layout';
-import AdminLogin from './Pages/AdminLogin';
-import AdminRoomAllocation from './Pages/AdminRoomAllocation';
-import RoomAllocation from './Pages/RoomAllocation'; // Import RoomAllocation
-import ApplicationPage from './Pages/ApplicationPage'; // Import ApplicationPage
 
 const App = () => {
   return (

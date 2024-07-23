@@ -26,11 +26,6 @@ const StudentHome = () => {
 
   return (
     <div className="container">
-      <div className="user-info-container">
-        <div className="user-info">
-          <button className="logout-button" onClick={() => navigate('/login')}>Log out</button>
-        </div>
-      </div>
       <div className="main1">
         <nav className="sidebar">
           <ul>
@@ -52,6 +47,12 @@ const StudentHome = () => {
               <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>Fees</Link>
             </li>
           </ul>
+          <button
+            className="logout-button"
+            onClick={() => navigate('/login')}
+          >
+            Log out
+          </button>
         </nav>
         <div className="content">
           {renderComponent()}

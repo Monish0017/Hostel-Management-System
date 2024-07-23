@@ -6,7 +6,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State for error message
-  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ const Login = () => {
       localStorage.setItem('refreshToken', data.refreshToken);
 
       // Redirect to profile or another page
-      navigate('/profile'); // Use navigate instead of window.location
+      window.location.href = '/profile';
     } catch (error) {
       setError('Invalid email or password'); // Set error message
       console.error('Error:', error);
