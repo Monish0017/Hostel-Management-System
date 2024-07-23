@@ -7,6 +7,7 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { name, rollNo } = location.state || {};
+  
 
   const handleBack = () => {
     navigate('/home');
