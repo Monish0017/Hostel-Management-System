@@ -5,11 +5,13 @@ import StudentHome from './Pages/StudentHome';
 import Fee from './Pages/Fee';
 import StudentProfile from './Pages/StudentProfile';
 import Header from './Pages/Header';
+import Layout from './Pages/Layout';
 
 const App = () => {
   return (
     <Router>
-      <Header />
+      <Header/>
+      <Layout/>
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/home" element={<StudentHome/>} />
