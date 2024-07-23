@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CSS/Login.css';
 
-const Login = () => {
+const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // State for error message
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const response = await fetch('http://localhost:3000/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -24,21 +23,20 @@ const Login = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem('token', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      localStorage.setItem('token', data.token);
 
-      // Redirect to profile or another page
-      navigate('/profile'); // Use navigate instead of window.location
+      // Redirect to room allocation page
+      navigate('/admin/allocate-rooms'); // Use navigate instead of window.location
     } catch (error) {
-      setError('Invalid email or password'); // Set error message
       console.error('Error:', error);
+      alert('Invalid username or password');
     }
   };
 
   return (
     <div className="full">
       <div className="main">
-        <h1>Login</h1>
+        <h1>Admin Login</h1>
         <form onSubmit={handleLogin}>
           <div className="user">
             <div className="input">
@@ -59,21 +57,10 @@ const Login = () => {
             </div>
           </div>
           <button type="submit" className="but">Login</button>
-          <button
-            type="button"
-            className="forgot"
-            onClick={() => {
-              // Handle password reset action
-              console.log('Forgot Password clicked');
-            }}
-          >
-            Forgot Password?
-          </button>
         </form>
-        {error && <div className="error-popup">{error}</div>} {/* Display error message */}
       </div>
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;
