@@ -1,7 +1,15 @@
-button{
-    padding:6px;
+button {
+    padding: 10px 20px; /* Increase padding for better click area */
     border-radius: 5px;
-    background-color:blanchedalmond;
-
-}
-
+    background-color: blanchedalmond;
+    color: black; /* Adjust text color for better readability */
+    border: none; /* Remove default border */
+    cursor: pointer;
+    margin-top: 20px; /* Space between button and other elements */
+    font-size: 16px; /* Adjust font size for better readability */
+  }
+  
+  button:hover {
+    background-color: #eed19a; /* Slightly darker shade on hover */
+  }
+  

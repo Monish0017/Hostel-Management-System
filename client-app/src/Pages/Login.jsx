@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CSS/Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State for error message
+  const navigate = useNavigate(); // Use navigate hook
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,8 +27,8 @@ const Login = () => {
       localStorage.setItem('token', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
 
-      // Redirect to profile or another page
-      window.location.href = '/profile';
+      // Redirect to home page
+      navigate('/home');
     } catch (error) {
       setError('Invalid email or password'); // Set error message
       console.error('Error:', error);
