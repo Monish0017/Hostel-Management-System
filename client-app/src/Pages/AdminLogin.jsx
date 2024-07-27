@@ -25,8 +25,8 @@ const AdminLogin = () => {
       const data = await response.json();
       localStorage.setItem('token', data.token);
 
-      // Redirect to room allocation page
-      navigate('/admin/allocate-rooms'); // Use navigate instead of window.location
+      // Redirect to admin Home page
+      navigate('/admin/AdminHome'); // Use navigate instead of window.location
     } catch (error) {
       console.error('Error:', error);
       alert('Invalid username or password');

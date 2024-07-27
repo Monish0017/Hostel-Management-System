@@ -10,6 +10,7 @@ import AdminRoomAllocation from './Pages/AdminRoomAllocation';
 import RoomAllocation from './Pages/RoomAllocation';
 import ApplicationPage from './Pages/ApplicationPage';
 import LandingPage from './Pages/LandingPage';
+import AdminHome from './Pages/AdminHome';
 
 const App = () => {
   return (
@@ -20,12 +21,15 @@ const App = () => {
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<StudentHome />}>
-        <Route path="profile" element={<StudentProfile />} />
-        <Route path="fee" element={<Fee />} />
-        <Route path="room-allocation" element={<RoomAllocation />} />
-        <Route path="application" element={<ApplicationPage />} />
+          <Route path="profile" element={<StudentProfile />} />
+          <Route path="fee" element={<Fee />} />
+          <Route path="room-allocation" element={<RoomAllocation />} />
+          <Route path="application" element={<ApplicationPage />} />
+          
+        
       </Route>
       <Route path="/admin/allocate-rooms" element={<AdminRoomAllocation />} />
+      <Route path="/admin/AdminHome" element={<AdminHome />} />
       </Routes>
     </Router>
   );

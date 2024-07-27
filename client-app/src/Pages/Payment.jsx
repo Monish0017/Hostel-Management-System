@@ -24,8 +24,8 @@ const Payment = ({ block }) => {
 
   const handlePayment = () => {
     var options = {
-      key: 'rzp_test_CVdxSwiW24pRpm', 
-      key_secret: 'ZFmi7pwvXwvfBz01zvcfjUAX',
+      key: 'rzp_test_SlFpcOAGhSBkgX', 
+      key_secret: 'bpKEcQ4BZUpv4TQTVyyfG9WY',
       amount: totalFee * 100,
       currency: 'INR',
       name: 'Hostel Fee Payment',

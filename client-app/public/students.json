@@ -1,0 +1,12 @@
+[
+  { "name": "John Doe", "rollNo": "101", "feePaid": true, "roomNo": "A1" },
+  { "name": "Jane Smith", "rollNo": "102", "feePaid": false, "roomNo": "B2" },
+  { "name": "Alice Johnson", "rollNo": "103", "feePaid": true, "roomNo": "C3" },
+  { "name": "Bob Brown", "rollNo": "104", "feePaid": false, "roomNo": "D4" },
+  { "name": "Charlie Davis", "rollNo": "105", "feePaid": true, "roomNo": "E5" },
+  { "name": "Diana Evans", "rollNo": "106", "feePaid": false, "roomNo": "F6" },
+  { "name": "Ethan Fox", "rollNo": "107", "feePaid": true, "roomNo": "G7" },
+  { "name": "Fiona Green", "rollNo": "108", "feePaid": false, "roomNo": "H8" },
+  { "name": "George Harris", "rollNo": "109", "feePaid": true, "roomNo": "I9" },
+  { "name": "Hannah Ives", "rollNo": "110", "feePaid": false, "roomNo": "J10" }
+]
