@@ -2,14 +2,6 @@ const Room = require('../models/Room');
 const Student = require('../models/Student');
 const Application = require('../models/Application');
 
-const roomTypeFromCapacity = capacity => {
-  if (capacity === 1) return 'Single';
-  if (capacity === 2) return 'Double';
-  if (capacity === 3) return 'Triple';
-  if (capacity === 4) return 'Quad'; // Add other types as needed
-  return 'Unknown';
-};
-
 class RoomAllocator {
   static async allocateRooms() {
     try {

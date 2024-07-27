@@ -4,6 +4,47 @@ const Admin = require('../models/Admin');
 const RoomAllocator = require('../utils/allocation');
 const Student = require('../models/Student');
 const Room = require('../models/Room');
+const Payment = require('../models/Payment');
+const Application = require('../models/Application');
+
+// Fetch all students
+const getAllStudents = async (req, res) => {
+  try {
+    const students = await Student.find({});
+    res.json(students);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Fetch student by roll number
+const getStudentByRollNo = async (req, res) => {
+  const { rollNo } = req.params;
+  try {
+    const student = await Student.findOne({ rollNo }).populate('room').populate('payments');
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    res.json(student);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Fetch student payment details
+const getStudentPayments = async (req, res) => {
+  const { rollNo } = req.params;
+  try {
+    const student = await Student.findOne({ rollNo });
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    const payments = await Payment.find({ student: student._id });
+    res.json(payments);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 
 // Register a new admin
 const registerAdmin = async (req, res) => {
@@ -214,13 +255,27 @@ const removeStudent = async (req, res) => {
   }
 };
 
+// Fetch all applications
+const getAllApplications = async (req, res) => {
+  try {
+    const applications = await Application.find({});
+    res.json(applications);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 module.exports = {
   registerAdmin,
   loginAdmin,
-  allocateRooms,
-  assignRoom,
+  getAllStudents,
+  getStudentByRollNo,
+  getStudentPayments,
   removeStudentFromRoom,
+  assignRoom,
   addStudent,
+  removeStudent,
   modifyStudent,
-  removeStudent
+  getAllApplications,
+  allocateRooms
 };

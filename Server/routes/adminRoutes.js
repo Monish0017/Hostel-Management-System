@@ -8,32 +8,36 @@ const {
   removeStudentFromRoom,
   addStudent,
   modifyStudent,
-  removeStudent
+  removeStudent,
+  getAllStudents,
+  getStudentByRollNo,
+  getStudentPayments,
+  getAllApplications
 } = require('../controllers/adminController');
-const authMiddleware = require('../middleware/adminauth');
+const authMiddleware = require('../middleware/adminAuth');
 
-// Register a new admin
+// Admin authentication routes
 router.post('/register', registerAdmin);
-
-// Admin login
 router.post('/login', loginAdmin);
 
-// Allocate rooms
+// Room allocation route
 router.post('/allocate-rooms', authMiddleware, allocateRooms);
 
-// Assign a student to a room
+// Room management routes
 router.post('/assign-room', authMiddleware, assignRoom);
-
-// Remove a student from a room
 router.post('/remove-student-from-room', authMiddleware, removeStudentFromRoom);
 
-// Add a new student
+// Student management routes
 router.post('/add-student', authMiddleware, addStudent);
-
-// Modify an existing student
 router.put('/modify-student/:rollNo', authMiddleware, modifyStudent);
-
-// Remove a student
 router.delete('/remove-student/:rollNo', authMiddleware, removeStudent);
+
+// Student details routes
+router.get('/students', authMiddleware, getAllStudents);
+router.get('/students/:rollNo', authMiddleware, getStudentByRollNo);
+router.get('/students/:rollNo/payments', authMiddleware, getStudentPayments);
+
+// Application management routes
+router.get('/applications', authMiddleware, getAllApplications);
 
 module.exports = router;

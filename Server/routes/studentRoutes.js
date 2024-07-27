@@ -1,11 +1,9 @@
 const express = require('express');
-const { addStudentProfile, getStudentProfile, getStudentProfiles } = require('../controllers/studentControllers');
+const router = express.Router();
+const { getStudentProfile } = require('../controllers/studentController');
 const auth = require('../middleware/auth');
 
-const router = express.Router();
-
-router.post('/register', addStudentProfile);
+// Route to get student profile
 router.get('/profile', auth, getStudentProfile);
-router.get('/profiles', getStudentProfiles); // New route to fetch all student profiles
 
 module.exports = router;
