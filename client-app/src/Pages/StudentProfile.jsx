@@ -8,22 +8,37 @@ const StudentProfile = () => {
 
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
+    console.log('Token:', token); // Log the token to verify it's correct
+
+    if (!token) {
+      setError('No token found');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/students/profile', {
         method: 'GET',
         headers: {
-          'x-auth-token': token
+          'Content-Type': 'application/json',
+          'x-auth-token': token // Token should be included
         }
       });
 
+      console.log('Response status:', response.status); // Log the response status
+
+      if (response.status === 404) {
+        throw new Error('Profile not found');
+      }
+
       if (!response.ok) {
-        throw new Error('Failed to fetch profile');
+        throw new Error(`Failed to fetch profile: ${response.statusText}`);
       }
 
       const data = await response.json();
+      console.log('Profile data:', data); // Log the fetched profile data
       setProfileData(data);
     } catch (error) {
-      setError('Error fetching profile');
+      setError(`Error fetching profile: ${error.message}`);
       console.error('Error:', error);
     }
   };
@@ -41,7 +56,7 @@ const StudentProfile = () => {
   }
 
   return (
-    <main2>
+    <main>
       <div className="profile-wrapper">
         <div className="profile">
           <div className="profile-header">
@@ -67,7 +82,7 @@ const StudentProfile = () => {
           </div>
         </div>
       </div>
-    </main2>
+    </main>
   );
 };
 

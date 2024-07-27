@@ -45,6 +45,15 @@ const studentSchema = new mongoose.Schema({
   secondaryMobileNumber: {
     type: String,
     required: true
+  },
+  room: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Room'
+  },
+  paymentStatus: {
+    type: String,
+    enum: ['Pending', 'Paid'],
+    default: 'Pending'
   }
 });
 

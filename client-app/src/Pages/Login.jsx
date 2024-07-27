@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import './CSS/Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [rollNo, setRollNo] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // State for error message
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ rollNo, password })
       });
 
       if (!response.ok) {
@@ -24,12 +25,10 @@ const Login = () => {
 
       const data = await response.json();
       localStorage.setItem('token', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
 
-      // Redirect to profile or another page
-      window.location.href = '/profile';
+      navigate('/home/profile');
     } catch (error) {
-      setError('Invalid email or password'); // Set error message
+      setError('Invalid roll number or password');
       console.error('Error:', error);
     }
   };
@@ -42,10 +41,10 @@ const Login = () => {
           <div className="user">
             <div className="input">
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
+                type="text"
+                value={rollNo}
+                onChange={(e) => setRollNo(e.target.value)}
+                placeholder="Roll Number"
                 required
               />
               <input
@@ -69,7 +68,7 @@ const Login = () => {
             Forgot Password?
           </button>
         </form>
-        {error && <div className="error-popup">{error}</div>} {/* Display error message */}
+        {error && <div className="error-popup">{error}</div>}
       </div>
     </div>
   );

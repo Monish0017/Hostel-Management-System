@@ -1,41 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ApplicationPage = () => {
-  const [application, setApplication] = useState({
-    name: '',
-    rollNumber: '',
-    email: '',
-    phone: '',
-    roomPreferences: ['', '', ''],
-  });
+  const [preferredRoommates, setPreferredRoommates] = useState('');
+  const [roomType, setRoomType] = useState('four-seater');
+  const [students, setStudents] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setApplication({
-      ...application,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    // Fetch the list of students to populate the roommate selection
+    const fetchStudents = async () => {
+      const response = await fetch('http://localhost:3000/students/profile');
+      const data = await response.json();
+      setStudents(data);
+    };
 
-  const handlePreferenceChange = (index, value) => {
-    const newPreferences = [...application.roomPreferences];
-    newPreferences[index] = value;
-    setApplication({
-      ...application,
-      roomPreferences: newPreferences,
-    });
-  };
+    fetchStudents();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    const preferredRoommatesArray = preferredRoommates.split(',').map(rollNo => rollNo.trim());
+
+    if (roomType === 'three-seater' && preferredRoommatesArray.length > 2) {
+      alert('You can select up to 2 preferred roommates for a three-seater room.');
+      return;
+    }
+
+    if (roomType === 'four-seater' && preferredRoommatesArray.length > 3) {
+      alert('You can select up to 3 preferred roommates for a four-seater room.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/applications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'x-auth-token': token
         },
-        body: JSON.stringify(application)
+        body: JSON.stringify({ preferredRoommates: preferredRoommatesArray, roomType })
       });
 
       if (!response.ok) {
@@ -44,85 +47,35 @@ const ApplicationPage = () => {
 
       alert('Application submitted successfully');
     } catch (error) {
-      console.error('Error submitting application:', error);
-      alert('Failed to submit application');
+      console.error('Error:', error);
+      alert('Error submitting application');
     }
   };
 
   return (
-    <div>
-      <h1>Room Application</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={application.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Roll Number:
-          <input
-            type="text"
-            name="rollNumber"
-            value={application.rollNumber}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={application.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Phone:
-          <input
-            type="text"
-            name="phone"
-            value={application.phone}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Room Preference 1:
-          <input
-            type="text"
-            value={application.roomPreferences[0]}
-            onChange={(e) => handlePreferenceChange(0, e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Room Preference 2:
-          <input
-            type="text"
-            value={application.roomPreferences[1]}
-            onChange={(e) => handlePreferenceChange(1, e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Room Preference 3:
-          <input
-            type="text"
-            value={application.roomPreferences[2]}
-            onChange={(e) => handlePreferenceChange(2, e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Submit Application</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h2>Room Preference Form</h2>
+
+      <label>
+        Room Type:
+        <select value={roomType} onChange={(e) => setRoomType(e.target.value)}>
+          <option value="three-seater">Three-Seater</option>
+          <option value="four-seater">Four-Seater</option>
+        </select>
+      </label>
+
+      <label>
+        Preferred Roommates (Enter Roll Numbers):
+        <input
+          type="text"
+          value={preferredRoommates}
+          onChange={(e) => setPreferredRoommates(e.target.value)}
+          placeholder="Enter roll numbers separated by commas"
+        />
+      </label>
+
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 

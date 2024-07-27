@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import Payment from './Payment';
 import "./CSS/Fee.css";
+
 function Fee() {
     const [selects , setSelects] = useState('');
   return (
