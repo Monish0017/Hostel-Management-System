@@ -1,0 +1,101 @@
+.student-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Space between grid items */
+  }
+  
+  .student-box {
+    flex: 1 0 calc(25% - 16px); /* Four boxes per row, ensuring all boxes are the same size */
+    height: 200px; /* Ensure boxes are square */
+    max-width: calc(25% - 16px); /* Ensure boxes do not exceed 25% of the container width */
+    background-color: #f1f1f1;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    color: #333;
+  }
+  
+  .student-box:hover {
+    background-color: #e1e1e1;
+  }
+  
+  .student-box p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .search-bar {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+    width: calc(100% - 100px);
+  }
+  
+  .add-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .student-details {
+    background-color: #fff;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 16px;
+  }
+  
+  .student-details h3 {
+    margin-top: 0;
+  }
+  
+  .student-details button {
+    margin-right: 8px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .student-details button:hover {
+    background-color: #0056b3;
+  }
+  
+  .student-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .student-details-header h2 {
+    margin: 0;
+  }
+  
