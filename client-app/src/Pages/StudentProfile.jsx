@@ -8,7 +8,7 @@ const StudentProfile = () => {
 
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
-    console.log('Token:', token); // Log the token to verify it's correct
+    console.log('Token:', token); // Verify token retrieval
 
     if (!token) {
       setError('No token found');
@@ -20,22 +20,18 @@ const StudentProfile = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': token // Token should be included
+          'x-auth-token': token // Ensure correct token header
         }
       });
 
-      console.log('Response status:', response.status); // Log the response status
-
-      if (response.status === 404) {
-        throw new Error('Profile not found');
-      }
+      console.log('Response status:', response.status); // Log response status
 
       if (!response.ok) {
         throw new Error(`Failed to fetch profile: ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log('Profile data:', data); // Log the fetched profile data
+      console.log('Profile data:', data); // Log profile data
       setProfileData(data);
     } catch (error) {
       setError(`Error fetching profile: ${error.message}`);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
 import Fee from './Fee';
 import './CSS/StudentHome.css';
@@ -33,18 +33,43 @@ const StudentHome = () => {
               className={activeComponent === 'StudentProfile' ? 'active' : ''}
               onClick={() => handleSidebarClick('StudentProfile')}
             >
-              <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>Student Profile</Link>
+              Student Profile
             </li>
-            <li>IVRS</li>
-            <li>Room</li>
-            <li>Events</li>
-            <li>Food</li>
-            <li>Information</li>
+            <li
+              className={activeComponent === 'IVRS' ? 'active' : ''}
+              onClick={() => handleSidebarClick('IVRS')}
+            >
+              IVRS
+            </li>
+            <li
+              className={activeComponent === 'Room' ? 'active' : ''}
+              onClick={() => handleSidebarClick('Room')}
+            >
+              Room
+            </li>
+            <li
+              className={activeComponent === 'Events' ? 'active' : ''}
+              onClick={() => handleSidebarClick('Events')}
+            >
+              Events
+            </li>
+            <li
+              className={activeComponent === 'Food' ? 'active' : ''}
+              onClick={() => handleSidebarClick('Food')}
+            >
+              Food
+            </li>
+            <li
+              className={activeComponent === 'Information' ? 'active' : ''}
+              onClick={() => handleSidebarClick('Information')}
+            >
+              Information
+            </li>
             <li
               className={activeComponent === 'Fee' ? 'active' : ''}
               onClick={() => handleSidebarClick('Fee')}
             >
-              <Link to="#" style={{ textDecoration: 'none', color: 'inherit' }}>Fees</Link>
+              Fees
             </li>
           </ul>
           <button

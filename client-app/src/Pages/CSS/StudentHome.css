@@ -1,3 +1,4 @@
+/* Container and layout styles */
 .container {
   display: flex;
   flex-direction: column;
@@ -5,32 +6,6 @@
   background-size: cover;
   position: relative; 
   z-index: 0; /* Ensure absolute positioning of child elements works correctly */
-}
-
-.user-info-container {
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque background */
-  padding: 1rem;
-  margin-top: 80px; /* Adjust for fixed header height */
-  height: 25px;
-  display: flex;
-  justify-content: space-around; /* Center align items horizontally */
-  position: fixed; /* Relative positioning to keep the user-info in place */
-  z-index: 1000;
-  width: 100%;
-  align-items: center;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column; /* Ensure name and roll no stack vertically */
-  align-items: center; /* Center horizontally */
-  color: black; /* Change text color to ensure readability */
-  margin: 0 2rem; /* Margin to provide spacing between name and roll no */
-}
-
-.user-info span {
-  margin-right: 1.5rem; /* Add space between name and roll no */
-  margin-bottom: 0.5rem; /* Add space between name and roll no */
 }
 
 .main1 {
@@ -45,6 +20,7 @@
   padding: 20px; /* Add some padding for content spacing */
 }
 
+/* Sidebar styling */
 .sidebar {
   width: 200px;
   background-color: rgba(0, 0, 0, 0.8); /* Sidebar color */
@@ -60,6 +36,34 @@
   z-index: 999; /* Ensure it’s below the header */
 }
 
+/* Sidebar list styling */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex: 1; /* Allow the list to grow and fill the available space */
+}
+
+/* Sidebar items styling */
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  color: white; /* Ensure text color is white for readability */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Active sidebar item styling */
+.sidebar li.active {
+  background-color: #0056b3; /* Fixed color for active item */
+  color: white; /* Ensure text color is white for readability */
+}
+
+/* Hover effect for sidebar items (excluding active items) */
+.sidebar li:not(.active):hover {
+  background-color: #595c60; /* Highlight color on hover */
+}
+
+/* Log out button styling */
 .logout-button {
   padding: 0.5rem 1rem;
   color: white;
@@ -76,31 +80,3 @@
 .logout-button:hover {
   background-color: #004494;
 }
-
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  flex: 1; /* Allow the list to grow and fill the available space */
-}
-
-.sidebar li {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.sidebar ul li.active {
-  background-color: #0056b3; /* Highlight color */
-  color: white;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.sidebar li:hover {
-  background-color: #0056b3;
-}
-

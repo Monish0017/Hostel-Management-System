@@ -24,8 +24,8 @@ const Login = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem('token', data.accessToken);
-
+      console.log('Login response data:', data); // Ensure token is correct
+      localStorage.setItem('token', data.token); // Use the correct key here
       navigate('/home/profile');
     } catch (error) {
       setError('Invalid roll number or password');
