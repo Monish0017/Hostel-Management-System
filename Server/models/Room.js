@@ -13,10 +13,6 @@ const roomSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  joiningDate: {
-    type: Date,
-    required: true
-  },
   floor: {
     type: String,
     required: true
