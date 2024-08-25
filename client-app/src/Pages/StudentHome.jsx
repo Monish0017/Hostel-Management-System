@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
 import Fee from './Fee';
 import './CSS/StudentHome.css';
+import RoomAllocation from './RoomAllocation';
+import IVRS from './IVRS';
+
 
 const StudentHome = () => {
   const navigate = useNavigate();
@@ -16,11 +19,15 @@ const StudentHome = () => {
     switch (activeComponent) {
       case 'StudentProfile':
         return <StudentProfile />;
+      case 'Room':
+        return <RoomAllocation />;
       case 'Fee':
         return <Fee />;
+      case 'IVRS':
+        return <IVRS />;
       // Add more cases for other components if needed
       default:
-        return <StudentProfile />;
+        return null;
     }
   };
 
@@ -74,7 +81,7 @@ const StudentHome = () => {
           </ul>
           <button
             className="logout-button"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/')}
           >
             Log out
           </button>

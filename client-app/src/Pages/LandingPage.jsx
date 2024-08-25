@@ -1,4 +1,3 @@
-// Pages/LandingPage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CSS/LandingPage.css'; // You can add styles here

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
 import './CSS/StudentHome.css'; // Ensure the correct relative path
+import AdminRoomAllocation from './AdminRoomAllocation';
 
 const AdminHome = () => {
   const navigate = useNavigate();
-  const [activeComponent, setActiveComponent] = useState('');
+  const [activeComponent, setActiveComponent] = useState('StudentDetails');
 
   const handleSidebarClick = (component) => {
     setActiveComponent(component);
@@ -15,6 +16,8 @@ const AdminHome = () => {
     switch (activeComponent) {
       case 'StudentDetails':
         return <StudentDetails />;
+      case 'Room':
+        return <AdminRoomAllocation />;
       // Add more cases for other components if needed
       default:
         return null;
@@ -47,7 +50,7 @@ const AdminHome = () => {
           </ul>
           <button
             className="logout-button"
-            onClick={() => navigate('/adminLogin')}
+            onClick={() => navigate('/')}
           >
             Log out
           </button>
