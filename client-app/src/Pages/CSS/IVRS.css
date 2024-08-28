@@ -1,78 +1,158 @@
+/* Container for the entire IVRS page */
+.ivrs-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+/* Centered form container with visibility control */
 .leave-application-container {
-    width: 80%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding is included in width */
-  }
-  
-  textarea {
-    resize: vertical; /* Allows vertical resizing only */
-    min-height: 100px; /* Adjust as needed */
-  }
-  
-  .form-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Adds space between buttons */
-  }
-  
-  .form-actions button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .form-actions button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .form-actions button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-  
-  .form-actions button[type="button"] {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .form-actions button[type="button"]:hover {
-    background-color: #e53935;
-  }
-  
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 55%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+/* Hide everything except the form when active */
+.hidden {
+  display: none;
+}
+
+.leave-application-container h1 {
+  text-align: center;
+  color: #333;
+  margin: 10px;
+}
+
+/* Leave history table styling */
+.leave-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.leave-history-table th,
+.leave-history-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.leave-history-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.leave-history-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.leave-history-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Apply button styling */
+.apply-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.apply-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+/* Form action buttons styling */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.form-actions button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: #e53935;
+}
+
+.leave-history-table button {
+  padding: 6px 12px;
+  background-color: #2196F3;
+  color: white;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.leave-history-table button:hover {
+  background-color: #1976D2;
+}

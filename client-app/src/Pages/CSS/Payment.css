@@ -1,4 +1,4 @@
-button {
+.payment-detail button {
     padding: 10px 20px; /* Increase padding for better click area */
     border-radius: 5px;
     background-color: blanchedalmond;
@@ -9,7 +9,7 @@ button {
     font-size: 16px; /* Adjust font size for better readability */
   }
   
-  button:hover {
+  .payment-detail button:hover {
     background-color: #eed19a; /* Slightly darker shade on hover */
   }
   

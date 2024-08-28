@@ -1,4 +1,3 @@
-// src/Pages/Fee.js
 import React from 'react';
 import './CSS/Payment.css';
 const Payment = ({ block }) => {

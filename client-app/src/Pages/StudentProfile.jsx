@@ -52,33 +52,31 @@ const StudentProfile = () => {
   }
 
   return (
-    <main>
-      <div className="profile-wrapper">
-        <div className="profile">
-          <div className="profile-header">
-            <img src={profile} alt="Profile" className="profile-picture" />
-            <h2>{profileData.fullName}</h2>
+    <div className="profile-wrapper">
+      <div className="profile">
+        <div className="profile-header">
+          <img src={profile} alt="Profile" className="profile-picture" />
+          <h2>{profileData.fullName}</h2>
+        </div>
+        <div className="profile-details">
+          <div className="general-info">
+            <h3>General Information</h3>
+            <p><strong>Roll No:</strong> {profileData.rollNo}</p>
+            <p><strong>Father's Name:</strong> {profileData.fatherName}</p>
+            <p><strong>Email:</strong> {profileData.email}</p>
+            <p><strong>Contact Phone:</strong> {profileData.contactPhone}</p>
+            <p><strong>Primary Mobile No:</strong> {profileData.primaryMobileNumber}</p>
+            <p><strong>Secondary Mobile No:</strong> {profileData.secondaryMobileNumber}</p>
+            <p><strong>Residential Address:</strong> {profileData.residentialAddress}</p>
           </div>
-          <div className="profile-details">
-            <div className="general-info">
-              <h3>General Information</h3>
-              <p><strong>Roll No:</strong> {profileData.rollNo}</p>
-              <p><strong>Father's Name:</strong> {profileData.fatherName}</p>
-              <p><strong>Email:</strong> {profileData.email}</p>
-              <p><strong>Contact Phone:</strong> {profileData.contactPhone}</p>
-              <p><strong>Primary Mobile No:</strong> {profileData.primaryMobileNumber}</p>
-              <p><strong>Secondary Mobile No:</strong> {profileData.secondaryMobileNumber}</p>
-              <p><strong>Residential Address:</strong> {profileData.residentialAddress}</p>
-            </div>
-            <div className="academic-info">
-              <h3>Academic Information</h3>
-              <p><strong>Programme:</strong> {profileData.programme}</p>
-              <p><strong>Class Year:</strong> {profileData.classYear}</p>
-            </div>
+          <div className="academic-info">
+            <h3>Academic Information</h3>
+            <p><strong>Programme:</strong> {profileData.programme}</p>
+            <p><strong>Class Year:</strong> {profileData.classYear}</p>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

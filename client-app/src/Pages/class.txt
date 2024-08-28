@@ -1,0 +1,56 @@
+Student profile
+body
+profile 
+profile-header
+profile-wrapper
+profile-details 
+profile -picture
+general-info
+
+Student home
+container 
+main1
+content 
+sidebar 
+logout-button
+
+Student details
+student-box
+student-details
+student-details-header
+student-grid
+search-container
+search-bar
+add-button
+
+Login
+body, html 
+full
+main
+user
+input
+forgot 
+but
+error-popup
+
+Landing page
+landing -page
+button-container
+btn
+
+IVRS
+ivrs-container
+leave-application-container
+leave-history-table
+apply-button
+form-group
+form-actions
+
+Header
+header
+
+Fee
+choose-container
+
+Payment 
+payment -detail
