@@ -57,8 +57,7 @@ const Login = () => {
             </div>
           </div>
           <button type="submit" className="but">Login</button>
-          <button
-            type="button"
+          <div
             className="forgot"
             onClick={() => {
               // Handle password reset action
@@ -66,7 +65,7 @@ const Login = () => {
             }}
           >
             Forgot Password?
-          </button>
+          </div>
         </form>
         {error && <div className="error-popup">{error}</div>}
       </div>

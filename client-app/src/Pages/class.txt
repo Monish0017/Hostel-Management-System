@@ -34,7 +34,8 @@ but
 error-popup
 
 Landing page
-landing -page
+landing-title
+landing-page
 button-container
 btn
 

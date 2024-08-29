@@ -6,17 +6,22 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="landing-page">
-      <h1>Welcome to the Hostel Management System</h1>
-      <div className="button-container">
-        <button onClick={() => navigate('/login')} className="btn">
-          Login as Student
-        </button>
-        <button onClick={() => navigate('/adminLogin')} className="btn">
-          Login as Admin
-        </button>
+    <>
+      <div className="landing-title">
+        <h1>PSG College Of Technology</h1>
       </div>
-    </div>
+      <div className="landing-page">
+        <h1>Welcome to  Hostel Management System</h1>
+        <div className="button-container">
+          <button onClick={() => navigate('/login')} className="btn">
+            Login as Student
+          </button>
+          <button onClick={() => navigate('/adminLogin')} className="btn">
+            Login as Admin
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 
