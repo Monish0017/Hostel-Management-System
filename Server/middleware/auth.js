@@ -1,4 +1,3 @@
-// middleware/auth.js
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
@@ -15,4 +14,3 @@ module.exports = (req, res, next) => {
     res.status(400).json({ message: 'Token is not valid' });
   }
 };
-

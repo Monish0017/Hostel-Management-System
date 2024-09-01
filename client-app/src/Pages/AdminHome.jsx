@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
-import './CSS/StudentHome.css'; // Ensure the correct relative path
 import AdminRoomAllocation from './AdminRoomAllocation';
+import AdminFood from './AdminFood'; // Import the new AdminFood component
+import './CSS/StudentHome.css'; // Ensure the correct relative path
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ const AdminHome = () => {
         return <StudentDetails />;
       case 'Room':
         return <AdminRoomAllocation />;
-      // Add more cases for other components if needed
+      case 'AdminFood': // Add case for AdminFood
+        return <AdminFood />;
       default:
         return null;
     }
@@ -46,6 +48,12 @@ const AdminHome = () => {
               onClick={() => handleSidebarClick('Room')}
             >
               Room
+            </li>
+            <li
+              className={activeComponent === 'AdminFood' ? 'active' : ''}
+              onClick={() => handleSidebarClick('AdminFood')}
+            >
+              Food
             </li>
           </ul>
           <button

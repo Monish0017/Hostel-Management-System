@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const {
   registerAdmin,
   loginAdmin,
@@ -14,6 +15,7 @@ const {
   getStudentPayments,
   getAllApplications
 } = require('../controllers/adminController');
+
 const authMiddleware = require('../middleware/adminAuth');
 
 // Admin authentication routes

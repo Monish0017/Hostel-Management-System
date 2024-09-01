@@ -3,7 +3,7 @@ const Student = require('../models/Student');
 
 exports.submitPayment = async (req, res) => {
   try {
-    const { rollNo, amount, status } = req.body;
+    const { rollNo, amount, status } = req.body; 
 
     // Validate RollNo and get student
     const student = await Student.findOne({ rollNo });

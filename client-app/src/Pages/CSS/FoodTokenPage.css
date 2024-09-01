@@ -1,0 +1,87 @@
+.food-token-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .food-item-list, .book-token-form, .tokens-list, .qr-code {
+    margin-bottom: 20px;
+  }
+  
+  .food-item-list ul, .tokens-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .food-item, .token-item {
+    margin-bottom: 10px;
+  }
+  
+  .food-item-image {
+    width: 100px;
+    height: auto;
+    display: block;
+  }
+  
+  .food-item-details {
+    margin-left: 120px;
+  }
+  
+  .food-item-name {
+    font-weight: bold;
+  }
+  
+  .food-item-days {
+    color: gray;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* FoodTokenPage.css */
+
+/* Styles for the modal */
+.error-modal {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    max-width: 80%;
+    margin: auto;
+    position: relative; /* Ensures proper positioning */
+    top: -10%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for exact vertical centering */
+  }
+  
+  /* Styles for the overlay */
+  .error-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; /* Ensures overlay covers the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .error-modal h2 {
+    margin-top: 0;
+  }
+  
+  .error-modal button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .error-modal button:hover {
+    background-color: #0056b3;
+  }
+  

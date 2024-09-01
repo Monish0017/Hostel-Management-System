@@ -9,7 +9,7 @@ const AdminRoomAllocation = () => {
       try {
         const response = await fetch('http://localhost:3000/admin/allocations', {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'x-auth-token': `${localStorage.getItem('token')}`
           }
         });
         const data = await response.json();
@@ -27,7 +27,7 @@ const AdminRoomAllocation = () => {
       const response = await fetch('http://localhost:3000/admin/allocate-rooms', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'x-auth-token': `${localStorage.getItem('token')}`
         }
       });
 

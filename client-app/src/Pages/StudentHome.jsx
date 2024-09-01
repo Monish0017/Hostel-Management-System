@@ -5,7 +5,7 @@ import Fee from './Fee';
 import './CSS/StudentHome.css';
 import RoomAllocation from './RoomAllocation';
 import IVRS from './IVRS';
-
+import FoodTokenPage from './FoodTokenPage'; // Import the FoodTokenPage component
 
 const StudentHome = () => {
   const navigate = useNavigate();
@@ -25,6 +25,8 @@ const StudentHome = () => {
         return <Fee />;
       case 'IVRS':
         return <IVRS />;
+      case 'Food':
+        return <FoodTokenPage />; // Add the case for FoodTokenPage
       // Add more cases for other components if needed
       default:
         return null;

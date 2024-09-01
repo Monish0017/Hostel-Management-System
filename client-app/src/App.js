@@ -12,6 +12,7 @@ import ApplicationPage from './Pages/ApplicationPage';
 import LandingPage from './Pages/LandingPage';
 import AdminHome from './Pages/AdminHome';
 import IVRS from './Pages/IVRS';
+import FoodTokenPage from './Pages/FoodTokenPage';
 
 const App = () => {
   return (
@@ -20,11 +21,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} /> 
         <Route path="/home" element={<StudentHome />}>
           <Route path="profile" element={<StudentProfile />} />
           <Route path="fee" element={<Fee />} />
-          <Route path="ivrs" element={<IVRS />} />        
+          <Route path="ivrs" element={<IVRS />} /> 
+          <Route path="food-tokens" element={<FoodTokenPage />} />      
           <Route path="room-allocation" element={<RoomAllocation />} />
           <Route path="application" element={<ApplicationPage />} />
         </Route>

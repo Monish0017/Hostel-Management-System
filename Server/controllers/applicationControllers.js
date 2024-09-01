@@ -10,7 +10,7 @@ exports.addApplication = async (req, res) => {
 
     // Check if the student already has an application
     const existingApplication = await Application.findOne({ studentRollNo: rollNo });
-    if (existingApplication) {
+    if (existingApplication) { 
       return res.status(400).json({ message: 'Application already exists' });
     }
 

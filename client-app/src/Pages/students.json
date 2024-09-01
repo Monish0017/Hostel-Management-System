@@ -1,0 +1,123 @@
+[
+    {
+      "name": "John Doe",
+      "rollNo": "101",
+      "feePaid": true,
+      "roomNo": "A101"
+    },
+    {
+      "name": "Jane Smith",
+      "rollNo": "102",
+      "feePaid": false,
+      "roomNo": "A102"
+    },
+    {
+      "name": "Robert Johnson",
+      "rollNo": "103",
+      "feePaid": true,
+      "roomNo": "B201"
+    },
+    {
+      "name": "Emily Davis",
+      "rollNo": "104",
+      "feePaid": true,
+      "roomNo": "B202"
+    },
+    {
+      "name": "Michael Brown",
+      "rollNo": "105",
+      "feePaid": false,
+      "roomNo": "C301"
+    },
+    {
+      "name": "Jessica Wilson",
+      "rollNo": "106",
+      "feePaid": true,
+      "roomNo": "C302"
+    },
+    {
+      "name": "David Taylor",
+      "rollNo": "107",
+      "feePaid": true,
+      "roomNo": "D101"
+    },
+    {
+      "name": "Laura Anderson",
+      "rollNo": "108",
+      "feePaid": false,
+      "roomNo": "D102"
+    },
+    {
+      "name": "James Thomas",
+      "rollNo": "109",
+      "feePaid": true,
+      "roomNo": "E201"
+    },
+    {
+      "name": "Sophia Martinez",
+      "rollNo": "110",
+      "feePaid": true,
+      "roomNo": "E202"
+    },
+    {
+      "name": "Christopher Lee",
+      "rollNo": "111",
+      "feePaid": false,
+      "roomNo": "F301"
+    },
+    {
+      "name": "Olivia Hernandez",
+      "rollNo": "112",
+      "feePaid": true,
+      "roomNo": "F302"
+    },
+    {
+      "name": "Joshua White",
+      "rollNo": "113",
+      "feePaid": true,
+      "roomNo": "G101"
+    },
+    {
+      "name": "Ava Lewis",
+      "rollNo": "114",
+      "feePaid": false,
+      "roomNo": "G102"
+    },
+    {
+      "name": "Daniel Harris",
+      "rollNo": "115",
+      "feePaid": true,
+      "roomNo": "H201"
+    },
+    {
+      "name": "Isabella Clark",
+      "rollNo": "116",
+      "feePaid": true,
+      "roomNo": "H202"
+    },
+    {
+      "name": "Matthew King",
+      "rollNo": "117",
+      "feePaid": false,
+      "roomNo": "I301"
+    },
+    {
+      "name": "Mia Walker",
+      "rollNo": "118",
+      "feePaid": true,
+      "roomNo": "I302"
+    },
+    {
+      "name": "Andrew Scott",
+      "rollNo": "119",
+      "feePaid": true,
+      "roomNo": "J101"
+    },
+    {
+      "name": "Emma Young",
+      "rollNo": "120",
+      "feePaid": false,
+      "roomNo": "J102"
+    }
+  ]
+  

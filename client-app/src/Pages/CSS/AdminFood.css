@@ -1,0 +1,58 @@
+.admin-food {
+    padding: 20px;
+  }
+  
+  .add-food {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-food input {
+    padding: 10px;
+    margin-right: 10px;
+    width: 200px;
+  }
+  
+  .add-food button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-food button:hover {
+    background-color: #45a049;
+  }
+  
+  .food-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .food-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f1f1f1;
+  }
+  
+  .food-list li button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .food-list li button:hover {
+    background-color: #da190b;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 20px;
+  }
+  
