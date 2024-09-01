@@ -1,9 +1,11 @@
 /* Body background color remains fixed */
 body {
-  background-color: rgb(25, 25, 112);
+  background-color: rgb(223, 223, 231);
   overflow-x: hidden;
   margin: 0;
-  height: 100vh;
+  height: 100%;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
 /* Container for the landing title */

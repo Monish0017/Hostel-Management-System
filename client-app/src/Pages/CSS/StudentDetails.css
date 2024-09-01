@@ -1,13 +1,17 @@
 .student-grid {
-    display: flex;
+  display: flex;
     flex-wrap: wrap;
-    gap: 16px; /* Space between grid items */
+    gap: 16px;
+    /* Space between grid items */
   }
   
   .student-box {
-    flex: 1 0 calc(25% - 16px); /* Four boxes per row, ensuring all boxes are the same size */
-    height: 200px; /* Ensure boxes are square */
-    max-width: calc(25% - 16px); /* Ensure boxes do not exceed 25% of the container width */
+    flex: 1 0 calc(25% - 16px);
+    /* Four boxes per row, ensuring all boxes are the same size */
+    height: 200px;
+    /* Ensure boxes are square */
+    max-width: calc(25% - 16px);
+    /* Ensure boxes do not exceed 25% of the container width */
     background-color: #f1f1f1;
     padding: 16px;
     border: 1px solid #ccc;
@@ -32,71 +36,129 @@
     padding: 0;
     text-align: center;
   }
-  
-  .search-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .search-bar {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
+.student-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-bar {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 8px;
+  width: calc(100% - 100px);
+}
+.add-btn {
+  padding: 8px 8px;
+  border: none;
     border-radius: 4px;
-    margin-right: 8px;
-    width: calc(100% - 100px);
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
   }
   
-  .add-button {
+  .add-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-det {
     padding: 8px 8px;
-    margin-bottom: 16px;
+    margin-left: 10px;
     border: none;
     border-radius: 4px;
     background-color: #007bff;
     color: white;
     cursor: pointer;
   }
-  
-  .add-button:hover {
-    background-color: #0056b3;
+.btn-det:hover {
+  background-color: #0056b3;
+}
+
+.student-details {
+  background-color: #fff;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+.student-form {
+  background-color: #fff;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 80px;
+  /* Space from the header */
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Space between form elements */
+}
+
+.student-form input,
+.student-form label {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-form input[type="text"],
+.student-form input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.student-form label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.student-form label input[type="checkbox"] {
+  margin-right: 8px;
+}
+.student-form button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.student-form button:hover {
+  background-color: #0056b3;
+}
+
+
+
+.back-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background-color: #0056b3;
+}
+
+.student-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
   }
-  
-  .student-details {
-    background-color: #fff;
-    padding: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-top: 16px;
-  }
-  
-  .student-details h3 {
-    margin-top: 0;
-  }
-  
-  .student-details button {
-    margin-left: 16px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .student-details button:hover {
-    background-color: #0056b3;
-  }
-  
-  .student-details-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .student-details-header h2 {
-    margin: 0;
-  }
-  

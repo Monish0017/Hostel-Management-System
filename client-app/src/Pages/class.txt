@@ -1,5 +1,4 @@
 Student profile
-body
 profile 
 profile-header
 profile-wrapper
@@ -15,16 +14,18 @@ sidebar
 logout-button
 
 Student details
+student-form
 student-box
 student-details
 student-details-header
 student-grid
 search-container
 search-bar
-add-button
+add-btn
+back-btn
+btn-det
 
 Login
-body, html 
 full
 main
 user
@@ -34,6 +35,7 @@ but
 error-popup
 
 Landing page
+body
 landing-title
 landing-page
 button-container
@@ -55,3 +57,23 @@ choose-container
 
 Payment 
 payment -detail
+
+Information
+details
+details-grid
+details-group
+details-header
+profile-picture
+back-button
+view-toggle
+toggle-button
+details-info
+
+RoomAllocation
+container1
+form-group1
+form-control
+btn1
+alert
+alert-success
+alert-danger

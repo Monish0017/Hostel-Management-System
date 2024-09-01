@@ -104,7 +104,7 @@
   box-sizing: border-box;
 }
 
-textarea {
+.form-group textarea {
   resize: vertical;
   min-height: 70px;
 }

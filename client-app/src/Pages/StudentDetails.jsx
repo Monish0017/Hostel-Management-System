@@ -5,6 +5,14 @@ import profile from '../assets/profile.jpg';
 const StudentDetails = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newStudent, setNewStudent] = useState({
+    name: '',
+    rollNo: '',
+    feePaid: false,
+    blockNo: '',
+    roomNo: ''
+  });
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -16,6 +24,7 @@ const StudentDetails = () => {
 
   const handleStudentClick = (student) => {
     setSelectedStudent(student);
+    setIsEditing(false);
   };
 
   const handleSearch = (event) => {
@@ -23,15 +32,48 @@ const StudentDetails = () => {
   };
 
   const handleAddStudent = () => {
-    // Logic for adding a new student
+    setIsEditing(true);
+    setSelectedStudent(null);
+    setNewStudent({
+      name: '',
+      rollNo: '',
+      feePaid: false,
+      blockNo: '',
+      roomNo: ''
+    });
   };
 
   const handleEditStudent = (student) => {
-    // Logic for editing the selected student
+    setIsEditing(true);
+    setNewStudent(student);
   };
 
   const handleDeleteStudent = (student) => {
-    // Logic for deleting the selected student
+    const updatedStudents = students.filter(s => s.rollNo !== student.rollNo);
+    setStudents(updatedStudents);
+    setSelectedStudent(null);
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setNewStudent({
+      ...newStudent,
+      [name]: type === 'checkbox' ? checked : value
+    });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (isEditing && selectedStudent) {
+      const updatedStudents = students.map(s => 
+        s.rollNo === selectedStudent.rollNo ? newStudent : s
+      );
+      setStudents(updatedStudents);
+    } else {
+      setStudents([...students, newStudent]);
+    }
+    setIsEditing(false);
+    setSelectedStudent(null);
   };
 
   const filteredStudents = students.filter(student =>
@@ -40,9 +82,9 @@ const StudentDetails = () => {
 
   return (
     <div>
-      {!selectedStudent ? (
+      {!isEditing && !selectedStudent ? (
         <>
-          <h2>Student List</h2>
+          <h2>Students List</h2>
           <div className="search-container">
             <input
               type="text"
@@ -51,27 +93,81 @@ const StudentDetails = () => {
               onChange={handleSearch}
               className="search-bar"
             />
-            <button onClick={handleAddStudent} className="add-button">Add</button>
+            <button className="add-btn" onClick={handleAddStudent}>Add</button>
           </div>
         </>
-      ) : (
+      ) : null}
+
+      {selectedStudent && !isEditing ? (
         <div className="student-details-header">
           <h2>Student Details</h2>
           <div>
-            <button onClick={() => handleEditStudent(selectedStudent)}>Edit</button>
-            <button onClick={() => handleDeleteStudent(selectedStudent)}>Delete</button>
+            <button className='btn-det' onClick={() => handleEditStudent(selectedStudent)}>Edit</button>
+            <button className='btn-det' onClick={() => handleDeleteStudent(selectedStudent)}>Delete</button>
           </div>
         </div>
-      )}
-      {selectedStudent ? (
+      ) : null}
+
+      {!isEditing && selectedStudent ? (
         <div className="student-details">
           <p>Name: {selectedStudent.name}</p>
           <p>Roll No: {selectedStudent.rollNo}</p>
           <p>Fee Paid: {selectedStudent.feePaid ? 'Yes' : 'No'}</p>
+          <p>Block No: {selectedStudent.blockNo}</p>
           <p>Room No: {selectedStudent.roomNo}</p>
-          <button onClick={() => setSelectedStudent(null)}>Back to List</button>
+          <button className="back-btn" onClick={() => setSelectedStudent(null)}>Back to List</button>
         </div>
-      ) : (
+      ) : null}
+
+      {isEditing ? (
+        <form onSubmit={handleFormSubmit} className="student-form">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={newStudent.name}
+            onChange={handleFormChange}
+            required
+          />
+          <input
+            type="text"
+            name="rollNo"
+            placeholder="Roll No"
+            value={newStudent.rollNo}
+            onChange={handleFormChange}
+            required
+          />
+          <input
+            type="text"
+            name="blockNo"
+            placeholder="Block No"
+            value={newStudent.blockNo}
+            onChange={handleFormChange}
+            required
+          />
+          <input
+            type="number"
+            name="roomNo"
+            placeholder="Room No"
+            value={newStudent.roomNo}
+            onChange={handleFormChange}
+            required
+          />
+          <label>
+            <input
+              type="checkbox"
+              name="feePaid"
+              checked={newStudent.feePaid}
+              onChange={handleFormChange}
+            />
+            Fee Paid
+          </label>
+          <button type="submit">{selectedStudent ? 'Update' : 'Add'} Student</button>
+          <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+        </form>
+      ) : null}
+
+      {!selectedStudent && !isEditing && (
         <div className="student-grid">
           {filteredStudents.length > 0 ? (
             filteredStudents.map((student, index) => (

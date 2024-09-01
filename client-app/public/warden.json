@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Dr. John Doe",
+      "phone": "+1-234-567-8901",
+      "block": "A",
+      "handling": "Boys"
+    },
+    {
+      "name": "Ms. Emily Smith",
+      "phone": "+1-234-567-8902",
+      "block": "B",
+      "handling": "Girls"
+    },
+    {
+      "name": "Mr. Robert Johnson",
+      "phone": "+1-234-567-8903",
+      "block": "C",
+      "handling": "Boys"
+    },
+    {
+      "name": "Mrs. Laura Williams",
+      "phone": "+1-234-567-8904",
+      "block": "D",
+      "handling": "Girls"
+    },
+    {
+      "name": "Dr. William Brown",
+      "phone": "+1-234-567-8905",
+      "block": "E",
+      "handling": "Boys"
+    },
+    {
+      "name": "Ms. Olivia Davis",
+      "phone": "+1-234-567-8906",
+      "block": "F",
+      "handling": "Girls"
+    }
+  ]

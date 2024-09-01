@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
 import Fee from './Fee';
 import './CSS/StudentHome.css';
-import RoomAllocation from './RoomAllocation';
 import IVRS from './IVRS';
-import FoodTokenPage from './FoodTokenPage'; // Import the FoodTokenPage component
+import Information from './Information';
+import RoomAllocation from './RoomAllocation';
+import FoodTokenPage from './FoodTokenPage';
+
 
 const StudentHome = () => {
   const navigate = useNavigate();
@@ -19,14 +21,17 @@ const StudentHome = () => {
     switch (activeComponent) {
       case 'StudentProfile':
         return <StudentProfile />;
-      case 'Room':
-        return <RoomAllocation />;
       case 'Fee':
         return <Fee />;
       case 'IVRS':
         return <IVRS />;
+      case 'Information':
+        return <Information />;
+      case 'Room':
+        return <RoomAllocation />;
       case 'Food':
-        return <FoodTokenPage />; // Add the case for FoodTokenPage
+        return <FoodTokenPage/>
+        
       // Add more cases for other components if needed
       default:
         return null;

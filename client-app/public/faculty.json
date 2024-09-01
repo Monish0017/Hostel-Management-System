@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Prof. Sarah Miller",
+      "phone": "+1-345-678-9011",
+      "block": "A",
+      "handling": "Boys"
+    },
+    {
+      "name": "Dr. Michael Johnson",
+      "phone": "+1-345-678-9012",
+      "block": "B",
+      "handling": "Girls"
+    },
+    {
+      "name": "Prof. Jane Wilson",
+      "phone": "+1-345-678-9013",
+      "block": "C",
+      "handling": "Boys"
+    },
+    {
+      "name": "Dr. David Lee",
+      "phone": "+1-345-678-9014",
+      "block": "D",
+      "handling": "Girls"
+    },
+    {
+      "name": "Prof. Robert White",
+      "phone": "+1-345-678-9015",
+      "block": "E",
+      "handling": "Boys"
+    },
+    {
+      "name": "Dr. Emma Thompson",
+      "phone": "+1-345-678-9016",
+      "block": "F",
+      "handling": "Girls"
+    }
+  ]

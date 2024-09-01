@@ -74,6 +74,9 @@ const StudentProfile = () => {
             <p><strong>Programme:</strong> {profileData.programme}</p>
             <p><strong>Class Year:</strong> {profileData.classYear}</p>
           </div>
+          <div className="academic-info">
+            <h3>Hostel Information</h3>
+          </div>
         </div>
       </div>
     </div>

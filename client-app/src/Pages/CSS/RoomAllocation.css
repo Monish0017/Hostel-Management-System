@@ -1,0 +1,108 @@
+/* Container for Room Allocation form */
+.container1 {
+    max-width: 500px;
+    margin: 100px auto;
+    background-color: white;
+    /* White background for the form */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Headings Styling */
+.container1 h2 {
+    color: rgb(25, 25, 112);
+    /* Dark blue color to match the body background */
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Form Labels */
+.form-group1 label {
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(25, 25, 112);
+    /* Dark blue for visibility against white background */
+    text-align: left;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Form Controls Styling (Dropdown and Input fields) */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f8f8f8;
+    /* Light background for form controls */
+    color: #333;
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: rgb(25, 25, 112);
+    /* Dark blue border on focus */
+    box-shadow: 0 0 5px rgba(25, 25, 112, 0.5);
+}
+
+/* Button Styling */
+.btn1 {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: rgb(25, 25, 112);
+    /* Dark blue button */
+    color: white;
+    /* White text for contrast */
+    border: 2px solid rgb(25, 25, 112);
+    /* Dark blue border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn1:hover {
+    background-color: white;
+    /* White background on hover */
+    color: rgb(25, 25, 112);
+    /* Dark blue text on hover */
+}
+
+/* Success and Error Messages */
+.alert {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Additional padding and spacing for form groups */
+.form-group1 {
+    margin-bottom: 20px;
+}
+
+/* Style for small text inside the container */
+.container1 p {
+    color: rgb(25, 25, 112);
+    /* Dark blue text for contrast */
+    font-size: 16px;
+    margin-bottom: 20px;
+}
