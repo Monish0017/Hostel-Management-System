@@ -1,8 +1,8 @@
 .payment-detail button {
     padding: 10px 20px; /* Increase padding for better click area */
     border-radius: 5px;
-    background-color: white;
-    color: black; /* Adjust text color for better readability */
+    background-color: #0A21C0;
+    color: white; /* Adjust text color for better readability */
     border: none; /* Remove default border */
     cursor: pointer;
     margin-top: 30px;
@@ -11,6 +11,7 @@
   }
   
   .payment-detail button:hover {
-    background-color: #d5d4d2;
+    background-color: #050A44;
+    color: white;
   }
   

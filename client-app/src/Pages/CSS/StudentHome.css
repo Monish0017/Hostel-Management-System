@@ -23,14 +23,13 @@
 /* Sidebar styling */
 .sidebar {
   width: 200px;
-  background-color: white; /* Sidebar color */
+  background-color: #151619; /* Sidebar color */
   position: fixed;
   top: 80px; /* Adjust to be below header */
   height: calc(100vh - 80px); /* Adjust height to avoid overlapping header */
   left: 0; /* Position sidebar on the left side */
   display: flex;
   flex-direction: column; /* Arrange children vertically */
-  padding: 0 10px; /* Add padding for spacing */
   box-sizing: border-box; /* Ensure padding is included in height */
   z-index: 999; /* Ensure it’s below the header */
 }
@@ -47,7 +46,7 @@
 .sidebar li {
   padding: 10px;
   cursor: pointer;
-  color: #141619; /* Ensure text color is white for readability */
+  color: white; /* Ensure text color is white for readability */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 

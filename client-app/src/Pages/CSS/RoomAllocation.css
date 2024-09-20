@@ -6,13 +6,21 @@
     /* White background for the form */
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px #56596c;
     text-align: center;
 }
 
 /* Headings Styling */
 .container1 h2 {
-    color: rgb(25, 25, 112);
+    color: #141619;
+    /* Dark blue color to match the body background */
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.container1 p {
+    color: #141619;
     /* Dark blue color to match the body background */
     font-size: 28px;
     margin-bottom: 20px;
@@ -23,7 +31,7 @@
 .form-group1 label {
     font-weight: bold;
     font-size: 16px;
-    color: rgb(25, 25, 112);
+    color: #141619;
     /* Dark blue for visibility against white background */
     text-align: left;
     display: block;
@@ -36,19 +44,19 @@
     padding: 10px;
     margin-bottom: 20px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-radius: 5px;
     box-sizing: border-box;
-    background-color: #f8f8f8;
+    background-color: white;
     /* Light background for form controls */
     color: #333;
     outline: none;
 }
 
 .form-control:focus {
-    border-color: rgb(25, 25, 112);
+    border-color: #050A44;
     /* Dark blue border on focus */
-    box-shadow: 0 0 5px rgba(25, 25, 112, 0.5);
+    box-shadow: 0 0 5px #050A44;
 }
 
 /* Button Styling */
@@ -56,11 +64,11 @@
     width: 100%;
     padding: 12px;
     font-size: 18px;
-    background-color: rgb(25, 25, 112);
+    background-color: #0A21C0;
     /* Dark blue button */
     color: white;
     /* White text for contrast */
-    border: 2px solid rgb(25, 25, 112);
+    border: 2px solid #050A44;
     /* Dark blue border */
     border-radius: 5px;
     cursor: pointer;
@@ -68,9 +76,9 @@
 }
 
 .btn1:hover {
-    background-color: white;
+    background-color: #050A44;
     /* White background on hover */
-    color: rgb(25, 25, 112);
+    color: white;
     /* Dark blue text on hover */
 }
 

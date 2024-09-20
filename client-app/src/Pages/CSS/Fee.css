@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #56596c;
     color: white;
     width: 500px;
     height: 350px;
@@ -14,4 +14,9 @@
     padding: 20px; /* Add padding for inner spacing */
     box-sizing: border-box; /* Ensure padding is included in the height and width */
   }
+
+  .choose-container select{
+    background-color: white;
+  }
   
+
