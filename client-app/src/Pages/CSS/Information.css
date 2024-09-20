@@ -13,9 +13,9 @@
     flex: 1 0 calc(25% - 16px);
     height: 200px;
     max-width: calc(25% - 16px);
-    background-color: #f1f1f1;
+    background-color: #56596c;
     padding: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #B3B4BD;
     border-radius: 8px;
     cursor: pointer;
     box-sizing: border-box;
@@ -23,11 +23,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #333;
+    color: white;
 }
 
 .details-box:hover {
-    background-color: #e1e1e1;
+    background-color: #141619;
 }
 
 .details-box p {

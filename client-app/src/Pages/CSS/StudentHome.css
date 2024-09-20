@@ -23,8 +23,7 @@
 /* Sidebar styling */
 .sidebar {
   width: 200px;
-  background-color: rgba(0, 0, 0, 0.8); /* Sidebar color */
-  color: white;
+  background-color: white; /* Sidebar color */
   position: fixed;
   top: 80px; /* Adjust to be below header */
   height: calc(100vh - 80px); /* Adjust height to avoid overlapping header */
@@ -40,7 +39,7 @@
 .sidebar ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 10px;
   flex: 1; /* Allow the list to grow and fill the available space */
 }
 
@@ -48,26 +47,27 @@
 .sidebar li {
   padding: 10px;
   cursor: pointer;
-  color: white; /* Ensure text color is white for readability */
+  color: #141619; /* Ensure text color is white for readability */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 /* Active sidebar item styling */
 .sidebar li.active {
-  background-color: #0056b3; /* Fixed color for active item */
+  background-color: #0A21C0; /* Fixed color for active item */
   color: white; /* Ensure text color is white for readability */
 }
 
 /* Hover effect for sidebar items (excluding active items) */
 .sidebar li:not(.active):hover {
-  background-color: #595c60; /* Highlight color on hover */
+  background-color: #56596c; /* Highlight color on hover */
+  color: white;
 }
 
 /* Log out button styling */
 .logout-button {
   padding: 0.5rem 1rem;
   color: white;
-  background-color: #0056b3;
+  background-color: #0A21C0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -78,5 +78,5 @@
 }
 
 .logout-button:hover {
-  background-color: #004494;
+  background-color: #050A44;
 }

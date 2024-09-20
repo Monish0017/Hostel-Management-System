@@ -2,7 +2,7 @@
 .profile {
     background-color: white;
     padding: 0.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: #2C2E3A;
     border-radius: 8px;
     width: 100%;
     max-width: fit-content; 
@@ -42,7 +42,7 @@
 }
 
 .general-info h3 {
-    border-bottom: 2px solid #2c3e50;
+    border-bottom: 2px solid #050A44;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
 }

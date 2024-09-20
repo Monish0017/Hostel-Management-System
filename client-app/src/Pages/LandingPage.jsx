@@ -7,9 +7,6 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="landing-title">
-        <h1>PSG College Of Technology</h1>
-      </div>
       <div className="landing-page">
         <h1>Welcome to  Hostel Management System</h1>
         <div className="button-container">

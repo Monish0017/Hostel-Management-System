@@ -4,15 +4,12 @@
   justify-content: center;
   min-height: 100vh;
   margin: 0;
-  background-image: url('../../assets/login_img.png');
-  background-size: cover;
-  background-position: center;
   position: relative;
   overflow: hidden;
 }
 
 .main {
-  background: rgba(150, 164, 179, 0.9);
+  background: white;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -55,10 +52,10 @@
   /* Ensure input boxes are not too wide */
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #d4d0d0;
+  border: 1px solid #56596C;
   border-radius: 5px;
-  background-color: #e0dee4;
-  color: #333;
+  background-color: #B3B4BD;
+  color: #141619;
   text-align: center;
 }
 
@@ -78,19 +75,18 @@
   max-width: fit-content;
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #d4d0d0;
+  border: 1px solid #56596C;
   border-radius: 5px;
-  background-color: #e0dee4;
-  color: #333;
+  background-color: #B3B4BD;
+  color: #141619;
   text-align: center;
 }
 
 .user select:focus,
 .input input:focus {
-  border-color: #007bff;
-  background-color: #fff;
+  border-color: #0A21C0;
+  background-color: white;
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .input input::placeholder {
@@ -99,24 +95,25 @@
 }
 
 .input input:not(:focus)::placeholder {
-  color: #999;
+  color: #141619;
   /* Show placeholder text when input is not focused */
 }
 
 .forgot {
   margin-top: 1rem;
   margin-bottom: 20px;
-  color: #4635ba;
+  color: #0A21C0;
   text-decoration: none;
 }
 
 .forgot:hover {
   text-decoration: underline;
   cursor: pointer;
+  color: #050A44;
 }
 
 .but {
-  background-color: #2fbd65;
+  background-color: #0A21C0;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -129,7 +126,7 @@
 }
 
 .but:hover {
-  background-color: #24964a;
+  background-color: #050A44;
 }
 
 .error-popup {
