@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
+import AdminFood from './AdminFood';
+
 import './CSS/StudentHome.css'; // Ensure the correct relative path
 
 const AdminHome = () => {
@@ -15,6 +17,8 @@ const AdminHome = () => {
     switch (activeComponent) {
       case 'StudentDetails':
         return <StudentDetails />;
+      case 'AdminFood':
+        return <AdminFood />;
       // Add more cases for other components if needed
       default:
         return null;
@@ -37,6 +41,12 @@ const AdminHome = () => {
               onClick={() => handleSidebarClick('IVRS')}
             >
               IVRS
+            </li>
+            <li
+              className={activeComponent === 'AdminFood' ? 'active' : ''}
+              onClick={() => handleSidebarClick('AdminFood')}
+            >
+              Food Token
             </li>
             <li
               className={activeComponent === 'Room' ? 'active' : ''}

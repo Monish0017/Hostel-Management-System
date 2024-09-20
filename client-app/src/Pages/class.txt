@@ -78,6 +78,9 @@ alert
 alert-success
 alert-danger
 
+FoodTokenPage
+
+
 colour codes
 #141619   black
 #56596c   dark grey
