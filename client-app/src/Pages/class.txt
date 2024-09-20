@@ -77,3 +77,10 @@ btn1
 alert
 alert-success
 alert-danger
+
+colour codes
+#141619   black
+#56596c   dark grey
+#050A44   navy
+#0A21C0   blue
+#B3B4BD   light grey
