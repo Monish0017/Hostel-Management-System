@@ -1,47 +1,151 @@
+/* General styles */
 .food-token-page {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-  }
-  
-  .food-item-list, .book-token-form, .tokens-list, .qr-code {
-    margin-bottom: 20px;
-  }
-  
-  .food-item-list ul, .tokens-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .food-item, .token-item {
-    margin-bottom: 10px;
-  }
-  
-  .food-item-image {
-    width: 100px;
-    height: auto;
-    display: block;
-  }
-  
-  .food-item-details {
-    margin-left: 120px;
-  }
-  
-  .food-item-name {
-    font-weight: bold;
-  }
-  
-  .food-item-days {
-    color: gray;
-  }
-  
-  .error {
-    color: red;
-    font-weight: bold;
-  }
-  
-  /* FoodTokenPage.css */
+  padding: 20px;
+}
 
-/* Styles for the modal */
+food-token-page h1 {
+  color: #141619;
+  text-align: center;
+}
+
+.food-item-list h2 {
+  color: #141619;
+  text-align: center;
+}
+
+.food-item-list, .book-token-form, .tokens-list, .qr-code {
+  margin: 20px 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Food items section */
+.food-item-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.food-item {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.food-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.food-item-name {
+  font-weight: bold;
+  color: #141619;
+}
+
+.food-item-days {
+  font-size: 0.9em;
+  color: #050A44;
+  margin-top: 5px;
+}
+
+/* Book token form */
+.book-token-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-token-form input[type="text"], 
+.book-token-form input[type="number"], 
+.book-token-form input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.book-token-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0A21C0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.book-token-form button:hover {
+  background-color: #050A44;
+}
+
+/* Tokens list */
+.tokens-list ul {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.token-item {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.token-item button {
+  padding: 8px 12px;
+  margin-left: 10px;
+  background-color: #0A21C0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.token-item button:hover {
+  background-color: #050A44;
+}
+
+.token-item button:nth-child(2) {
+  background-color: #dc3545;
+}
+
+.token-item button:nth-child(2):hover {
+  background-color: #c82333;
+}
+
+/* QR Code section */
+.qr-code {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.qr-code img {
+  width: 150px;
+  height: 150px;
+}
+
+/* Error modal */
 .error-modal {
     background-color: white;
     border-radius: 8px;
@@ -84,117 +188,4 @@
   .error-modal button:hover {
     background-color: #0056b3;
   }
-  .food-token-page {
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
   
-  h1, h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .book-token-form, .tokens-list, .qr-code {
-    margin: 20px 0;
-  }
-  
-  .book-token-form input, .book-token-form select, .book-token-form button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  
-  .book-token-form button {
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .book-token-form button:hover {
-    background-color: #218838;
-  }
-  
-  .food-item-dropdown {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  
-  .token-item {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .cancel-button, .qr-button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .cancel-button {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .cancel-button:hover {
-    background-color: #c82333;
-  }
-  
-  .qr-button {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .qr-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .qr-code img {
-    width: 150px;
-    height: 150px;
-    display: block;
-    margin: 20px auto;
-  }
-  
-  .error-modal {
-    width: 300px;
-    margin: auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-  }
-  
-  .error-modal-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .error-modal h2 {
-    color: #dc3545;
-  }
-  
-  .error-modal button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-  }  

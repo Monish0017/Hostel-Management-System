@@ -9,6 +9,7 @@ import AdminLogin from './Pages/AdminLogin';
 import RoomAllocation from './Pages/RoomAllocation';
 import LandingPage from './Pages/LandingPage';
 import AdminHome from './Pages/AdminHome';
+import AdminFood from './Pages/AdminFood';
 import IVRS from './Pages/IVRS';
 import Information from './Pages/Information';
 import FoodTokenPage from './Pages/FoodTokenPage';
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="room-allocation" element={<RoomAllocation />} />
         </Route>
         <Route path="/admin/AdminHome" element={<AdminHome />} />
+        <Route path="/admin/AdminFood" element={<AdminFood/>} />
       </Routes>
     </Router>
   );

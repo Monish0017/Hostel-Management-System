@@ -14,7 +14,7 @@
     /* Ensure boxes do not exceed 25% of the container width */
     background-color: #56596C;
     padding: 16px;
-    border: 1px solid #2C2E3A;
+    border: 1px solid #B3B4BD;
     border-radius: 8px;
     cursor: pointer;
     box-sizing: border-box;
@@ -52,7 +52,7 @@
 .search-bar {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #56596c;
   border-radius: 4px;
   margin-right: 8px;
   width: calc(100% - 100px);
@@ -61,13 +61,13 @@
   padding: 8px 8px;
   border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #0A21C0;
     color: white;
     cursor: pointer;
   }
   
   .add-btn:hover {
-    background-color: #0056b3;
+    background-color: #050a44;
   }
   
   .btn-det {
@@ -75,25 +75,25 @@
     margin-left: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #0A21C0;
     color: white;
     cursor: pointer;
   }
 .btn-det:hover {
-  background-color: #0056b3;
+  background-color: #050A44;
 }
 
 .student-details {
-  background-color: #fff;
+  background-color: white;
   padding: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #B3B4BD;
   border-radius: 8px;
   margin-top: 16px;
 }
 .student-form {
-  background-color: #fff;
+  background-color: white;
   padding: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #B3B4BD;
   border-radius: 8px;
   margin-top: 80px;
   /* Space from the header */
@@ -115,7 +115,7 @@
 .student-form input[type="text"],
 .student-form input[type="number"] {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #B3B4BD;
   border-radius: 4px;
 }
 
@@ -132,26 +132,26 @@
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
+  background-color: #0A21C0;
   color: white;
   cursor: pointer;
   margin-top: 8px;
 }
 .student-form button:hover {
-  background-color: #0056b3;
+  background-color: #050A44;
 }
 
 .back-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
+  background-color: #0A21C0;
   color: white;
   cursor: pointer;
 }
 
 .back-btn:hover {
-  background-color: #0056b3;
+  background-color: #050A44;
 }
 
 .student-details-header {
