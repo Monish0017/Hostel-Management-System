@@ -273,15 +273,6 @@ const AdminRoom = () => {
               Delete Room
             </button>
           </div>
-
-          <h4>Assign Student to this room</h4>
-          <input
-            type="text"
-            placeholder="Student Roll No"
-            value={studentRollNo}
-            onChange={(e) => setStudentRollNo(e.target.value)}
-          />
-          <button onClick={handleAssignRoom}>Assign Room</button>
         </div>
       ) : showAddRoomForm ? (
         <div className="room-form">
