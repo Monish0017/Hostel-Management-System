@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const {
   registerAdmin,
@@ -7,13 +9,14 @@ const {
   allocateRooms,
   assignRoom,
   removeStudentFromRoom,
-  addStudent,
   modifyStudent,
   removeStudent,
   getAllStudents,
-  getStudentByRollNo,
   getStudentPayments,
-  getAllApplications
+  getAllApplications,
+  deleteAllStudents,
+  getAllRooms,
+  uploadStudents
 } = require('../controllers/adminController');
 
 const authMiddleware = require('../middleware/adminAuth');
@@ -28,15 +31,16 @@ router.post('/allocate-rooms', authMiddleware, allocateRooms);
 // Room management routes
 router.post('/assign-room', authMiddleware, assignRoom);
 router.post('/remove-student-from-room', authMiddleware, removeStudentFromRoom);
+router.get('/rooms', authMiddleware, getAllRooms);
 
-// Student management routes
-router.post('/add-student', authMiddleware, addStudent);
+// Route for uploading students
+router.post('/add-students', upload.single('file'), uploadStudents);
 router.put('/modify-student/:rollNo', authMiddleware, modifyStudent);
 router.delete('/remove-student/:rollNo', authMiddleware, removeStudent);
+router.delete('/students', authMiddleware, deleteAllStudents);
 
 // Student details routes
 router.get('/students', authMiddleware, getAllStudents);
-router.get('/students/:rollNo', authMiddleware, getStudentByRollNo);
 router.get('/students/:rollNo/payments', authMiddleware, getStudentPayments);
 
 // Application management routes

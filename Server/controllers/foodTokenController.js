@@ -45,8 +45,6 @@ exports.bookFoodToken = async (req, res) => {
     }
 };
 
-
-
 // Cancel a food token
 exports.cancelFoodToken = async (req, res) => {
     try {

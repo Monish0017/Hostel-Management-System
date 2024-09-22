@@ -40,11 +40,9 @@ const studentSchema = new mongoose.Schema({
   },
   primaryMobileNumber: {
     type: String,
-    required: true
   },
   secondaryMobileNumber: {
     type: String,
-    required: true
   },
   room: {
     type: mongoose.Schema.Types.ObjectId,

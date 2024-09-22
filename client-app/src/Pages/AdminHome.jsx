@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
+import AdminRoom from './AdminRoom';  // Import AdminRoom component
 import './CSS/StudentHome.css'; // Ensure the correct relative path
 
 const AdminHome = () => {
@@ -15,6 +16,8 @@ const AdminHome = () => {
     switch (activeComponent) {
       case 'StudentDetails':
         return <StudentDetails />;
+      case 'Room':  // Case for AdminRoom
+        return <AdminRoom />;
       // Add more cases for other components if needed
       default:
         return null;

@@ -6,6 +6,26 @@ const Student = require('../models/Student');
 const Room = require('../models/Room');
 const Payment = require('../models/Payment');
 const Application = require('../models/Application');
+const multer = require('multer');
+const excelToJson = require('convert-excel-to-json');
+const path = require('path');
+
+// Set storage engine for Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // directory to save uploaded files
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+// Initialize upload variable with storage config
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }, // limit file size to 1MB (optional)
+}).single('file'); // expects the 'file' field in the form data
+
 
 // Fetch all students
 const getAllStudents = async (req, res) => {
@@ -17,19 +37,49 @@ const getAllStudents = async (req, res) => {
   }
 };
 
-// Fetch student by roll number
-const getStudentByRollNo = async (req, res) => {
-  const { rollNo } = req.params;
-  try {
-    const student = await Student.findOne({ rollNo }).populate('room').populate('payments');
-    if (!student) {
-      return res.status(404).json({ message: 'Student not found' });
+const uploadStudents = (req, res) => {
+
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ error: 'Error uploading file' });
     }
-    res.json(student);
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
-  }
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    const filePath = req.file.path;
+    try {
+      const result = excelToJson({ sourceFile: filePath });
+      const studentData = result.Sheet1;
+      const newStudents = [];
+
+      studentData.forEach(async (studentRow) => {
+        const { rollNo, fullName, email, contactPhone, programme, classYear } = studentRow;
+
+        if (!rollNo || !fullName || !email) {
+          console.error(`Skipping row with missing data: ${JSON.stringify(studentRow)}`);
+          return;
+        }
+
+        const existingStudent = await Student.findOne({ rollNo });
+        if (!existingStudent) {
+          newStudents.push({ rollNo, fullName, email, contactPhone, programme, classYear });
+        }
+      });
+
+      if (newStudents.length > 0) {
+        await Student.insertMany(newStudents);
+        res.status(201).json({ msg: `${newStudents.length} students uploaded successfully` });
+      } else {
+        res.status(400).json({ msg: 'No new students to upload' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'Error processing the Excel file' });
+    }
+  });
 };
+
 
 // Fetch student payment details
 const getStudentPayments = async (req, res) => {
@@ -179,39 +229,6 @@ const removeStudentFromRoom = async (req, res) => {
   }
 };
 
-// Add a new student
-const addStudent = async (req, res) => {
-  const { fullName, email, password, rollNo, contactPhone, programme, classYear, fatherName, residentialAddress, primaryMobileNumber, secondaryMobileNumber } = req.body;
-
-  try {
-    const existingStudent = await Student.findOne({ rollNo });
-    if (existingStudent) {
-      return res.status(400).json({ msg: 'Student already exists' });
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const newStudent = new Student({
-      fullName,
-      email,
-      password: hashedPassword,
-      rollNo,
-      contactPhone,
-      programme,
-      classYear,
-      fatherName,
-      residentialAddress,
-      primaryMobileNumber,
-      secondaryMobileNumber
-    });
-
-    await newStudent.save();
-    res.status(201).json({ msg: 'Student added successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
-  }
-};
 
 // Modify an existing student
 const modifyStudent = async (req, res) => {
@@ -265,17 +282,40 @@ const getAllApplications = async (req, res) => {
   }
 };
 
+// Delete all students
+const deleteAllStudents = async (req, res) => {
+  try {
+    await Student.deleteMany({});
+    res.status(200).json({ message: 'All students have been deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting students:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+const getAllRooms = async (req, res) => {
+  try {
+    const rooms = await Room.find();
+    res.status(200).json(rooms);
+  } catch (error) {
+    console.error('Error fetching rooms:', error);
+    res.status(500).json({ message: 'Failed to fetch rooms' });
+  }
+};
+
+
 module.exports = {
   registerAdmin,
   loginAdmin,
   getAllStudents,
-  getStudentByRollNo,
+  uploadStudents,
   getStudentPayments,
   removeStudentFromRoom,
   assignRoom,
-  addStudent,
   removeStudent,
   modifyStudent,
   getAllApplications,
+  deleteAllStudents,
+  getAllRooms,
   allocateRooms
 };

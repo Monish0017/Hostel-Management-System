@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import './CSS/RoomAllocation.css';
 
-const RoomAllocation = ()=> {
-  const [studentName, setStudentName] = useState('');
+const RoomAllocation = () => {
   const [selectedRoomCapacity, setSelectedRoomCapacity] = useState('');
+  const [blockName, setBlockName] = useState(''); // Block name state
   const [roommatePreferences, setRoommatePreferences] = useState([]);
-  const [priorityStatus, setPriorityStatus] = useState('Normal'); // Placeholder status, can be dynamic
+  const [priorityStatus, setPriorityStatus] = useState('Normal');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleRoomSelection = (capacity) => {
     setSelectedRoomCapacity(capacity);
-    
-    // Adjust roommate preferences array length based on room capacity (minus 1 for the current user)
     const numRoommates = parseInt(capacity) - 1;
     const newRoommatePreferences = Array(numRoommates).fill('');
     setRoommatePreferences(newRoommatePreferences);
@@ -24,28 +22,46 @@ const RoomAllocation = ()=> {
     setRoommatePreferences(updatedRoommates);
   };
 
-  const handleSubmit = () => {
-    if (!studentName) {
-      setErrorMessage('Please enter your name.');
-      return;
-    }
-
+  const handleSubmit = async () => {
     if (!selectedRoomCapacity) {
       setErrorMessage('Please select a room capacity.');
       return;
     }
 
+    if (!blockName) {
+      setErrorMessage('Please select a block.');
+      return;
+    }
+
     const allocationData = {
-      studentName,
-      roomCapacity: selectedRoomCapacity,
-      roommatePreferences: roommatePreferences.length > 0 ? roommatePreferences : ['Random'],
-      priorityStatus
+      preferredRoommatesRollNos: roommatePreferences.length > 0 ? roommatePreferences : ['Random'],
+      roomType: selectedRoomCapacity,
+      blockName,
+      priorityStatus,
     };
 
-    // Simulate API call to allocate room (replace with actual API call)
-    console.log('Submitting Room Allocation:', allocationData);
-    setSuccessMessage('Room allocated successfully.');
-    setErrorMessage('');
+    try {
+      const token = localStorage.getItem('token'); // Get the JWT token from localStorage
+      const response = await fetch('http://localhost:3000/api/apply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': token, // Send token in the x-auth-token header
+        },
+        body: JSON.stringify(allocationData),
+      });
+
+      if (response.ok) {
+        setSuccessMessage('Room allocated successfully.');
+        setErrorMessage('');
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message || 'Error allocating room.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('Server error. Please try again later.');
+    }
   };
 
   return (
@@ -54,14 +70,18 @@ const RoomAllocation = ()=> {
       <p>Priority Status: {priorityStatus}</p>
 
       <div className="form-group1">
-        <label>Student Name:</label>
-        <input
-          type="text"
+        <label>Select Block:</label>
+        <select
           className="form-control"
-          placeholder="Enter your name"
-          value={studentName}
-          onChange={(e) => setStudentName(e.target.value)}
-        />
+          value={blockName}
+          onChange={(e) => setBlockName(e.target.value)}
+        >
+          <option value="">-- Select Block --</option>
+          <option value="Block 1">Block 1</option>
+          <option value="Block 2">Block 2</option>
+          <option value="Block 3">Block 3</option>
+          <option value="Block 4">Block 4</option>
+        </select>
       </div>
 
       <div className="form-group1">
@@ -101,6 +121,6 @@ const RoomAllocation = ()=> {
       {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
     </div>
   );
-}
+};
 
 export default RoomAllocation;
