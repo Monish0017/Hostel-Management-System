@@ -77,7 +77,7 @@ const AdminFood = () => {
   return (
     <div className="admin-food">
       <h2>Food Management</h2>
-      {error && <p className="error">{error}</p>}
+      {error && <p className="error-food">{error}</p>}
       <div className="add-food">
         <input
           type="text"
@@ -110,7 +110,7 @@ const AdminFood = () => {
           foodItems.map((item) => (
             <li key={item._id}>
               <span>{item.name}</span>
-              <img src={`http://localhost:3000/${item.image}`} alt={item.name} className="food-item-image" />
+              <img src={`http://localhost:3000/${item.image}`} alt={item.name} className="food-image" />
               <div>
                 Available Days: {item.availableDays.join(', ')}
               </div>

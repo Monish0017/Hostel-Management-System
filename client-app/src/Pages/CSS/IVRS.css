@@ -6,31 +6,25 @@
   padding: 20px;
   background-color: white;
   border-radius: 10px;
+  border: 3px solid #56596c;
+  position: relative;
+  z-index: 0;
 }
 
-/* Centered form container with visibility control */
+/* Leave application container styling */
 .leave-application-container {
   width: 80%;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 30px auto; /* Adjust margin to avoid being covered */
   padding: 20px;
-  border: 1px solid white;
+  border: 3px solid #56596c;
   border-radius: 8px;
   background-color: white;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 55%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
+  position: relative; /* Change position to relative */
+  z-index: 1000; /* Ensure it appears above other content */
 }
 
-/* Hide everything except the form when active */
-.hidden {
-  display: none;
-}
-
+/* Leave application title styling */
 .leave-application-container h1 {
   text-align: center;
   color: #141619;
@@ -116,21 +110,25 @@
 }
 
 .form-actions button[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #0A21C0;
   color: white;
 }
 
 .form-actions button[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: white;
+  color: black;
+  border: 2px solid #0A21C0;
 }
 
 .form-actions button[type="button"] {
-  background-color: #f44336;
+  background-color: #050A44;
   color: white;
 }
 
 .form-actions button[type="button"]:hover {
-  background-color: #e53935;
+  background-color: white;
+  color: black;
+  border: 2px solid #050A44;
 }
 
 .leave-history-table button {

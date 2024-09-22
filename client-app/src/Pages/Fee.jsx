@@ -18,7 +18,6 @@ function Fee() {
         <option value="Q-Block">Q-Block</option>
         </select>
         {selects&&<div className="payment-receipt">
-            <p><b>{selects}</b></p>
             <Payment block={selects} />
         </div>}
         

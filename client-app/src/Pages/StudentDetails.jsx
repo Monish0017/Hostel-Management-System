@@ -85,6 +85,7 @@ const StudentDetails = () => {
     setNewStudent(student);
   };
 
+
   // Handle deleting a student
   const handleDeleteStudent = (student) => {
     if (window.confirm(`Are you sure you want to delete ${student.fullName}?`)) {

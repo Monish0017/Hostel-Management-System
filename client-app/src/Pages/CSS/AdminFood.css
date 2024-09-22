@@ -1,114 +1,62 @@
-/* Container for the entire admin food management */
+/* CSS for AdminFood component */
 .admin-food {
+  background-color: white;
   padding: 20px;
+  border-radius: 10px;
   max-width: 800px;
-  margin: 0 auto; /* Center align the admin section */
+  margin: 30px auto;
 }
 
-/* Heading styles */
 .admin-food h2 {
+  color: black;
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Container for the form to add new food items */
-.add-food {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 30px;
-  border: 1px solid #ddd;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
-
-/* Input field styling */
-.add-food input[type="text"],
-.add-food input[type="file"] {
-  padding: 10px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-/* Button to add food item */
-.add-food button {
-  padding: 10px;
-  background-color: #0A21C0;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.add-food button:hover {
-  background-color: #050A44;
-}
-
-/* Error message styling */
-.error {
+.error-food {
   color: #050A44;
-  margin-bottom: 20px;
   text-align: center;
 }
 
-/* Available days selection container */
-.available-days {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.add-food {
+  background-color: #56596c; 
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.add-food input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  border: 2px solid #0A21C0; 
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #141619; 
+}
+
+.add-food input[type="file"] {
+  display: block;
+  color: white;
+  margin-bottom: 10px;
 }
 
 .available-days label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  display: block;
+  margin: 5px 0;
+  color: white; 
 }
 
-/* List of food items */
-.food-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.food-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  margin-bottom: 10px;
-  background-color: #f1f1f1;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-.food-list li img {
-  width: 100px;
-  height: auto;
-  border-radius: 4px;
-  margin-right: 15px;
-}
-
-/* Food item details section */
-.food-list li div {
-  flex-grow: 1;
-  padding-left: 10px;
-}
-
-/* Delete button for each food item */
-.food-list li button {
-  padding: 8px 12px;
-  background-color: #f44336;
+.add-food button {
+  background-color: #0A21C0; 
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px 15px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  margin-top: 20px;
 }
 
-.food-list li button:hover {
-  background-color: #da190b;
+.add-food button:hover {
+  background-color: #050A44; 
 }
+

@@ -1,17 +1,42 @@
+.payment-detail {
+  background-color: white;
+  color: black; 
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px; /* Limit the width of the payment detail box */
+  margin: 20px auto; /* Center the box */
+  text-align: left; /* Align text to the left for better readability */
+}
+
+.payment-detail h3 {
+  color: #0A21C0; 
+  text-align: center;
+  margin-bottom: 15px; /* Spacing below the heading */
+}
+
+.payment-info {
+  margin-bottom: 20px; /* Spacing below the payment info */
+}
+
+.payment-info p {
+  margin: 5px 0; /* Spacing between each paragraph */
+}
+
 .payment-detail button {
-    padding: 10px 20px; /* Increase padding for better click area */
-    border-radius: 5px;
-    background-color: #0A21C0;
-    color: white; /* Adjust text color for better readability */
-    border: none; /* Remove default border */
-    cursor: pointer;
-    margin-top: 30px;
-      /* Space between button and other elements */
-    font-size: 16px; /* Adjust font size for better readability */
-  }
-  
-  .payment-detail button:hover {
-    background-color: #050A44;
-    color: white;
-  }
-  
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #0A21C0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  height: 40px; /* Set a fixed height */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+}
+
+.payment-detail button:hover {
+  transform: scale(1.07);
+  border: 1px solid #050A44;
+  box-shadow: 0 4px 10px #B3B4BD; /* Add shadow on hover */
+}

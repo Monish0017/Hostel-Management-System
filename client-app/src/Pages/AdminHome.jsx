@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
 import './CSS/StudentHome.css'; // Ensure the correct relative path
-import AdminRoom from './AdminRoom';
 
 const AdminHome = () => {
   const navigate = useNavigate();
-  const [activeComponent, setActiveComponent] = useState('StudentDetails');
+  const [activeComponent, setActiveComponent] = useState('Details');
 
   const handleSidebarClick = (component) => {
     setActiveComponent(component);
@@ -14,10 +13,8 @@ const AdminHome = () => {
 
   const renderComponent = () => {
     switch (activeComponent) {
-      case 'StudentDetails':
+      case 'Details':
         return <StudentDetails />;
-      case 'Room':
-        return <AdminRoom/>
       // Add more cases for other components if needed
       default:
         return null;
@@ -30,8 +27,8 @@ const AdminHome = () => {
         <nav className="sidebar">
           <ul>
             <li
-              className={activeComponent === 'StudentDetails' ? 'active' : ''}
-              onClick={() => handleSidebarClick('StudentDetails')}
+              className={activeComponent === 'Details' ? 'active' : ''}
+              onClick={() => handleSidebarClick('Details')}
             >
               Student Details
             </li>
@@ -42,8 +39,8 @@ const AdminHome = () => {
               IVRS
             </li>
             <li
-              className={activeComponent === 'AdminFood' ? 'active' : ''}
-              onClick={() => handleSidebarClick('AdminFood')}
+              className={activeComponent === 'AFood' ? 'active' : ''}
+              onClick={() => handleSidebarClick('AFood')}
             >
               Food Token
             </li>

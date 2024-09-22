@@ -1,22 +1,54 @@
 .choose-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #56596c;
-    color: white;
-    width: 500px;
-    height: 350px;
-    margin: 0 auto; /* Center horizontally */
-    position: absolute; /* Allows positioning within the viewport */
-    top: 50%; /* Center vertically within viewport */
-    left: 50%; /* Center horizontally within viewport */
-    transform: translate(-50%, -50%); /* Adjust for the width and height of the container */
-    padding: 20px; /* Add padding for inner spacing */
-    box-sizing: border-box; /* Ensure padding is included in the height and width */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #56596c;
+  color: white;
+  width: 500px;
+  height: 400px;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px #B3B4BD;
+}
 
-  .choose-container select{
-    background-color: white;
-  }
-  
+/* Heading Styling */
+.choose-container h2 {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
+/* Select Dropdown Styling */
+.choose-container select {
+  background-color: white;
+  color: #141619;
+  padding: 5px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.choose-container select option {
+  background-color: white;
+  color: #141619;
+  padding: 10px;
+}
+
+
+
+/* Payment Receipt Styling */
+.payment-receipt p {
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 16px;
+}

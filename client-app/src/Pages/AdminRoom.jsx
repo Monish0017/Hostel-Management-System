@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CSS/AdminRoom.css';
 
-const RoomAllocation = () => {
+const AdminRoom = () => {
   const [rooms, setRooms] = useState([]);
   const [applications, setApplications] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
@@ -273,6 +273,15 @@ const RoomAllocation = () => {
               Delete Room
             </button>
           </div>
+
+          <h4>Assign Student to this room</h4>
+          <input
+            type="text"
+            placeholder="Student Roll No"
+            value={studentRollNo}
+            onChange={(e) => setStudentRollNo(e.target.value)}
+          />
+          <button onClick={handleAssignRoom}>Assign Room</button>
         </div>
       ) : showAddRoomForm ? (
         <div className="room-form">
@@ -362,4 +371,4 @@ const RoomAllocation = () => {
   );
 };
 
-export default RoomAllocation;
+export default AdminRoom;

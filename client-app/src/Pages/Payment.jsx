@@ -51,10 +51,12 @@ const Payment = ({ block }) => {
   return (
     <div className='payment-detail'>
       <h3>Payment Details</h3>
-      <p>Selected Block: <b>{block}</b></p>
-      <p>Block Fee: <b>Rs. {blockFee}</b></p>
-      <p>Mess Fee: <b>Rs. {messFee}</b></p>
-      <p>Total Fee: <b>Rs. {totalFee}</b></p>
+      <div className='payment-info'>
+        <p><strong>Selected Block:</strong> {block}</p>
+        <p><strong>Block Fee:</strong> Rs. {blockFee}</p>
+        <p><strong>Mess Fee:</strong> Rs. {messFee}</p>
+        <p><strong>Total Fee:</strong> Rs. {totalFee}</p>
+      </div>
       <button onClick={handlePayment}>Proceed to Payment</button>
     </div>
   );
