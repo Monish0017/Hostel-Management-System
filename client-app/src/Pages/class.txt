@@ -1,3 +1,24 @@
+Landing page
+body
+landing-title
+landing-page
+button-container
+btn
+
+Login
+full
+main
+user
+input
+forgot 
+but
+error-popup
+
+Header
+header
+
+STUDENT 
+
 Student profile
 profile 
 profile-header
@@ -13,34 +34,6 @@ content
 sidebar 
 logout-button
 
-Student details
-student-form
-student-box
-student-details
-student-details-header
-student-grid
-search-container
-search-bar
-add-btn
-back-btn
-btn-det
-
-Login
-full
-main
-user
-input
-forgot 
-but
-error-popup
-
-Landing page
-body
-landing-title
-landing-page
-button-container
-btn
-
 IVRS
 ivrs-container
 leave-application-container
@@ -49,14 +42,13 @@ apply-button
 form-group
 form-actions
 
-Header
-header
-
 Fee
 choose-container
+payment-receipt
 
 Payment 
 payment -detail
+payment-info
 
 Information
 details
@@ -79,7 +71,18 @@ alert-success
 alert-danger
 
 FoodTokenPage
-
+food-token-page
+food-item
+food-item-image
+food-item-name
+food-item-days
+book-token-form
+tokens-list
+token-item
+qr-code
+error-modal-overlay
+error-modal
+  
 
 colour codes
 #141619   black
@@ -87,3 +90,18 @@ colour codes
 #050A44   navy
 #0A21C0   blue
 #B3B4BD   light grey
+
+
+ADMIN
+
+Student details
+student-form
+student-box
+student-details
+student-details-header
+student-grid
+search-container
+search-bar
+add-btn
+back-btn
+btn-det

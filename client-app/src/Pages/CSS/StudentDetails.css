@@ -163,7 +163,7 @@
 
   input[type="file"] {
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #B3B4BD;
     border-radius: 4px;
     margin-right: 8px;
   }
@@ -180,7 +180,7 @@
   
   .custom-file-upload {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #0A21C0;
     color: white;
     border: none;
     border-radius: 4px;
@@ -188,12 +188,12 @@
   }
   
   .custom-file-upload:hover {
-    background-color: #0056b3;
+    background-color: #050A44;
   }
   
   .upload-btn {
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #0A21C0;
     color: white;
     border: none;
     border-radius: 4px;
@@ -201,10 +201,10 @@
   }
   
   .upload-btn:hover {
-    background-color: #218838;
+    background-color: #050A44;
   }
   .delete-all-btn {
-    background-color: #ff4d4d; /* Red color */
+    background-color: #050A44;
     margin-left: 40%;
     color: white;
     padding: 10px 20px;
@@ -215,6 +215,7 @@
   }
   
   .delete-all-btn:hover {
-    background-color: #ff1a1a; /* Darker red on hover */
+    background-color: white; 
+    border: 2px solid #050A44;
   }
   

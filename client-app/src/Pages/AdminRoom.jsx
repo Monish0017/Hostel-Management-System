@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CSS/AdminRoom.css';
 
-const RoomAllocation = () => {
+const AdminRoom = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [newRoom, setNewRoom] = useState({
@@ -267,4 +267,4 @@ const RoomAllocation = () => {
   );
 };
 
-export default RoomAllocation;
+export default AdminRoom;

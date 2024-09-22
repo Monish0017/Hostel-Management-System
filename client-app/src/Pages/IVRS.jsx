@@ -14,27 +14,8 @@ const IVRS = () => {
     { id: 2, applicationNo: '1002', leaveType: 'Outing', from: '2024-08-10 8:00 AM', to: '2024-08-10 2:00 PM', callCount: 1, reason: 'College Work', status: 'Cancelled' },
   ];
 
-  // Function to get current date and time in the format needed for input
-  const getCurrentDateTime = () => {
-    const now = new Date();
-    return now.toISOString().slice(0, 16); // Returns the current date and time in YYYY-MM-DDTHH:mm format
-  };
-
-  // Function to get the minimum 'To Date' based on 'From Date' and leave type
-  const getToDateConstraint = () => {
-    if (!fromDate) return '';
-    const fromDateTime = new Date(fromDate);
-    if (leaveType === 'outing') {
-      fromDateTime.setHours(fromDateTime.getHours() + 6); // Adds 6 hours for outing
-    } else {
-      fromDateTime.setDate(fromDateTime.getDate() + 1); // Adds 24 hours for leave
-    }
-    return fromDateTime.toISOString().slice(0, 16);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add form submission logic here
     alert(`Leave applied`);
     setIsFormVisible(false);
   };
@@ -47,14 +28,10 @@ const IVRS = () => {
     setIsFormVisible(false);
   };
 
-  const handleDetailsClick = (leaveId) => {
-    alert(`Displaying details for leave ID: ${leaveId}`);
-  };
-
   return (
-    <div className="ivrs-container">
-      {!isFormVisible && (
-        <>
+    <>
+      {!isFormVisible ? (
+        <div className="ivrs-container">
           <h1>Leave History</h1>
           <table className="leave-history-table">
             <thead>
@@ -82,17 +59,16 @@ const IVRS = () => {
                   <td>{leave.reason}</td>
                   <td>{leave.status}</td>
                   <td>
-                    <button onClick={() => handleDetailsClick(leave.id)}>Details</button>
+                    <button onClick={() => alert(`Displaying details for leave ID: ${leave.id}`)}>Details</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
           <button className="apply-button" onClick={() => setIsFormVisible(true)}>+ Apply Leave</button>
-        </>
-      )}
-
-      {isFormVisible && (
+        </div>
+      
+      ) : (
         <div className="leave-application-container">
           <h1>Apply Leave</h1>
           <form onSubmit={handleSubmit}>
@@ -117,7 +93,6 @@ const IVRS = () => {
                 id="fromDate"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
-                min={getCurrentDateTime()}
                 required
               />
             </div>
@@ -129,7 +104,6 @@ const IVRS = () => {
                 id="toDate"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
-                min={getToDateConstraint()}
                 required
               />
             </div>
@@ -165,7 +139,7 @@ const IVRS = () => {
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

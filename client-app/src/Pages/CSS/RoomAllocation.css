@@ -3,26 +3,23 @@
     max-width: 500px;
     margin: 100px auto;
     background-color: white;
-    /* White background for the form */
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 8px 16px #56596c;
+    border: 3px solid #56596c;
     text-align: center;
 }
 
 /* Headings Styling */
 .container1 h2 {
-    color: #141619;
-    /* Dark blue color to match the body background */
-    font-size: 28px;
+    color: #050A44;
+    font-size: 24px;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
 .container1 p {
     color: #141619;
-    /* Dark blue color to match the body background */
-    font-size: 28px;
+    font-size: 20px;
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -38,6 +35,10 @@
     margin-bottom: 8px;
 }
 
+.form-group1 select{
+    cursor: pointer;
+}
+
 /* Form Controls Styling (Dropdown and Input fields) */
 .form-control {
     width: 100%;
@@ -48,14 +49,12 @@
     border-radius: 5px;
     box-sizing: border-box;
     background-color: white;
-    /* Light background for form controls */
-    color: #333;
+    color: #141619;
     outline: none;
 }
 
 .form-control:focus {
     border-color: #050A44;
-    /* Dark blue border on focus */
     box-shadow: 0 0 5px #050A44;
 }
 
@@ -65,11 +64,8 @@
     padding: 12px;
     font-size: 18px;
     background-color: #0A21C0;
-    /* Dark blue button */
     color: white;
-    /* White text for contrast */
     border: 2px solid #050A44;
-    /* Dark blue border */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -77,9 +73,7 @@
 
 .btn1:hover {
     background-color: #050A44;
-    /* White background on hover */
     color: white;
-    /* Dark blue text on hover */
 }
 
 /* Success and Error Messages */
@@ -91,26 +85,11 @@
 }
 
 .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border-color: #c3e6cb;
+    background-color: #56596c;
+    color: white;
 }
 
 .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-color: #f5c6cb;
-}
-
-/* Additional padding and spacing for form groups */
-.form-group1 {
-    margin-bottom: 20px;
-}
-
-/* Style for small text inside the container */
-.container1 p {
-    color: rgb(25, 25, 112);
-    /* Dark blue text for contrast */
-    font-size: 16px;
-    margin-bottom: 20px;
+    background-color: #B3B4BD;
+    color: black;
 }
