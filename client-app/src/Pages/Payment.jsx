@@ -1,7 +1,7 @@
 import React from 'react';
 import './CSS/Payment.css';
 
-const Payment = ({ name, rollNo, block }) => {
+const Payment = ({ rollNo, block }) => {
   const messFee = 65000;
 
   const getFee = (block) => {
@@ -23,25 +23,41 @@ const Payment = ({ name, rollNo, block }) => {
 
   const blockFee = getFee(block);
   const totalFee = blockFee + messFee;
+  const token = localStorage.getItem('token');
 
-  const handleBackendSubmit = (name, rollNo, block, totalFee) => {
-    console.log('Submitting to backend:', { name, rollNo, block, totalFee });
-    // Example POST request (uncomment if necessary)
-    // fetch('/api/submitPayment', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ name, rollNo, block, totalFee }),
-    // }).then(response => response.json())
-    //   .then(data => {
-    //     console.log('Payment submitted:', data);
-    //   }).catch(error => console.error('Error:', error));
+  const handleBackendSubmit = async (rollNo, totalFee) => {
+    try {
+      const response = await fetch('http://localhost:3000/payments/submit-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': token // Ensure correct token header
+        },
+        body: JSON.stringify({
+          rollNo,
+          amount: totalFee,
+          status: 'paid',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Payment saved in the database:', data);
+        alert('Payment has been successfully saved.');
+      } else {
+        console.error('Failed to save payment:', data);
+        alert(`Error: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error submitting payment:', error);
+      alert('There was a problem submitting the payment to the backend.');
+    }
   };
 
   const handlePayment = () => {
-    if (!name || !rollNo || !block) {
-      alert('Please fill all the details');
+    if (!block) {
+      alert('Please select a block');
       return;
     }
 
@@ -54,10 +70,9 @@ const Payment = ({ name, rollNo, block }) => {
       description: 'for testing purpose',
       handler: function (response) {
         alert('Payment successful! ID: ' + response.razorpay_payment_id);
-        handleBackendSubmit(name, rollNo, block, totalFee);
+        handleBackendSubmit(rollNo, totalFee); // Correctly passing rollNo
       },
       prefill: {
-        name,
         email: 'spidy@123', // Replace with user's actual email if available
         contact: '65371781821', // Replace with user's actual contact if available
       },

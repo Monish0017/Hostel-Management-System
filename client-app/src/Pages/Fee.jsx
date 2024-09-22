@@ -3,22 +3,12 @@ import Payment from './Payment'; // Import the Payment component
 import './CSS/Fee.css';
 
 function Fee() {
-  const [name, setName] = useState('');
   const [rollNo, setRollNo] = useState('');
   const [block, setBlock] = useState('');
 
   return (
     <div className='payment-container'>
       <h2>Fee Payment</h2>
-      <div className='form-group'>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your name"
-        />
-      </div>
       <div className='form-group'>
         <label>Roll No:</label>
         <input
@@ -42,7 +32,7 @@ function Fee() {
 
       {block && (
         <div className='payment-details'>
-          <Payment name={name} rollNo={rollNo} block={block} />
+          <Payment rollNo={rollNo} block={block} />
         </div>
       )}
     </div>
