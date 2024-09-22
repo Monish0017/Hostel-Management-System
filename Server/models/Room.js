@@ -26,8 +26,8 @@ const roomSchema = new mongoose.Schema({
     required: true
   },
   students: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Student'  // Reference to Student schema
+    type: String,  // Change to String to store rollNo
+    ref: 'Student' // You can still keep the ref if needed for population
   }]
 });
 

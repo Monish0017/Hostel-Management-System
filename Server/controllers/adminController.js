@@ -160,44 +160,63 @@ const allocateRooms = async (req, res) => {
   }
 };
 
-// Assign a student to a room
 const assignRoom = async (req, res) => {
-  const { studentRollNo, blockName, roomNo } = req.body;
-
+  const { studentRollNo, applicationId } = req.body;
+  
   try {
-    // Find the student
+    const application = await Application.findById(applicationId);
+    if (!application) {
+      return res.status(404).json({ message: 'Application not found' });
+    }
+
     const student = await Student.findOne({ rollNo: studentRollNo });
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    // Find the room
-    const room = await Room.findOne({ blockName, roomNo });
+    const room = await Room.findOne({
+      blockName: application.blockName,
+      capacity: application.roomType,
+    });
+
     if (!room) {
       return res.status(404).json({ message: 'Room not found' });
     }
 
-    // Check room capacity
     if (room.students.length >= room.capacity) {
       return res.status(400).json({ message: 'Room is full' });
     }
 
-    // Add student to the room
-    room.students.push(student._id);
+    // Assign the rollNo to the room's students array
+    room.students.push(student.rollNo);
     await room.save();
 
-    // Assign room to the student
-    student.room = room._id;
+    student.room = room._id; // Keep the room reference in Student for possible future use
     await student.save();
 
-    res.status(200).json({ message: 'Student assigned to room successfully' });
+    const preferredRoommatesRollNos = application.preferredRoommatesRollNos || [];
+    const preferredRoommates = await Student.find({ rollNo: { $in: preferredRoommatesRollNos } });
+
+    for (const roommate of preferredRoommates) {
+      if (!room.students.includes(roommate.rollNo)) {
+        room.students.push(roommate.rollNo);
+        await room.save();
+
+        roommate.room = room._id;
+        await roommate.save();
+      }
+    }
+
+    await Application.deleteOne({ _id: applicationId });
+
+    res.status(200).json({ message: 'Student and preferred roommates assigned to room successfully and application cleared' });
   } catch (error) {
     console.error('Error assigning room:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
 
-// Remove a student from a room
+
 const removeStudentFromRoom = async (req, res) => {
   const { studentRollNo } = req.body;
 
@@ -207,7 +226,7 @@ const removeStudentFromRoom = async (req, res) => {
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
-    
+
     // Find the room the student is currently assigned to
     const room = await Room.findById(student.room);
     if (!room) {
@@ -215,17 +234,37 @@ const removeStudentFromRoom = async (req, res) => {
     }
 
     // Remove student from the room
-    room.students = room.students.filter(id => !id.equals(student._id));
+    room.students = room.students.filter(id => id !== student.rollNo); // Change here
     await room.save();
 
     // Remove room assignment from student
-    student.room = null;
+    student.room = null; // Clear the room reference
     await student.save();
 
     res.status(200).json({ message: 'Student removed from room successfully' });
   } catch (error) {
     console.error('Error removing student from room:', error);
     res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Delete a specific room using ObjectID
+const deleteRoom = async (req, res) => {
+  const { roomId } = req.params;
+  
+  try {
+    const room = await Room.findByIdAndDelete(roomId);
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+
+    // Optionally: Unassign all students from the deleted room
+    await Student.updateMany({ room: roomId }, { $unset: { room: "" } });
+
+    res.status(200).json({ message: 'Room deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting room:', error);
+    res.status(500).json({ message: 'Failed to delete room' });
   }
 };
 
@@ -303,6 +342,81 @@ const getAllRooms = async (req, res) => {
   }
 };
 
+// Vacate all rooms (remove all students from assigned rooms)
+const vacateAllRooms = async (req, res) => {
+  try {
+    // Find all rooms and remove students
+    await Room.updateMany({}, { $set: { students: [] } });
+
+    // Also update all students to remove room reference
+    await Student.updateMany({}, { $unset: { room: "" } });
+
+    res.status(200).json({ message: 'All rooms have been vacated successfully' });
+  } catch (error) {
+    console.error('Error vacating rooms:', error);
+    res.status(500).json({ message: 'Failed to vacate rooms' });
+  }
+};
+
+// Add a new room
+const addRoom = async (req, res) => {
+  const { hostelName, blockName, roomType, floor, roomNo, capacity } = req.body;
+
+  // Validate input
+  if (!hostelName || !blockName || !roomType || !floor || !roomNo || !capacity) {
+    return res.status(400).json({ message: 'Please provide all required fields.' });
+  }
+
+  try {
+    // Check if the room already exists in the specified block
+    const existingRoom = await Room.findOne({ roomNo, blockName });
+    if (existingRoom) {
+      return res.status(400).json({ message: 'Room already exists in this block.' });
+    }
+
+    // Create a new room instance
+    const newRoom = new Room({
+      hostelName,
+      blockName,
+      roomType,
+      floor,
+      roomNo,
+      capacity,
+      students: [] // Initialize with an empty students array
+    });
+
+    // Save the new room to the database
+    await newRoom.save();
+    res.status(201).json({ message: 'Room added successfully', room: newRoom });
+  } catch (error) {
+    console.error('Error adding room:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Get room details including roll numbers of students assigned
+const getRoomDetailsWithStudents = async (req, res) => {
+  const { studentRollNo } = req.params;
+
+  try {
+    const student = await Student.findOne({ rollNo: studentRollNo }).populate('room'); // Populate room details
+    if (!student || !student.room) {
+      return res.status(404).json({ message: 'Student or room not found' });
+    }
+
+    const room = student.room;
+    const studentRollNosInRoom = await Student.find({ room: room._id }).select('rollNo'); // Get roll numbers of students in the room
+
+    res.status(200).json({
+      roomNo: room.roomNo,
+      blockName: room.blockName,
+      students: studentRollNosInRoom.map(s => s.rollNo),
+    });
+  } catch (error) {
+    console.error('Error fetching room details with students:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 
 module.exports = {
   registerAdmin,
@@ -317,5 +431,9 @@ module.exports = {
   getAllApplications,
   deleteAllStudents,
   getAllRooms,
+  deleteRoom,
+  vacateAllRooms,
+  addRoom,
+  getRoomDetailsWithStudents,
   allocateRooms
 };

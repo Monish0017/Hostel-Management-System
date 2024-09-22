@@ -16,6 +16,10 @@ const {
   getAllApplications,
   deleteAllStudents,
   getAllRooms,
+  deleteRoom,
+  vacateAllRooms,
+  addRoom,
+  getRoomDetailsWithStudents,
   uploadStudents
 } = require('../controllers/adminController');
 
@@ -32,6 +36,10 @@ router.post('/allocate-rooms', authMiddleware, allocateRooms);
 router.post('/assign-room', authMiddleware, assignRoom);
 router.post('/remove-student-from-room', authMiddleware, removeStudentFromRoom);
 router.get('/rooms', authMiddleware, getAllRooms);
+router.post('/rooms/vacate-all', authMiddleware, vacateAllRooms); 
+router.delete('/rooms/:roomId', authMiddleware, deleteRoom);
+router.post('/add-room', authMiddleware, addRoom);
+router.get('/roomdetails' , authMiddleware , getRoomDetailsWithStudents);
 
 // Route for uploading students
 router.post('/add-students', upload.single('file'), uploadStudents);
