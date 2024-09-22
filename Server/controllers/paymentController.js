@@ -1,11 +1,12 @@
 const Payment = require('../models/Payment');
 const Student = require('../models/Student');
+const jwt = require('jsonwebtoken');
 
 exports.submitPayment = async (req, res) => {
   try {
-    const { rollNo, amount, status } = req.body; 
+    
+    const { rollNo , amount, status } = req.body;
 
-    // Validate RollNo and get student
     const student = await Student.findOne({ rollNo });
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
@@ -13,7 +14,7 @@ exports.submitPayment = async (req, res) => {
 
     // Check if the student has already paid the fees
     const existingPayment = await Payment.findOne({
-      student: student._id,
+      studentrollNo: rollNo, // Use rollNo instead of student._id
       status: 'paid'
     });
 
@@ -23,16 +24,12 @@ exports.submitPayment = async (req, res) => {
 
     // Create a new payment
     const payment = new Payment({
-      student: student._id, // Reference to student
+      studentrollNo: rollNo, // Store rollNo directly
       amount,
       status: status || 'pending',
     });
 
     const savedPayment = await payment.save();
-
-    // Update student with new payment
-    student.payments = savedPayment._id;
-    await student.save();
 
     res.status(201).json(savedPayment);
   } catch (error) {
