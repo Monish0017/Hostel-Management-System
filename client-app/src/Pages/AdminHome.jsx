@@ -7,7 +7,7 @@ import AdminRoom from './AdminRoom';
 
 const AdminHome = () => {
   const navigate = useNavigate();
-  const [activeComponent, setActiveComponent] = useState('StudentDetails');
+  const [activeComponent, setActiveComponent] = useState('Details');
 
   const handleSidebarClick = (component) => {
     setActiveComponent(component);
@@ -15,7 +15,7 @@ const AdminHome = () => {
 
   const renderComponent = () => {
     switch (activeComponent) {
-      case 'StudentDetails':
+      case 'Details':
         return <StudentDetails />;
       case 'Room':
         return <AdminRoom />;
@@ -33,8 +33,8 @@ const AdminHome = () => {
         <nav className="sidebar">
           <ul>
             <li
-              className={activeComponent === 'StudentDetails' ? 'active' : ''}
-              onClick={() => handleSidebarClick('StudentDetails')}
+              className={activeComponent === 'Details' ? 'active' : ''}
+              onClick={() => handleSidebarClick('Details')}
             >
               Student Details
             </li>

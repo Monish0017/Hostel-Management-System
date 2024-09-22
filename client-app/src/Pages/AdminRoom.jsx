@@ -189,7 +189,7 @@ const AdminRoom = () => {
             value={studentRollNo}
             onChange={(e) => setStudentRollNo(e.target.value)}
           />
-          <button onClick={handleAssignRoom}>Assign Room</button>
+          <button className="btn-assign" onClick={handleAssignRoom}>Assign Room</button>
         </div>
       ) : (
         <div className="room-grid">

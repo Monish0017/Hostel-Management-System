@@ -82,14 +82,6 @@ token-item
 qr-code
 error-modal-overlay
 error-modal
-  
-
-colour codes
-#141619   black
-#56596c   dark grey
-#050A44   navy
-#0A21C0   blue
-#B3B4BD   light grey
 
 
 ADMIN
@@ -105,3 +97,35 @@ search-bar
 add-btn
 back-btn
 btn-det
+
+AdminFood
+admin-food
+add-food
+error-food
+available-days
+
+AdminRoom
+room-allocation-container
+room-actions 
+action-btn
+top-right-button 
+view-application-btn 
+room-grid 
+room-box
+room-details 
+room-details-actions
+edit-btn
+delete-btn
+btn-assign
+room-form 
+submit-btn
+cancel-btn
+
+
+
+colour codes
+#141619   black
+#56596c   dark grey
+#050A44   navy
+#0A21C0   blue
+#B3B4BD   light grey

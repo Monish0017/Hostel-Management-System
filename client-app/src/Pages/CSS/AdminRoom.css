@@ -1,226 +1,162 @@
-.room-grid {
+/* CSS for AdminRoom component */
+.room-allocation-container {
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.room-allocation-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.room-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  /* Space between grid items */
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.action-btn {
+  background-color: #0A21C0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background-color: #050A44; 
+}
+
+.top-right-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.view-application-btn {
+  background-color: white; 
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-application-btn:hover {
+  background-color: #050A44;
+  color: white;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .room-box {
-  flex: 1 0 calc(25% - 16px);
-  /* Four boxes per row, ensuring all boxes are the same size */
-  height: 200px;
-  /* Ensure boxes are square */
-  max-width: calc(25% - 16px);
-  /* Ensure boxes do not exceed 25% of the container width */
-  background-color: #56596C;
-  padding: 16px;
-  border: 1px solid #2C2E3A;
-  border-radius: 8px;
+  background-color: #56596c;
+  padding: 20px;
+  border-radius: 10px;
   cursor: pointer;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
+  text-align: center;
   color: white;
-}
-
-.room-box:hover {
-  background-color: #141619;
 }
 
 .room-box p {
-  margin: 0;
-  padding: 0;
-  text-align: center;
+  margin: 10px 0;
 }
 
-.room-details-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.search-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.search-bar {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 8px;
-  width: calc(100% - 100px);
-}
-
-.add-btn {
-  padding: 8px 8px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.add-btn:hover {
-  background-color: #0056b3;
-}
-
-.btn-det {
-  padding: 8px 8px;
-  margin-left: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.btn-det:hover {
-  background-color: #0056b3;
+.room-box:hover {
+  background-color: #050A44; 
 }
 
 .room-details {
-  background-color: #fff;
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-top: 16px;
+  background-color: white; 
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 3px solid #56596c; 
+
+}
+
+
+.room-details p {
+  margin: 5px 0;
+}
+
+.room-details-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.edit-btn, .delete-btn {
+  background-color: #0A21C0;
+  color: white; 
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  transform: scale(1.05);
+}
+
+.room-details input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #0A21C0;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.btn-assign {
+  background-color: #0A21C0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-assign:hover {
+  background-color: #050A44; 
 }
 
 .room-form {
-  background-color: #fff;
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-top: 80px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 3px solid #56596c;
+  border-radius: 5px;
 }
 
-.room-form input,
-.room-form label {
-  display: flex;
-  flex-direction: column;
+.room-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #B3B4BD; 
+  border-radius: 5px;
+  background-color: white;
 }
 
-.room-form input[type="text"],
-.room-form input[type="number"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.room-form label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.room-form label input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-.room-form button {
-  padding: 8px 16px;
+.submit-btn, .cancel-btn {
+  background-color: #0A21C0;
+  color:white;
   border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  margin-top: 8px;
-}
-
-.room-form button:hover {
-  background-color: #0056b3;
-}
-
-.back-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.back-btn:hover {
-  background-color: #0056b3;
-}
-
-.room-details-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 50px;
-}
-
-input[type="file"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 8px;
-}
-
-.file-upload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.file-upload input[type="file"] {
-  display: none;
-}
-
-.custom-file-upload {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.custom-file-upload:hover {
-  background-color: #0056b3;
-}
-
-.upload-btn {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.upload-btn:hover {
-  background-color: #218838;
-}
-
-.delete-all-btn {
-  background-color: #ff4d4d; /* Red color */
-  margin-left: 40%;
-  color: white;
-  padding: 10px 20px;
-  border: none;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px; /* Add margin to space it from the grid */
 }
 
-.delete-all-btn:hover {
-  background-color: #ff1a1a; /* Darker red on hover */
+.submit-btn:hover, .cancel-btn:hover {
+  transform: scale(1.05);
+}
+
+.cancel-btn {
+  margin-left: 10px;
 }
