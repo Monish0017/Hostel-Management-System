@@ -1,42 +1,71 @@
-.payment-detail {
+/* Container for Payment form */
+.payment-container {
+  max-width: 500px;
+  margin: 100px auto;
   background-color: white;
-  color: black; 
-  padding: 20px;
+  padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px; /* Limit the width of the payment detail box */
-  margin: 20px auto; /* Center the box */
-  text-align: left; /* Align text to the left for better readability */
-}
-
-.payment-detail h3 {
-  color: #0A21C0; 
+  border: 3px solid #56596c;
   text-align: center;
-  margin-bottom: 15px; /* Spacing below the heading */
 }
 
-.payment-info {
-  margin-bottom: 20px; /* Spacing below the payment info */
+/* Headings Styling */
+.payment-container h2 {
+  color: #050A44;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.payment-info p {
-  margin: 5px 0; /* Spacing between each paragraph */
+.payment-container p {
+  color: #141619;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.payment-detail button {
-  padding: 10px 20px;
-  border-radius: 5px;
-  background-color: #0A21C0;
-  color: white;
-  border: none;
-  cursor: pointer;
+/* Form Labels */
+.form-group label {
+  font-weight: bold;
   font-size: 16px;
-  height: 40px; /* Set a fixed height */
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+  color: #141619;
+  text-align: left;
+  display: block;
+  margin-bottom: 8px;
 }
 
-.payment-detail button:hover {
-  transform: scale(1.07);
-  border: 1px solid #050A44;
-  box-shadow: 0 4px 10px #B3B4BD; /* Add shadow on hover */
+/* Form Controls Styling (Input fields and select dropdowns) */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: white;
+  color: #141619;
+  outline: none;
 }
+
+.form-control:focus {
+  border-color: #050A44;
+  box-shadow: 0 0 5px #050A44;
+}
+
+/* Button Styling */
+
+/* Payment Details */
+.payment-details {
+  background-color: white; /* Changed from black to white */
+  padding: 16px;
+  border-radius: 8px;
+  color: #141619; /* Change text color to dark gray for visibility */
+  margin-top: 16px;
+  border: 1px solid #B3B4BD; /* Optional: Add a light border for definition */
+}
+
+.payment-details p {
+  margin: 5px 0;
+}
+

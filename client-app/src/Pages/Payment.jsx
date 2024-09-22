@@ -1,7 +1,9 @@
 import React from 'react';
 import './CSS/Payment.css';
-const Payment = ({ block }) => {
+
+const Payment = ({ name, rollNo, block }) => {
   const messFee = 65000;
+
   const getFee = (block) => {
     switch (block) {
       case 'K-Block':
@@ -18,24 +20,46 @@ const Payment = ({ block }) => {
         return 0;
     }
   };
+
   const blockFee = getFee(block);
   const totalFee = blockFee + messFee;
 
+  const handleBackendSubmit = (name, rollNo, block, totalFee) => {
+    console.log('Submitting to backend:', { name, rollNo, block, totalFee });
+    // Example POST request (uncomment if necessary)
+    // fetch('/api/submitPayment', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ name, rollNo, block, totalFee }),
+    // }).then(response => response.json())
+    //   .then(data => {
+    //     console.log('Payment submitted:', data);
+    //   }).catch(error => console.error('Error:', error));
+  };
+
   const handlePayment = () => {
-    var options = {
-      key: 'rzp_test_SlFpcOAGhSBkgX', 
+    if (!name || !rollNo || !block) {
+      alert('Please fill all the details');
+      return;
+    }
+
+    const options = {
+      key: 'rzp_test_SlFpcOAGhSBkgX',
       key_secret: 'bpKEcQ4BZUpv4TQTVyyfG9WY',
-      amount: totalFee * 100,
+      amount: totalFee * 100, // Razorpay works with paise
       currency: 'INR',
       name: 'Hostel Fee Payment',
       description: 'for testing purpose',
       handler: function (response) {
-        alert(response.razorpay_payment_id);
+        alert('Payment successful! ID: ' + response.razorpay_payment_id);
+        handleBackendSubmit(name, rollNo, block, totalFee);
       },
       prefill: {
-        name: 'Monish Rajan',
-        email: 'spidy@123',
-        contact: '65371781821',
+        name,
+        email: 'spidy@123', // Replace with user's actual email if available
+        contact: '65371781821', // Replace with user's actual contact if available
       },
       notes: {
         address: 'Razorpay corporate office',
@@ -44,20 +68,15 @@ const Payment = ({ block }) => {
         color: '#3399cc',
       },
     };
-    var pay = new window.Razorpay(options);
+
+    const pay = new window.Razorpay(options);
     pay.open();
   };
 
   return (
-    <div className='payment-detail'>
-      <h3>Payment Details</h3>
-      <div className='payment-info'>
-        <p><strong>Selected Block:</strong> {block}</p>
-        <p><strong>Block Fee:</strong> Rs. {blockFee}</p>
-        <p><strong>Mess Fee:</strong> Rs. {messFee}</p>
-        <p><strong>Total Fee:</strong> Rs. {totalFee}</p>
-      </div>
-      <button onClick={handlePayment}>Proceed to Payment</button>
+    <div>
+      <p><strong>Fee:</strong> Rs. {totalFee}</p> {/* Displaying only total fee */}
+      <button className="btn1 btn-primary mt-3" onClick={handlePayment}>Proceed to Payment</button>
     </div>
   );
 };
