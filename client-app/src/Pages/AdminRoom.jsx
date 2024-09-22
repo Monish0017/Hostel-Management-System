@@ -3,6 +3,7 @@ import './CSS/AdminRoom.css';
 
 const RoomAllocation = () => {
   const [rooms, setRooms] = useState([]);
+  const [applications, setApplications] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [newRoom, setNewRoom] = useState({
     hostelName: '',
@@ -13,7 +14,8 @@ const RoomAllocation = () => {
     capacity: '',
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [studentRollNo, setStudentRollNo] = useState('');
+  const [showAddRoomForm, setShowAddRoomForm] = useState(false);
+  const [showApplications, setShowApplications] = useState(false);
 
   useEffect(() => {
     fetchRooms();
@@ -41,9 +43,36 @@ const RoomAllocation = () => {
     }
   };
 
+  const fetchApplications = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:3000/admin/applications', {
+        method: 'GET',
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Network response was not ok: ${errorText}`);
+      }
+      const data = await response.json();
+      setApplications(data);
+      setShowApplications(true);
+      setShowAddRoomForm(false);
+      setSelectedRoom(null);
+    } catch (error) {
+      console.error('Error fetching applications:', error);
+    }
+  };
+
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
     setIsEditing(false);
+    setShowAddRoomForm(false);
+    setShowApplications(false);
   };
 
   const handleFormChange = (e) => {
@@ -52,7 +81,9 @@ const RoomAllocation = () => {
   };
 
   const handleAddRoom = () => {
-    setIsEditing(true);
+    setShowAddRoomForm(true);
+    setSelectedRoom(null);
+    setShowApplications(false);
     setNewRoom({
       hostelName: '',
       blockName: '',
@@ -65,18 +96,10 @@ const RoomAllocation = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (isEditing && selectedRoom) {
-      await fetch(`/api/admin/rooms/${selectedRoom.roomNo}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('token'),
-        },
-        body: JSON.stringify(newRoom),
-      });
-      fetchRooms();
-    } else {
-      await fetch('/api/admin/rooms', {
+    const url = 'http://localhost:3000/admin/add-room';
+
+    try {
+      await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,23 +108,24 @@ const RoomAllocation = () => {
         body: JSON.stringify(newRoom),
       });
       fetchRooms();
+      setShowAddRoomForm(false);
+    } catch (error) {
+      console.error('Error adding room:', error);
     }
-    setIsEditing(false);
-    setSelectedRoom(null);
   };
 
-  const handleAssignRoom = async () => {
+  const handleAssignRoom = async (rollNo, applicationId) => {
     try {
-      await fetch('/api/admin/assign-room', {
+      const token = localStorage.getItem('token');
+      await fetch('http://localhost:3000/admin/assign-room', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('token'),
+          'x-auth-token': token,
         },
         body: JSON.stringify({
-          studentRollNo,
-          blockName: selectedRoom.blockName,
-          roomNo: selectedRoom.roomNo,
+          studentRollNo: rollNo,
+          applicationId,
         }),
       });
       alert('Student assigned successfully');
@@ -114,11 +138,12 @@ const RoomAllocation = () => {
 
   const handleRemoveStudent = async (studentRollNo) => {
     try {
-      await fetch('/api/admin/remove-student-from-room', {
+      const token = localStorage.getItem('token');
+      await fetch('http://localhost:3000/admin/remove-student-from-room', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('token'),
+          'x-auth-token': token,
         },
         body: JSON.stringify({ studentRollNo }),
       });
@@ -130,12 +155,13 @@ const RoomAllocation = () => {
     }
   };
 
-  const handleDeleteRoom = async (room) => {
+  const handleDeleteRoom = async (roomId) => {
     try {
-      await fetch(`/api/admin/rooms/${room.roomNo}`, {
+      const token = localStorage.getItem('token');
+      await fetch(`http://localhost:3000/admin/rooms/${roomId}`, {
         method: 'DELETE',
         headers: {
-          'x-auth-token': localStorage.getItem('token'),
+          'x-auth-token': token,
         },
       });
       fetchRooms();
@@ -145,20 +171,80 @@ const RoomAllocation = () => {
     }
   };
 
+  const handleVacateAllRooms = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await fetch('http://localhost:3000/admin/rooms/vacate-all', {
+        method: 'POST',
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+      alert('All rooms vacated successfully');
+      fetchRooms();
+    } catch (error) {
+      console.error('Error vacating rooms:', error);
+      alert('Failed to vacate rooms');
+    }
+  };
+
+  const handleBackToRooms = () => {
+    setSelectedRoom(null);
+    setShowAddRoomForm(false);
+    setShowApplications(false);
+  };
+
   return (
     <div className="room-allocation-container">
       <div className="top-right-button">
-        <button className="view-application-btn">View Application Forms</button>
+        <button className="view-application-btn" onClick={fetchApplications}>
+          View Application Forms
+        </button>
       </div>
 
       <h2>Room Allocation</h2>
-      <div className="room-actions">
-        <button className="action-btn" onClick={handleAddRoom}>Add Room</button>
-        <button className="action-btn" onClick={() => setIsEditing(false)}>Allocate Room (Based on Application)</button>
-      </div>
 
-      {selectedRoom ? (
+      {!selectedRoom && !showAddRoomForm && !showApplications ? (
+        <>
+          <div className="room-actions">
+            <button className="action-btn" onClick={handleAddRoom}>
+              Add Room
+            </button>
+            <button className="action-btn" onClick={fetchApplications}>
+              Allocate Room (Based on Application)
+            </button>
+          </div>
+
+          <div className="room-grid">
+            {rooms.length > 0 ? (
+              rooms.map((room) => (
+                <div
+                  key={room._id}
+                  className="room-box"
+                  onClick={() => handleRoomClick(room)}
+                >
+                  <p>{room.hostelName}</p>
+                  <p>{room.blockName}</p>
+                  <p>Room No: {room.roomNo}</p>
+                </div>
+              ))
+            ) : (
+              <p>No rooms available</p>
+            )}
+          </div>
+
+          {/* "Vacate All Rooms" button at the bottom of the room page */}
+          <div className="vacate-all-rooms-section">
+            <button className="vacate-all-btn" onClick={handleVacateAllRooms}>
+              Vacate All Rooms
+            </button>
+          </div>
+        </>
+      ) : selectedRoom ? (
         <div className="room-details">
+          <button className="back-btn" onClick={handleBackToRooms}>
+            Back to Rooms
+          </button>
           <h3>Room Details</h3>
           <p>Hostel Name: {selectedRoom.hostelName}</p>
           <p>Block Name: {selectedRoom.blockName}</p>
@@ -169,100 +255,109 @@ const RoomAllocation = () => {
 
           <h4>Students in this room:</h4>
           <ul>
-            {selectedRoom.students.map((student) => (
-              <li key={student.rollNo}>
-                {student.fullName} ({student.rollNo})
-                <button onClick={() => handleRemoveStudent(student.rollNo)}>Remove Student</button>
-              </li>
-            ))}
+            {selectedRoom.students.length > 0 ? (
+              selectedRoom.students.map((rollNo) => (
+                <li key={rollNo}>
+                  {rollNo}
+                  <button onClick={() => handleRemoveStudent(rollNo)}>
+                    Remove Student
+                  </button>
+                </li>
+              ))
+            ) : (
+              <p>No students in this room.</p>
+            )}
           </ul>
-
           <div className="room-details-actions">
-            <button className="edit-btn" onClick={() => setIsEditing(true)}>Modify</button>
-            <button className="delete-btn" onClick={() => handleDeleteRoom(selectedRoom)}>Delete</button>
+            <button className="delete-btn" onClick={() => handleDeleteRoom(selectedRoom._id)}>
+              Delete Room
+            </button>
           </div>
-
-          <h4>Assign Student to this room</h4>
-          <input
-            type="text"
-            placeholder="Student Roll No"
-            value={studentRollNo}
-            onChange={(e) => setStudentRollNo(e.target.value)}
-          />
-          <button onClick={handleAssignRoom}>Assign Room</button>
         </div>
-      ) : (
-        <div className="room-grid">
-          {rooms.length > 0 ? (
-            rooms.map((room, index) => (
-              <div key={index} className="room-box" onClick={() => handleRoomClick(room)}>
-                <p>{room.hostelName}</p>
-                <p>{room.blockName}</p>
-                <p>Room No: {room.roomNo}</p>
-              </div>
-            ))
+      ) : showAddRoomForm ? (
+        <div className="room-form">
+          <button className="back-btn" onClick={handleBackToRooms}>
+            Back to Rooms
+          </button>
+          <h3>{isEditing ? 'Modify Room' : 'Add Room'}</h3>
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="hostelName"
+              value={newRoom.hostelName}
+              placeholder="Hostel Name"
+              onChange={handleFormChange}
+              required
+            />
+            <input
+              type="text"
+              name="blockName"
+              value={newRoom.blockName}
+              placeholder="Block Name"
+              onChange={handleFormChange}
+              required
+            />
+            <input
+              type="text"
+              name="roomNo"
+              value={newRoom.roomNo}
+              placeholder="Room Number"
+              onChange={handleFormChange}
+              required
+            />
+            <input
+              type="text"
+              name="floor"
+              value={newRoom.floor}
+              placeholder="Floor"
+              onChange={handleFormChange}
+              required
+            />
+            <input
+              type="text"
+              name="roomType"
+              value={newRoom.roomType}
+              placeholder="Room Type"
+              onChange={handleFormChange}
+              required
+            />
+            <input
+              type="number"
+              name="capacity"
+              value={newRoom.capacity}
+              placeholder="Capacity"
+              onChange={handleFormChange}
+              required
+            />
+            <button type="submit">{isEditing ? 'Save' : 'Add Room'}</button>
+          </form>
+        </div>
+      ) : showApplications ? (
+        <div className="application-form-section">
+          <button className="back-btn" onClick={handleBackToRooms}>
+            Back to Rooms
+          </button>
+          <h3>Application Forms</h3>
+          {applications.length > 0 ? (
+            <div className="application-grid">
+              {applications.map((app) => (
+                <div key={app._id} className="application-box">
+                  <p>Student RollNo: {app.studentRollNo}</p>
+                  <p>Room Type: {app.roomType}</p>
+                  <p>Block: {app.blockName}</p>
+                  <button
+                    onClick={() => handleAssignRoom(app.studentRollNo, app._id)}
+                  >
+                    Allocate Room
+                  </button>
+                </div>
+              ))}
+            </div>
           ) : (
-            <p>No rooms available</p>
+            <p>No applications found</p>
           )}
         </div>
-      )}
-
-      {isEditing && (
-        <form onSubmit={handleFormSubmit} className="room-form">
-          <input
-            type="text"
-            name="hostelName"
-            placeholder="Hostel Name"
-            value={newRoom.hostelName}
-            onChange={handleFormChange}
-            required
-          />
-          <input
-            type="text"
-            name="blockName"
-            placeholder="Block Name"
-            value={newRoom.blockName}
-            onChange={handleFormChange}
-            required
-          />
-          <input
-            type="text"
-            name="roomNo"
-            placeholder="Room No"
-            value={newRoom.roomNo}
-            onChange={handleFormChange}
-            required
-          />
-          <input
-            type="text"
-            name="floor"
-            placeholder="Floor"
-            value={newRoom.floor}
-            onChange={handleFormChange}
-            required
-          />
-          <input
-            type="text"
-            name="roomType"
-            placeholder="Room Type (Single/Double/Triple)"
-            value={newRoom.roomType}
-            onChange={handleFormChange}
-            required
-          />
-          <input
-            type="number"
-            name="capacity"
-            placeholder="Capacity"
-            value={newRoom.capacity}
-            onChange={handleFormChange}
-            required
-          />
-          <button type="submit" className="submit-btn">
-            {selectedRoom ? 'Update Room' : 'Add Room'}
-          </button>
-          <button type="button" className="cancel-btn" onClick={() => setIsEditing(false)}>Cancel</button>
-        </form>
-      )}
+      ) : null}
     </div>
   );
 };
