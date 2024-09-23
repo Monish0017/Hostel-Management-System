@@ -259,7 +259,7 @@ const AdminRoom = () => {
               selectedRoom.students.map((rollNo) => (
                 <li key={rollNo}>
                   {rollNo}
-                  <button onClick={() => handleRemoveStudent(rollNo)}>
+                  <button className="rem-btn" onClick={() => handleRemoveStudent(rollNo)}>
                     Remove Student
                   </button>
                 </li>
@@ -329,7 +329,7 @@ const AdminRoom = () => {
               onChange={handleFormChange}
               required
             />
-            <button type="submit">{isEditing ? 'Save' : 'Add Room'}</button>
+            <button className="add" type="submit">{isEditing ? 'Save' : 'Add Room'}</button>
           </form>
         </div>
       ) : showApplications ? (

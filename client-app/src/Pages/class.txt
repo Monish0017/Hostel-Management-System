@@ -43,12 +43,12 @@ form-group
 form-actions
 
 Fee
-choose-container
-payment-receipt
+payment-container
+payment-detail
+form-group
 
 Payment 
-payment -detail
-payment-info
+pay-btn
 
 Information
 details
@@ -114,12 +114,11 @@ room-grid
 room-box
 room-details 
 room-details-actions
-edit-btn
+vacate-all-btn
 delete-btn
-btn-assign
 room-form 
-submit-btn
-cancel-btn
+add
+rem-btn
 
 
 

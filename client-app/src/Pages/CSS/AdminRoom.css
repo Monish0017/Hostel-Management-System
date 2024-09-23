@@ -92,39 +92,18 @@
   margin-top: 20px;
 }
 
-.edit-btn, .delete-btn {
+.delete-btn, .vacate-all-btn, .add, .rem-but{
   background-color: #0A21C0;
   color: white; 
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-.edit-btn:hover, .delete-btn:hover {
+.delete-btn:hover, .vacate-all-btn:hover, .add:hover, .rem-but:hover {
   transform: scale(1.05);
-}
-
-.room-details input[type="text"] {
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 2px solid #0A21C0;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.btn-assign {
-  background-color: #0A21C0;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-assign:hover {
-  background-color: #050A44; 
 }
 
 .room-form {
@@ -142,21 +121,4 @@
   border: 2px solid #B3B4BD; 
   border-radius: 5px;
   background-color: white;
-}
-
-.submit-btn, .cancel-btn {
-  background-color: #0A21C0;
-  color:white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.submit-btn:hover, .cancel-btn:hover {
-  transform: scale(1.05);
-}
-
-.cancel-btn {
-  margin-left: 10px;
 }

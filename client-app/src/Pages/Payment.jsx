@@ -91,7 +91,7 @@ const Payment = ({ rollNo, block }) => {
   return (
     <div>
       <p><strong>Fee:</strong> Rs. {totalFee}</p> {/* Displaying only total fee */}
-      <button className="btn1 btn-primary mt-3" onClick={handlePayment}>Proceed to Payment</button>
+      <button className="pay-btn" onClick={handlePayment}>Proceed to Payment</button>
     </div>
   );
 };

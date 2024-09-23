@@ -1,5 +1,5 @@
-/* Container for Fee Payment form */
-.fee-container {
+/* Container for Payment form */
+.payment-container {
   max-width: 500px;
   margin: 100px auto;
   background-color: white;
@@ -10,14 +10,14 @@
 }
 
 /* Headings Styling */
-.fee-container h2 {
+.payment-container h2 {
   color: #050A44;
   font-size: 24px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
-.fee-container p {
+.payment-container p {
   color: #141619;
   font-size: 20px;
   margin-bottom: 20px;
@@ -34,61 +34,17 @@
   margin-bottom: 8px;
 }
 
-.form-group select {
-  cursor: pointer;
+
+/* Payment Details */
+.payment-details {
+  background-color: white; /* Changed from black to white */
+  padding: 16px;
+  border-radius: 8px;
+  color: #141619; /* Change text color to dark gray for visibility */
+  margin-top: 16px;
+  border: 1px solid #B3B4BD; /* Optional: Add a light border for definition */
 }
 
-/* Form Controls Styling (Input fields and dropdowns) */
-.form-control {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  border: 1px solid black;
-  border-radius: 5px;
-  box-sizing: border-box;
-  background-color: white;
-  color: #141619;
-  outline: none;
-}
-
-.form-control:focus {
-  border-color: #050A44;
-  box-shadow: 0 0 5px #050A44;
-}
-
-/* Button Styling */
-.btn {
-  width: 100%;
-  padding: 12px;
-  font-size: 18px;
-  background-color: #0A21C0;
-  color: white;
-  border: 2px solid #050A44;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #050A44;
-  color: white;
-}
-
-/* Success and Error Messages */
-.alert {
-  margin-top: 20px;
-  padding: 15px;
-  font-size: 16px;
-  border-radius: 5px;
-}
-
-.alert-success {
-  background-color: #56596c;
-  color: white;
-}
-
-.alert-danger {
-  background-color: #B3B4BD;
-  color: black;
+.payment-details p {
+  margin: 5px 0;
 }
