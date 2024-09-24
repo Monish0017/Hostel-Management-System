@@ -164,16 +164,25 @@ const assignRoom = async (req, res) => {
   const { studentRollNo, applicationId } = req.body;
   
   try {
+    // Find the application
     const application = await Application.findById(applicationId);
     if (!application) {
       return res.status(404).json({ message: 'Application not found' });
     }
 
+    // Find the student by roll number
     const student = await Student.findOne({ rollNo: studentRollNo });
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
+    // Check if the student's payment is completed
+    const payment = await Payment.findOne({ studentrollNo: studentRollNo, status: 'paid' });
+    if (!payment) {
+      return res.status(400).json({ message: 'Payment not completed. Room cannot be assigned.' });
+    }
+
+    // Find a room matching the block name and room type (capacity)
     const room = await Room.findOne({
       blockName: application.blockName,
       capacity: application.roomType,
@@ -183,33 +192,44 @@ const assignRoom = async (req, res) => {
       return res.status(404).json({ message: 'Room not found' });
     }
 
+    // Check if the room has space available
     if (room.students.length >= room.capacity) {
       return res.status(400).json({ message: 'Room is full' });
     }
 
-    // Assign the rollNo to the room's students array
+    // Assign the student roll number to the room
     room.students.push(student.rollNo);
     await room.save();
 
-    student.room = room._id; // Keep the room reference in Student for possible future use
+    // Link the room to the student
+    student.room = room._id;
     await student.save();
 
+    // Check if there are preferred roommates and assign them if they have completed payment
     const preferredRoommatesRollNos = application.preferredRoommatesRollNos || [];
     const preferredRoommates = await Student.find({ rollNo: { $in: preferredRoommatesRollNos } });
 
     for (const roommate of preferredRoommates) {
-      if (!room.students.includes(roommate.rollNo)) {
-        room.students.push(roommate.rollNo);
-        await room.save();
+      // Check if the roommate has paid the fees
+      const roommatePayment = await Payment.findOne({ studentrollNo: roommate.rollNo, status: 'paid' });
+      
+      if (roommatePayment) { // Only assign the roommate if they have paid
+        if (!room.students.includes(roommate.rollNo)) {
+          room.students.push(roommate.rollNo);
+          await room.save();
 
-        roommate.room = room._id;
-        await roommate.save();
+          roommate.room = room._id;
+          await roommate.save();
+        }
+      } else {
+        console.log(`Preferred roommate ${roommate.rollNo} has not completed payment.`);
       }
     }
-
+    
+    // Delete the application once the room is successfully assigned
     await Application.deleteOne({ _id: applicationId });
 
-    res.status(200).json({ message: 'Student and preferred roommates assigned to room successfully and application cleared' });
+    res.status(200).json({ message: 'Student and preferred roommates assigned to room successfully (if payments are completed) and application cleared' });
   } catch (error) {
     console.error('Error assigning room:', error);
     res.status(500).json({ error: 'Server error' });

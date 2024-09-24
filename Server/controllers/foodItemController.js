@@ -1,20 +1,34 @@
-// controllers/foodItemController.js
 const FoodItem = require('../models/FoodItem');
 
 // Add a food item (Admin)
 exports.addFoodItem = async (req, res) => {
     try {
+        console.log("Request Body:", req.body);
+        console.log("Uploaded File:", req.file);
+
         const { name, availableDays } = req.body;
-        const imagePath = req.file ? `/Assets/${req.file.originalname}` : null;
+
+        // Check for necessary fields
+        if (!name || !availableDays) {
+            return res.status(400).json({ error: 'Name and availableDays are required' });
+        }
+
+        const imagePath = req.file ? `/Assets/${req.file.filename}` : null;
 
         if (!imagePath) {
             return res.status(400).json({ error: 'Image is required' });
         }
 
-        const newFoodItem = new FoodItem({ name, image: imagePath, availableDays });
+        // Parse availableDays if it is a JSON string
+        const parsedAvailableDays = typeof availableDays === 'string' ? JSON.parse(availableDays) : availableDays;
+
+        // Create new food item
+        const newFoodItem = new FoodItem({ name, image: imagePath, availableDays: parsedAvailableDays });
         await newFoodItem.save();
+
         res.status(201).json(newFoodItem);
     } catch (error) {
+        console.error('Error occurred while adding food item:', error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 };

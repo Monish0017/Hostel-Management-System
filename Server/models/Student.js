@@ -48,9 +48,9 @@ const studentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room'
   },
-  payments: {
+  payment: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Payment'
+    ref: 'Payment' // This will hold a single payment reference
   }
 });
 

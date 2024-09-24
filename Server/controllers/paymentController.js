@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 
 exports.submitPayment = async (req, res) => {
   try {
-    
-    const { rollNo , amount, status } = req.body;
+    const { rollNo, amount, status } = req.body;
 
+    // Find the student by roll number
     const student = await Student.findOne({ rollNo });
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
@@ -31,8 +31,13 @@ exports.submitPayment = async (req, res) => {
 
     const savedPayment = await payment.save();
 
+    student.payment = savedPayment._id; // Store the payment reference
+    await student.save();
+
+
     res.status(201).json(savedPayment);
   } catch (error) {
+    console.error('Error processing payment:', error);
     res.status(500).json({ message: error.message });
   }
 };

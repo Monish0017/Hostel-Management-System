@@ -65,6 +65,36 @@ exports.cancelFoodToken = async (req, res) => {
     }
 };
 
+// Clear food tokens based on token ID
+exports.clearTokens = async (req, res) => {
+    try {
+        const { tokenId } = req.body;
+
+        // Check if tokenId is provided
+        if (!tokenId) {
+            return res.status(400).json({ message: 'Token ID is required' });
+        }
+
+        // Validate tokenId format
+        if (!mongoose.Types.ObjectId.isValid(tokenId)) {
+            return res.status(400).json({ message: 'Invalid Token ID format' });
+        }
+
+        // Delete the token from the database
+        const result = await FoodToken.deleteOne({ _id: tokenId });
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'Token not found' });
+        }
+
+        res.status(200).json({ message: 'Token cleared successfully' });
+    } catch (err) {
+        console.error('Error clearing tokens:', err);
+        res.status(500).json({ message: 'Error clearing tokens', error: err.message || 'Unknown error' });
+    }
+};
+
+
 // Generate QR code for a food token
 exports.generateQRCode = async (req, res) => {
     try {

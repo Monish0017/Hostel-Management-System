@@ -21,7 +21,10 @@ router.get('/student/tokens', auth, foodTokenControllers.getStudentTokens);
 // Utility route (may be set as a cron job)
 router.delete('/cleanup-expired-tokens', authAdmin, foodTokenControllers.cleanupExpiredTokens);
 
-//Admin token validation
+// Admin token validation
 router.post('/admin/food-token/validate', auth, foodTokenControllers.adminValidateToken);
+
+// Route for clearing tokens
+router.post('/admin/clear-tokens', authAdmin, foodTokenControllers.clearTokens); // Add this line
 
 module.exports = router;
