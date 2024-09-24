@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
 import './CSS/StudentHome.css'; // Ensure the correct relative path
 import AdminRoom from './AdminRoom';
+import AdminFood from './AdminFood';
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ const AdminHome = () => {
         return <StudentDetails />;
       case 'Room':
         return <AdminRoom/>
+      case 'AFood':
+        return <AdminFood/>
       default:
         return null;
     }
