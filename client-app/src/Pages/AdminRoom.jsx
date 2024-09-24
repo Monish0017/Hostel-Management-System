@@ -345,7 +345,7 @@ const AdminRoom = () => {
                   <p>Student RollNo: {app.studentRollNo}</p>
                   <p>Room Type: {app.roomType}</p>
                   <p>Block: {app.blockName}</p>
-                  <button
+                  <button className='allocate-btn'
                     onClick={() => handleAssignRoom(app.studentRollNo, app._id)}
                   >
                     Allocate Room

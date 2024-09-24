@@ -82,6 +82,7 @@ const FoodTokenPage = () => {
 
   const handleGenerateQRCode = async (tokenId) => {
     try {
+      document.getElementById("qr").scrollIntoView();
       const response = await axios.get(
         `http://localhost:3000/food/student/food-token/${tokenId}/qrcode`,
         { headers: { 'x-auth-token': authToken } }
@@ -94,6 +95,12 @@ const FoodTokenPage = () => {
       setModalIsOpen(true);
     }
   };
+
+
+   // Get tomorrow's date in the format YYYY-MM-DD
+   const tomorrow = new Date();
+   tomorrow.setDate(tomorrow.getDate() + 1);
+   const minDate = tomorrow.toISOString().split("T")[0];
 
   return (
     <div className="food-token-page">
@@ -125,6 +132,7 @@ const FoodTokenPage = () => {
           type="date"
           value={bookingDate}
           onChange={(e) => setBookingDate(e.target.value)}
+          min={minDate} // Setting min to tomorrow's date
           className="input-field"
         />
         <button onClick={handleBookToken} className="book-button">Book Token</button>
@@ -137,11 +145,15 @@ const FoodTokenPage = () => {
             {tokens.map((token) => (
               <li key={token._id} className="token-item">
                 <span>
-                  Token ID: {token._id}, Food Item: {token.foodItemName}, Quantity: {token.quantity}, Booking Date: {token.bookingDate}
+                  <p>Token ID: {token._id} </p>
+                  <p>Food Item: {token.foodItemName}</p>
+                  <p>Quantity: {token.quantity}</p> 
+                  <p>Booking Date: {token.bookingDate}</p>
+                  <button onClick={() => handleCancelToken(token._id)} className="cancel-button">Cancel Token</button>
+                  <button onClick={() => handleGenerateQRCode(token._id)} className="qr-button">Generate QR Code</button>
                 </span>
-                <button onClick={() => handleCancelToken(token._id)} className="cancel-button">Cancel Token</button>
-                <button onClick={() => handleGenerateQRCode(token._id)} className="qr-button">Generate QR Code</button>
               </li>
+              
             ))}
           </ul>
         ) : (
@@ -150,7 +162,7 @@ const FoodTokenPage = () => {
       </div>
 
       <div className="qr-code">
-        <h2>QR Code</h2>
+        <h2 id="qr">QR Code</h2>
         {qrCode ? <img src={qrCode} alt="QR Code" /> : <p>No QR code generated yet.</p>}
       </div>
 

@@ -196,7 +196,7 @@ const AdminFood = () => {
       </div>
 
       {/* QR Scanner Button */}
-      <button onClick={handleScannerToggle}>
+      <button className="qr-btn" onClick={handleScannerToggle}>
         {showScanner ? 'Close Scanner' : 'Scan QR'}
       </button>
 
@@ -206,10 +206,10 @@ const AdminFood = () => {
         </div>
       )}
 
-      <ul className="food-list">
+      <div className="food-list">
         {foodItems.length > 0 ? (
           foodItems.map((item) => (
-            <li key={item._id}>
+            <ul key={item._id}>
               <span>{item.name}</span>
               <img 
                 src={`${serverBaseUrl}${item.image}`} 
@@ -220,12 +220,12 @@ const AdminFood = () => {
                 Available Days: {item.availableDays.join(', ')}
               </div>
               <button onClick={() => handleDeleteFoodItem(item._id)}>Delete</button>
-            </li>
+            </ul>
           ))
         ) : (
           <p>No food items available.</p>
         )}
-      </ul>
+      </div>
     </div>
   );
 };

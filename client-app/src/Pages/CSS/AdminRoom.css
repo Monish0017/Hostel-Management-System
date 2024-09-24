@@ -72,7 +72,7 @@
   background-color: #050A44; 
 }
 
-.room-details {
+.room-details, .application-grid {
   background-color: white; 
   padding: 20px;
   border-radius: 10px;
@@ -82,7 +82,7 @@
 }
 
 
-.room-details p {
+.room-details p,  .application-grid p {
   margin: 5px 0;
 }
 
@@ -92,7 +92,7 @@
   margin-top: 20px;
 }
 
-.delete-btn, .vacate-all-btn, .add, .rem-but{
+.delete-btn, .vacate-all-btn, .add, .rem-but, .allocate-btn{
   background-color: #0A21C0;
   color: white; 
   border: none;
@@ -102,7 +102,7 @@
   margin-top: 20px;
 }
 
-.delete-btn:hover, .vacate-all-btn:hover, .add:hover, .rem-but:hover {
+.delete-btn:hover, .vacate-all-btn:hover, .add:hover, .rem-but:hover, .allocate-btn:hover {
   transform: scale(1.05);
 }
 

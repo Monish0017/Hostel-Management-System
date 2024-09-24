@@ -1,17 +1,9 @@
 /* General styles */
-
-
 .food-token-page h1 {
   color: #141619;
   text-align:center;
   padding: 20px;
 }
-
-.tokens-list ul {
-  list-style-type: none;
-  padding: 0;
-}
-
 
 .food-item {
   background-color: white;
@@ -90,11 +82,12 @@
 /* Tokens list */
 .tokens-list ul {
   max-width: 600px;
-  margin: 0 auto;
+  margin-left: 0px;
 }
 
 .token-item {
-  background-color: white;
+  background-color: #56596c;
+  color: white;
   padding: 15px;
   border-radius: 8px;
   border: 1px solid #B3B4BD;
@@ -104,7 +97,23 @@
   align-items: center;
 }
 
-.token-item button {
+.cancel-button {
+  padding: 8px 12px;
+  margin-left: 0px;
+  background-color: #050A44;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid #050A44;
+}
+
+.qr-button {
   padding: 8px 12px;
   margin-left: 10px;
   background-color: #0A21C0;
@@ -114,21 +123,13 @@
   cursor: pointer;
 }
 
-.token-item button:hover {
+.qr-button:hover {
   background-color: white;
   color: black;
   border: 2px solid #0A21C0;
 }
 
-.token-item button:nth-child(2) {
-  background-color: #050A44;
-}
 
-.token-item button:nth-child(2):hover {
-  background-color: white;
-  color: black;
-  border: 2px solid #050A44;
-}
 
 /* QR Code section */
 .qr-code {

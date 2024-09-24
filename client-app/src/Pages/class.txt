@@ -103,6 +103,8 @@ admin-food
 add-food
 error-food
 available-days
+qr-btn
+food-image
 
 AdminRoom
 room-allocation-container
@@ -119,6 +121,7 @@ delete-btn
 room-form 
 add
 rem-btn
+allocate-btn
 
 
 
