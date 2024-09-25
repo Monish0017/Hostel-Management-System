@@ -15,7 +15,7 @@ const AdminFood = () => {
 
   const token = localStorage.getItem('token');
   const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
-
+  
   // Fetch all food items (admin only)
   const fetchFoodItems = async () => {
     try {
