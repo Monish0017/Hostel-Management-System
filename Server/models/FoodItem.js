@@ -14,6 +14,10 @@ const foodItemSchema = new mongoose.Schema({
     enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     required: true,
   },
+  price: {
+    type: Number, // Price of the food item
+    required: true, // Make it a required field
+  },
 });
 
 module.exports = mongoose.model('FoodItem', foodItemSchema);

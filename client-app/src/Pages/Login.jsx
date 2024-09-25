@@ -24,7 +24,6 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log('Login response data:', data); // Ensure token is correct
       localStorage.setItem('token', data.token); // Use the correct key here
       navigate('/home/profile');
     } catch (error) {

@@ -62,6 +62,7 @@ const StudentProfile = () => {
           <div className="general-info">
             <h3>General Information</h3>
             <p><strong>Roll No:</strong> {profileData.rollNo}</p>
+            <p><strong>Amount :</strong> {profileData.amount}</p>
             <p><strong>Father's Name:</strong> {profileData.fatherName}</p>
             <p><strong>Email:</strong> {profileData.email}</p>
             <p><strong>Contact Phone:</strong> {profileData.contactPhone}</p>

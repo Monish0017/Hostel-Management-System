@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CSS/LandingPage.css'; // You can add styles here
+import Fee from './Fee';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const LandingPage = () => {
           <button onClick={() => navigate('/apply')} className="top-btn">
             Student Application
           </button>
-          <button onClick={() => navigate('/home/fee')} className="top-btn">
+          <button onClick={() => navigate('/fee')} className="top-btn">
             Make Payment
           </button>
         </div>

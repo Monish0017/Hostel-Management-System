@@ -41,3 +41,33 @@ exports.submitPayment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.submitPaymentInitial = async (req, res) => {
+  try {
+    const { rollNo, amount, status } = req.body;
+
+    // Check if the student has already paid the fees
+    const existingPayment = await Payment.findOne({
+      studentrollNo: rollNo, // Use rollNo instead of student._id
+      status: 'paid'
+    });
+
+    if (existingPayment) {
+      return res.status(400).json({ message: 'Fees already paid by the student' });
+    }
+
+    // Create a new payment
+    const payment = new Payment({
+      studentrollNo: rollNo, // Store rollNo directly
+      amount,
+      status: status || 'pending',
+    });
+
+    const savedPayment = await payment.save();
+
+    res.status(201).json(savedPayment);
+  } catch (error) {
+    console.error('Error processing payment:', error);
+    res.status(500).json({ message: error.message });
+  }
+};

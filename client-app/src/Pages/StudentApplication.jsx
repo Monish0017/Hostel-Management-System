@@ -1,30 +1,128 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './CSS/StudentApplication.css';
 import profile from '../assets/profile.jpg';
 
-
 const StudentApplication = () => {
+  const [applications, setApplications] = useState([]);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  // Fetch student applications from the backend
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/application/getstudent', {
+          headers: {
+            'x-auth-token': localStorage.getItem('token'), // Assuming you have token stored in localStorage
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch applications');
+        }
+
+        const data = await response.json();
+        setApplications(data.applications); // Update state with fetched applications
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchApplications();
+  }, []);
+
+  const handleConfirmAll = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/application/process', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage.getItem('token'),
+        },
+      });
+      
+      console.log(response);
+      if (!response.ok) {
+        throw new Error('Failed to confirm students');
+      }
+  
+      const data = await response.json();
+  
+      // Ensure confirmedRollNos is defined and is an array
+      const confirmedRollNos = data.confirmedRollNos || [];
+  
+      setSuccessMessage(data.message);
+  
+      // Refetch applications to update the UI
+      setApplications((prevApplications) => 
+        prevApplications.filter(app => !confirmedRollNos.includes(app.rollNo))
+      );
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  
+  const handleDeleteUnpaid = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/application/cleanup', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage.getItem('token'),
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to delete unpaid applications');
+      }
+  
+      const data = await response.json();
+  
+      // Ensure deletedRollNos is defined and is an array
+      const deletedRollNos = data.deletedRollNos || [];
+  
+      setSuccessMessage(data.message);
+  
+      // Refetch applications to update the UI
+      setApplications((prevApplications) => 
+        prevApplications.filter(app => !deletedRollNos.includes(app.rollNo))
+      );
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  
   return (
     <div className="student-app-container">
-      <h1>Student Application</h1>
-      <div className="button-group">
-        <button className="confirm-button">Confirm Student</button>
-        <button className="delete-button">Delete Student</button>
-      </div>
+      <h1>Student Applications</h1>
+
+      {error && <p className="error">{error}</p>}
+      {successMessage && <p className="success">{successMessage}</p>}
+
       <div className="student-grid">
-              <div className="student-box">
-                <img src={profile} alt="Profile" className="profile-picture"/>
-                <p>Full Name: Monish</p>
-                <p>Roll No: 22z240</p>
-              </div>
-              <div className="student-box">
-                <img src={profile} alt="Profile" className="profile-picture"/>
-                <p>Full Name: Kabhinya</p>
-                <p>Roll No: 22z229</p>
-              </div>
-        </div>
+        {applications.length === 0 ? (
+          <p>No student applications found</p>
+        ) : (
+          applications.map((application) => (
+            <div key={application.rollNo} className="student-application">
+              <img src={profile} alt="Profile" className="profile-picture" />
+              <p>Full Name: {application.fullName}</p>
+              <p>Roll No: {application.rollNo}</p>
+            </div>
+          ))
+        )}
+      </div>
+
+      <div className="button-group">
+        <button className="confirm-button" onClick={handleConfirmAll}>
+          Confirm All Paid Students
+        </button>
+        <button className="delete-button" onClick={handleDeleteUnpaid}>
+          Delete All Unpaid Applications
+        </button>
+      </div>
     </div>
   );
-}
+};
 
 export default StudentApplication;

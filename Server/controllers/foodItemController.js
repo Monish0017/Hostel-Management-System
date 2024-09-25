@@ -8,11 +8,11 @@ exports.addFoodItem = async (req, res) => {
         console.log("Request Body:", req.body);
         console.log("Uploaded File:", req.file);
 
-        const { name, availableDays } = req.body;
+        const { name, availableDays, price } = req.body; // Include price in destructuring
 
         // Check for necessary fields
-        if (!name || !availableDays) {
-            return res.status(400).json({ error: 'Name and availableDays are required' });
+        if (!name || !availableDays || !price) {
+            return res.status(400).json({ error: 'Name, availableDays, and price are required' });
         }
 
         if (!req.file) {
@@ -35,7 +35,8 @@ exports.addFoodItem = async (req, res) => {
         const newFoodItem = new FoodItem({
             name,
             image: downloadURL,  // Store the Firebase download URL
-            availableDays: parsedAvailableDays
+            availableDays: parsedAvailableDays,
+            price: parseFloat(price) // Convert price to a number and store it
         });
 
         await newFoodItem.save();
@@ -51,7 +52,12 @@ exports.addFoodItem = async (req, res) => {
 exports.deleteFoodItem = async (req, res) => {
     try {
         const { id } = req.params;
-        await FoodItem.findByIdAndDelete(id);
+        const deletedFoodItem = await FoodItem.findByIdAndDelete(id);
+        
+        if (!deletedFoodItem) {
+            return res.status(404).json({ error: 'Food item not found' });
+        }
+        
         res.status(200).json({ message: 'Food item deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });

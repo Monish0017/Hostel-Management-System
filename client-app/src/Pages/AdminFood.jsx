@@ -7,6 +7,7 @@ const AdminFood = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [foodItemName, setFoodItemName] = useState('');
   const [foodItemImage, setFoodItemImage] = useState(null);
+  const [foodItemPrice, setFoodItemPrice] = useState(''); // New state for food item price
   const [selectedDays, setSelectedDays] = useState([]);
   const [error, setError] = useState(null);
   const [qrData, setQrData] = useState(null); // Store scanned QR data
@@ -15,7 +16,7 @@ const AdminFood = () => {
 
   const token = localStorage.getItem('token');
   const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
-  
+
   // Fetch all food items (admin only)
   const fetchFoodItems = async () => {
     try {
@@ -54,6 +55,7 @@ const AdminFood = () => {
       const formData = new FormData();
       formData.append('name', foodItemName);
       formData.append('image', foodItemImage);
+      formData.append('price', foodItemPrice); // Add the price here
       formData.append('availableDays', JSON.stringify(selectedDays));
 
       await axios.post(`${serverBaseUrl}/food/admin/food-item`, formData, {
@@ -65,6 +67,7 @@ const AdminFood = () => {
       // Clear the input fields
       setFoodItemName('');
       setFoodItemImage(null);
+      setFoodItemPrice(''); // Clear the price input
       setSelectedDays([]);
       fetchFoodItems(); // Refresh the food items list
     } catch (error) {
@@ -178,6 +181,12 @@ const AdminFood = () => {
           type="file"
           onChange={(e) => setFoodItemImage(e.target.files[0])}
         />
+        <input
+          type="number"
+          value={foodItemPrice}
+          onChange={(e) => setFoodItemPrice(e.target.value)}
+          placeholder="Enter price for food item"
+        />
         <div className="available-days">
           <label>Select Available Days:</label>
           {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
@@ -194,38 +203,28 @@ const AdminFood = () => {
         </div>
         <button onClick={handleAddFoodItem}>Add Food Item</button>
       </div>
-
-      {/* QR Scanner Button */}
-      <button className="qr-btn" onClick={handleScannerToggle}>
-        {showScanner ? 'Close Scanner' : 'Scan QR'}
-      </button>
-
-      {showScanner && (
-        <div className="qr-scanner">
-          <div id="reader" style={{ width: '100%' }} /> {/* QR Code Reader container */}
-        </div>
-      )}
-
       <div className="food-list">
-        {foodItems.length > 0 ? (
-          foodItems.map((item) => (
-            <ul key={item._id}>
-              <span>{item.name}</span>
-              <img 
+        {foodItems.map((item) => (
+          <div key={item._id} className="food-item">
+            <h4>{item.name}</h4>
+            <img        
                 src={item.image} // Using the image URL directly from Firebase
                 alt={item.name} 
                 className="food-image" 
               />
-              <div>
-                Available Days: {item.availableDays.join(', ')}
-              </div>
-              <button onClick={() => handleDeleteFoodItem(item._id)}>Delete</button>
-            </ul>
-          ))
-        ) : (
-          <p>No food items available.</p>
-        )}
+            <div>
+              Price: ${item.price} {/* Displaying the price */}
+            </div>
+            <div>Available Days: {item.availableDays.join(', ')}</div>
+            <button onClick={() => handleDeleteFoodItem(item._id)}>Delete</button>
+          </div>
+        ))}
       </div>
+      <button onClick={handleScannerToggle}>
+        {showScanner ? 'Stop Scanner' : 'Start Scanner'}
+      </button>
+      {showScanner && <div id="reader" style={{ width: '250px' }}></div>}
+      {qrData && <div>Scanned Data: {qrData}</div>}
     </div>
   );
 };

@@ -216,6 +216,7 @@ const StudentDetails = () => {
           <p>Full Name: {selectedStudent.fullName}</p>
           <p>Email: {selectedStudent.email}</p>
           <p>Roll No: {selectedStudent.rollNo}</p>
+          <p>Amount: {selectedStudent.amount}</p>
           <p>Contact Phone: {selectedStudent.contactPhone}</p>
           <p>Programme: {selectedStudent.programme}</p>
           <p>Class Year: {selectedStudent.classYear}</p>
