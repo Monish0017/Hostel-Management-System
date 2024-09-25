@@ -21,7 +21,7 @@ const LandingPage = () => {
           <button onClick={() => navigate('/apply')} className="top-btn">
             Student Application
           </button>
-          <button onClick={() => navigate('/payment')} className="top-btn">
+          <button onClick={() => navigate('/home/fee')} className="top-btn">
             Make Payment
           </button>
         </div>
