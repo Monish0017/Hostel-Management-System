@@ -1,44 +1,50 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const path = require('path');
+    const express = require('express');
+    const mongoose = require('mongoose');
+    const bodyParser = require('body-parser');
+    const dotenv = require('dotenv');
+    const cors = require('cors');
+    const path = require('path');
 
-dotenv.config();
+    // Load environment variables
+    dotenv.config();
 
-const app = express();
-const port = process.env.PORT || 3000;
+    const app = express();
+    const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+    // Middleware
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true })); // Ensure this is true or false based on your need
+    app.use(cors());
 
-// Use CORS middleware
-app.use(cors());
+    // MongoDB Connection
+    mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then(() => console.log('MongoDB connected...'))
+        .catch(err => console.log(err));
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected...'))
-  .catch(err => console.log(err));
+    // Serve static files
+    app.use('/Assets', express.static(path.join(__dirname, 'Assets')));
 
-app.use('/Assets', express.static(path.join(__dirname, 'Assets')));
-// Import routes
-const studentRoutes = require('./routes/studentRoutes');//Over
-const foodRoutes = require('./routes/foodRoutes');
-const facultyRoutes = require('./routes/facultyRoutes');
-const authRoutes = require('./routes/authRoutes');
-const adminRoutes = require('./routes/adminRoutes'); // Add this line
-const applicationRoutes = require('./routes/applicationRoutes');
-const paymentRoutes = require('./routes/paymentRoutes');
+    // Importing routes
+    const studentRoutes = require('./routes/studentRoutes');
+    const foodRoutes = require('./routes/foodRoutes');
+    const facultyRoutes = require('./routes/facultyRoutes');
+    const authRoutes = require('./routes/authRoutes');
+    const adminRoutes = require('./routes/adminRoutes');
+    const applicationRoutes = require('./routes/applicationRoutes');
+    const paymentRoutes = require('./routes/paymentRoutes');
+    // const ivrsRoutes = require('./routes/ivrsRoutes');
 
-// Use routes
-app.use('/students', studentRoutes);
-app.use('/food', foodRoutes);
-app.use('/faculty', facultyRoutes);
-app.use('/auth', authRoutes);
-app.use('/admin', adminRoutes); // Add this line
-app.use('/api', applicationRoutes);
-app.use('/payments' , paymentRoutes);
+    // Use routes
+    app.use('/students', studentRoutes);
+    app.use('/food', foodRoutes);
+    app.use('/faculty', facultyRoutes);
+    app.use('/auth', authRoutes);
+    app.use('/admin', adminRoutes);
+    app.use('/api', applicationRoutes);
+    app.use('/payments', paymentRoutes);
+    // app.use('/api/ivrs', ivrsRoutes);
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+    // Start the server
+    app.listen(port, '0.0.0.0', () => {
+        console.log(`Server running on port ${port}`);
+    });

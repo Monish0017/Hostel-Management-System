@@ -160,9 +160,10 @@ const allocateRooms = async (req, res) => {
   }
 };
 
+
 const assignRoom = async (req, res) => {
   const { studentRollNo, applicationId } = req.body;
-  
+
   try {
     // Find the application
     const application = await Application.findById(applicationId);
@@ -182,19 +183,18 @@ const assignRoom = async (req, res) => {
       return res.status(400).json({ message: 'Payment not completed. Room cannot be assigned.' });
     }
 
-    // Find a room matching the block name and room type (capacity)
-    const room = await Room.findOne({
-      blockName: application.blockName,
-      capacity: application.roomType,
-    });
+    // Find a room matching the block name and room type (capacity) with available space
+    let room;
+    do {
+      room = await Room.findOne({
+        blockName: application.blockName,
+        capacity: application.roomType,
+        students: { $lt: ["$capacity"] }  // Ensures the room has less students than its capacity
+      });
+    } while (room && room.students.length >= room.capacity);
 
     if (!room) {
-      return res.status(404).json({ message: 'Room not found' });
-    }
-
-    // Check if the room has space available
-    if (room.students.length >= room.capacity) {
-      return res.status(400).json({ message: 'Room is full' });
+      return res.status(404).json({ message: 'No available rooms found' });
     }
 
     // Assign the student roll number to the room
@@ -225,7 +225,7 @@ const assignRoom = async (req, res) => {
         console.log(`Preferred roommate ${roommate.rollNo} has not completed payment.`);
       }
     }
-    
+
     // Delete the application once the room is successfully assigned
     await Application.deleteOne({ _id: applicationId });
 

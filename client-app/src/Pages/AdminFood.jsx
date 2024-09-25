@@ -212,7 +212,7 @@ const AdminFood = () => {
             <ul key={item._id}>
               <span>{item.name}</span>
               <img 
-                src={`${serverBaseUrl}${item.image}`} 
+                src={item.image} // Using the image URL directly from Firebase
                 alt={item.name} 
                 className="food-image" 
               />
