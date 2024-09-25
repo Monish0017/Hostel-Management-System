@@ -8,13 +8,21 @@ const LandingPage = () => {
   return (
     <>
       <div className="landing-page">
-        <h1>Welcome to  Hostel Management System</h1>
+        <h1>Welcome to Hostel Management System</h1>
         <div className="button-container">
           <button onClick={() => navigate('/login')} className="btn">
             Login as Student
           </button>
           <button onClick={() => navigate('/adminLogin')} className="btn">
             Login as Admin
+          </button>
+        </div>
+        <div className="top-buttons">
+          <button onClick={() => navigate('/apply')} className="top-btn">
+            Student Application
+          </button>
+          <button onClick={() => navigate('/payment')} className="top-btn">
+            Make Payment
           </button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const studentSchema = new mongoose.Schema({
+const studentApplicationSchema = new mongoose.Schema({
   fullName: {
     type: String,
     required: true
@@ -9,10 +9,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  },
-  password: {
-    type: String,
-    required: true
   },
   rollNo: {
     type: String,
@@ -39,22 +35,15 @@ const studentSchema = new mongoose.Schema({
     required: true
   },
   primaryMobileNumber: {
-    type: String,
+    type: String
   },
   secondaryMobileNumber: {
-    type: String,
+    type: String
   },
-  amount: {
-    type: String,
-  },
-  room: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Room'
-  },
-  payment: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Payment' // This will hold a single payment reference
+  paymentStatus: {
+    type: Boolean,
+    default: false // This will track if the payment has been made or not
   }
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model('Student', studentSchema);
+module.exports = mongoose.model('StudentApplication', studentApplicationSchema);

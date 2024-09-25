@@ -32,6 +32,7 @@
     const adminRoutes = require('./routes/adminRoutes');
     const applicationRoutes = require('./routes/applicationRoutes');
     const paymentRoutes = require('./routes/paymentRoutes');
+    const studentApplicationRoutes = require('./routes/stduentApplicationRoutes');
     // const ivrsRoutes = require('./routes/ivrsRoutes');
 
     // Use routes
@@ -42,6 +43,7 @@
     app.use('/admin', adminRoutes);
     app.use('/api', applicationRoutes);
     app.use('/payments', paymentRoutes);
+    app.use('/application',studentApplicationRoutes);
     // app.use('/api/ivrs', ivrsRoutes);
 
     // Start the server
