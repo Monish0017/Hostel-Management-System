@@ -161,16 +161,15 @@ const allocateRooms = async (req, res) => {
 };
 
 const manualAssignStudentToRoom = async (req, res) => {
-  const { studentRollNo, blockName, roomNo } = req.body;
+  const { rollNo, blockName, roomNo } = req.body;
 
   try {
     // Find the student by roll number
-    console.log(studentRollNo);
-    const student = await Student.findOne({ rollNo: studentRollNo });
+    const student = await Student.findOne({ rollNo: rollNo });
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
-    console.log('1');
+
     // Find the room by blockName and roomNo
     const room = await Room.findOne({ blockName, roomNo });
     if (!room) {
@@ -201,7 +200,7 @@ const manualAssignStudentToRoom = async (req, res) => {
     student.room = room._id;
     await student.save();
 
-    res.status(200).json({ message: `Student ${studentRollNo} assigned to room ${roomNo} in block ${blockName} successfully.` });
+    res.status(200).json({ message: `Student ${rollNo} assigned to room ${roomNo} in block ${blockName} successfully.` });
   } catch (error) {
     console.error('Error assigning student to room:', error);
     res.status(500).json({ error: 'Server error' });

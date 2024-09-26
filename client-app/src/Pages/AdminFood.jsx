@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Html5Qrcode } from 'html5-qrcode';
-import './CSS/AdminFood.css'; // Assuming custom CSS for styling
+import { Html5Qrcode } from 'html5-qrcode'; // Import the html5-qrcode library
+import './CSS/AdminFood.css';
 
 const AdminFood = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [foodItemName, setFoodItemName] = useState('');
   const [foodItemImage, setFoodItemImage] = useState(null);
-  const [foodItemPrice, setFoodItemPrice] = useState('');
+  const [foodItemPrice, setFoodItemPrice] = useState(''); // New state for food item price
   const [selectedDays, setSelectedDays] = useState([]);
   const [error, setError] = useState(null);
-  const [scannedTokens, setScannedTokens] = useState([]);
+  const [qrData, setQrData] = useState(null); // Store scanned QR data
   const [showScanner, setShowScanner] = useState(false);
-  const html5QrCodeRef = useRef(null);
-  const readerRef = useRef(null); // Ref for the QR reader element
-  const token = localStorage.getItem('token'); // Admin token
-  const serverBaseUrl = 'http://localhost:3000'; // Your API endpoint
+  const html5QrCodeRef = useRef(null); // Reference for the HTML5 QR Code instance
+
+  const token = localStorage.getItem('token');
+  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
 
   // Fetch all food items (admin only)
   const fetchFoodItems = async () => {
@@ -32,30 +32,30 @@ const AdminFood = () => {
 
   useEffect(() => {
     fetchFoodItems();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array to run only on mount
 
+  // Initialize QR scanner
   useEffect(() => {
     if (showScanner) {
-      // Start the scanner if the scanner is enabled and the readerRef is available
-      if (readerRef.current) {
-        startScanner();
-      }
+      startScanner();
     } else {
       stopScanner();
     }
 
+    // Cleanup on unmount
     return () => {
-      stopScanner(); // Clean up scanner on component unmount
+      stopScanner();
     };
-  }, [showScanner]);
+  }, [showScanner]); // Re-run when showScanner changes
 
-  // Handle adding a new food item
+  // Add a new food item (admin only)
   const handleAddFoodItem = async () => {
     try {
       const formData = new FormData();
       formData.append('name', foodItemName);
       formData.append('image', foodItemImage);
-      formData.append('price', foodItemPrice);
+      formData.append('price', foodItemPrice); // Add the price here
       formData.append('availableDays', JSON.stringify(selectedDays));
 
       await axios.post(`${serverBaseUrl}/food/admin/food-item`, formData, {
@@ -64,91 +64,96 @@ const AdminFood = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      // Reset input fields after successful submission
+      // Clear the input fields
       setFoodItemName('');
       setFoodItemImage(null);
-      setFoodItemPrice('');
+      setFoodItemPrice(''); // Clear the price input
       setSelectedDays([]);
-      fetchFoodItems(); // Refresh the food items
+      fetchFoodItems(); // Refresh the food items list
     } catch (error) {
       setError('Failed to add food item');
     }
   };
 
-  // Handle available days for the food item
+  // Handle day selection
   const handleDayChange = (e) => {
     const day = e.target.value;
-    setSelectedDays((prevDays) =>
-      prevDays.includes(day) ? prevDays.filter((d) => d !== day) : [...prevDays, day]
+    setSelectedDays((prevDays) => 
+      prevDays.includes(day) 
+      ? prevDays.filter(d => d !== day) 
+      : [...prevDays, day]
     );
   };
 
-  // Delete a food item
+  // Delete a food item (admin only)
   const handleDeleteFoodItem = async (itemId) => {
     try {
       await axios.delete(`${serverBaseUrl}/food/admin/food-item/${itemId}`, {
-        headers: { 'x-auth-token': token },
+        headers: {
+          'x-auth-token': token,
+        },
       });
-      fetchFoodItems(); // Refresh the list after deletion
+      fetchFoodItems(); // Refresh the food items list
     } catch (error) {
       setError('Failed to delete food item');
     }
   };
 
-  // Handle scanning and stop the scanner on successful scan
+  // Handle QR code scan
   const handleScan = async (data) => {
     if (data) {
-      const tokenId = extractTokenId(data);
+      setQrData(data); // Store the scanned QR data
+      const tokenId = extractTokenId(data); // Extract the token ID from QR data
       if (tokenId) {
         try {
-          const response = await axios.get(`${serverBaseUrl}/food/admin/token-details/${tokenId}`, {
+          // Send the token ID to your server to clear the specific token
+          await axios.delete(`${serverBaseUrl}/food/admin/clear-tokens`, {
             headers: { 'x-auth-token': token },
+            data: { tokenId }, // Send tokenId in request body
           });
-          setScannedTokens((prevTokens) => [...prevTokens, response.data]);
           stopScanner(); // Stop the scanner after successful scan
+          fetchFoodItems(); // Refresh food items or tokens as needed
         } catch (error) {
-          setError('Failed to fetch token details');
+          setError('Failed to clear tokens');
         }
       }
     }
   };
 
-  // Extract token ID from the scanned QR code data
+  // Extract Token ID from QR data
   const extractTokenId = (data) => {
     const match = data.match(/Token ID: (\w+)/);
-    return match ? match[1] : null;
+    return match ? match[1] : null; // Return the token ID if found
   };
 
   // Start the QR scanner
   const startScanner = () => {
-    if (!readerRef.current) {
-      console.error("HTML Element with id='reader' not found");
-      return;
-    }
-
-    const html5QrCode = new Html5Qrcode(readerRef.current.id);
+    const html5QrCode = new Html5Qrcode("reader"); // Create an instance of Html5Qrcode
     html5QrCode.start(
-      { facingMode: "environment" },
+      { facingMode: "environment" }, // Use environment camera
       {
-        fps: 10,
-        qrbox: 250
+        fps: 10, // Frames per second
+        qrbox: 250 // Width and height of the QR box
       },
       (decodedText, decodedResult) => {
-        handleScan(decodedText); // Process scan result
+        handleScan(decodedText); // Handle scanned QR data
+      },
+      (errorMessage) => {
+        // Handle error if needed
       }
     ).catch(err => {
       console.error(err);
       setError('Error starting the QR code scanner');
     });
-    html5QrCodeRef.current = html5QrCode;
+    html5QrCodeRef.current = html5QrCode; // Store the instance in the ref
   };
 
   // Stop the QR scanner
   const stopScanner = () => {
     if (html5QrCodeRef.current) {
       html5QrCodeRef.current.stop().then(() => {
-        html5QrCodeRef.current.clear();
-        html5QrCodeRef.current = null;
+        html5QrCodeRef.current.clear(); // Clear the scanner
+        html5QrCodeRef.current = null; // Reset the ref
       }).catch(err => {
         console.error(err);
         setError('Error stopping the QR code scanner');
@@ -156,59 +161,15 @@ const AdminFood = () => {
     }
   };
 
-  // Toggle scanner visibility
+  // Handle scanner visibility
   const handleScannerToggle = () => {
-    setShowScanner((prev) => !prev);
-  };
-
-  // Clear a specific token
-  const handleClearToken = async (tokenId) => {
-    try {
-      await axios.delete(`${serverBaseUrl}/food/admin/clear-token/${tokenId}`, {
-        headers: { 'x-auth-token': token },
-      });
-      setScannedTokens((prevTokens) => prevTokens.filter((token) => token._id !== tokenId));
-    } catch (error) {
-      setError('Failed to clear token');
-    }
-  };
-
-  // Clear all expired tokens
-  const handleClearExpiredTokens = async () => {
-    try {
-      await axios.delete(`${serverBaseUrl}/food/admin/cleanup-expired-tokens`, {
-        headers: { 'x-auth-token': token },
-      });
-      setScannedTokens([]); // Optionally clear scanned tokens
-      fetchFoodItems(); // Refresh food items if needed
-    } catch (error) {
-      setError('Failed to clear expired tokens');
-    }
-  };
-
-  // Handle image upload and scan for QR code
-  const handleImageUpload = async (event) => {
-    const file = event.target.files[0];
-    if (file && readerRef.current) {
-      const html5QrCode = new Html5Qrcode(readerRef.current.id);
-      try {
-        const result = await html5QrCode.scanFile(file, true);
-        handleScan(result);
-      } catch (error) {
-        console.error(error);
-        setError('Failed to scan QR code from image');
-      }
-    } else {
-      setError('QR code reader is not available');
-    }
+    setShowScanner((prev) => !prev); // Toggle the scanner visibility
   };
 
   return (
     <div className="admin-food">
       <h2>Food Management</h2>
       {error && <p className="error-food">{error}</p>}
-      
-      {/* Add Food Form */}
       <div className="add-food">
         <input
           type="text"
@@ -242,44 +203,28 @@ const AdminFood = () => {
         </div>
         <button onClick={handleAddFoodItem}>Add Food Item</button>
       </div>
-      
-      {/* Food Item List */}
       <div className="food-list">
         {foodItems.map((item) => (
           <div key={item._id} className="food-item">
             <h4>{item.name}</h4>
-            <img src={item.image} alt={item.name} className="food-image" />
-            <div>Price: ${item.price}</div>
+            <img        
+                src={item.image} // Using the image URL directly from Firebase
+                alt={item.name} 
+                className="food-image" 
+              />
+            <div>
+              Price: ${item.price} {/* Displaying the price */}
+            </div>
             <div>Available Days: {item.availableDays.join(', ')}</div>
             <button onClick={() => handleDeleteFoodItem(item._id)}>Delete</button>
           </div>
         ))}
       </div>
-      
-      {/* QR Code Scanner */}
       <button onClick={handleScannerToggle}>
         {showScanner ? 'Stop Scanner' : 'Start Scanner'}
       </button>
-      {showScanner && <div ref={readerRef} id="reader" style={{ width: '250px' }}></div>}
-      <input
-        type="file"
-        accept=".png,.jpg,.jpeg"
-        onChange={handleImageUpload}
-      />
-      
-      {/* Scanned Tokens */}
-      {scannedTokens.length > 0 && (
-        <div>
-          <h3>Scanned Tokens</h3>
-          {scannedTokens.map((token) => (
-            <div key={token._id}>
-              <span>{token.tokenId} - {token.status}</span>
-              <button onClick={() => handleClearToken(token._id)}>Clear Token</button>
-            </div>
-          ))}
-        </div>
-      )}
-      <button onClick={handleClearExpiredTokens}>Clear Expired Tokens</button>
+      {showScanner && <div id="reader" style={{ width: '250px' }}></div>}
+      {qrData && <div>Scanned Data: {qrData}</div>}
     </div>
   );
 };

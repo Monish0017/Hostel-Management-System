@@ -95,7 +95,16 @@ const AdminRoom = () => {
 
   const handleManualAssignRoom = async (e) => {
     e.preventDefault();
+
+    // Debugging output to verify state before sending
+    console.log('Manual Assignment:', manualAssignment);
+
     const { rollNo, blockName, roomNo } = manualAssignment;
+
+    if (!rollNo || !blockName || !roomNo) {
+      alert("All fields are required for manual assignment.");
+      return; // Prevent sending if any field is empty
+    }
 
     try {
       const token = localStorage.getItem('token');
@@ -105,8 +114,9 @@ const AdminRoom = () => {
           'Content-Type': 'application/json',
           'x-auth-token': token,
         },
-        body: JSON.stringify({ rollNo, blockName, roomNo }),
+        body: JSON.stringify(manualAssignment),
       });
+
       const data = await response.json();
       alert(data.message || 'Student assigned successfully');
       fetchRooms();
@@ -253,7 +263,7 @@ const AdminRoom = () => {
           <button className="back-btn" onClick={handleBackToRooms}>
             Back to Rooms
           </button>
-          <h3>{isEditing ? 'Modify Room' : 'Add Room'}</h3>
+          <h3>{isEditing ? 'Edit Room' : 'Add Room'}</h3>
           <form onSubmit={handleFormSubmit}>
             <input
               type="text"
@@ -280,7 +290,7 @@ const AdminRoom = () => {
               required
             />
             <input
-              type="text"
+              type="number"
               name="floor"
               value={newRoom.floor}
               placeholder="Floor"
