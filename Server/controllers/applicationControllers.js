@@ -1,62 +1,81 @@
-const Application = require('../models/Application');
 const Student = require('../models/Student');
+const Room = require('../models/Room');
 
-exports.addApplication = async (req, res) => {
+exports.assignRoomIfPaid = async (req, res) => {
   const { rollNo } = req.user;
   const { preferredRoommatesRollNos = [], roomType, blockName } = req.body;
 
   try {
     console.log('Request received:', { rollNo, preferredRoommatesRollNos, roomType, blockName });
 
-    // Check if the student already has an application
-    const existingApplication = await Application.findOne({ studentRollNo: rollNo });
-    if (existingApplication) { 
-      return res.status(400).json({ message: 'Application already exists' });
+    // Find the student by roll number
+    const student = await Student.findOne({ rollNo });
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
     }
 
-    // Validate inputs before creating a new application
-    if (!rollNo || !roomType || !blockName) {
-      return res.status(400).json({ message: 'Invalid input data' });
+    // Check if the student's fees have been paid by checking the `amount` field
+    const currentAmount = parseFloat(student.amount);  // Convert the amount to a number
+    if (isNaN(currentAmount) || currentAmount < 50000) {
+      return res.status(400).json({ message: 'Insufficient funds. Room cannot be assigned.' });
     }
 
-    // Validate preferred roommates if provided
-    for (const roommateRollNo of preferredRoommatesRollNos) {
-      const roommate = await Student.findOne({ rollNo: roommateRollNo });
-      if (!roommate) {
-        return res.status(400).json({ message: `Preferred roommate with roll number ${roommateRollNo} does not exist` });
+    // Validate inputs
+    if (!roomType || !blockName) {
+      return res.status(400).json({ message: 'Invalid roomType or blockName' });
+    }
+
+    // Find an available room
+    let room = await Room.findOne({
+      blockName,
+      capacity: roomType,
+      students: { $lt: ["$capacity"] }  // Ensure the room has fewer students than its capacity
+    });
+
+    if (!room || room.students.length >= room.capacity) {
+      return res.status(404).json({ message: 'No available rooms found' });
+    }
+
+    // Assign the room to the student
+    room.students.push(student.rollNo);
+    await room.save();
+
+    student.room = room._id;
+
+    // Reduce 50,000 from the student's amount
+    const newAmount = currentAmount - 50000;
+    student.amount = newAmount.toString();  // Convert the new amount back to a string
+
+    await student.save();
+
+    // Check and assign preferred roommates (if paid)
+    const preferredRoommates = await Student.find({ rollNo: { $in: preferredRoommatesRollNos } });
+
+    for (const roommate of preferredRoommates) {
+      const roommateAmount = parseFloat(roommate.amount);
+
+      // Only assign the roommate if they have enough money (at least 50,000)
+      if (!isNaN(roommateAmount) && roommateAmount >= 50000) {
+        if (!room.students.includes(roommate.rollNo)) {
+          room.students.push(roommate.rollNo);
+          await room.save();
+
+          roommate.room = room._id;
+
+          // Reduce 50,000 from the roommate's amount
+          const newRoommateAmount = roommateAmount - 50000;
+          roommate.amount = newRoommateAmount.toString();  // Convert back to a string
+
+          await roommate.save();
+        }
+      } else {
+        console.log(`Preferred roommate ${roommate.rollNo} has insufficient funds or hasn't completed payment.`);
       }
-
-      // Check if the preferred roommate is already in an existing application
-      const roommateInApplication = await Application.findOne({
-        $or: [
-          { studentRollNo: roommateRollNo },
-          { preferredRoommatesRollNos: roommateRollNo }
-        ]
-      });
-      if (roommateInApplication) {
-        return res.status(400).json({ message: `Preferred roommate with roll number ${roommateRollNo} is already in an application` });
-      }
     }
 
-    // Create a new application
-    let newApplication;
-    try {
-      newApplication = new Application({
-        studentRollNo: rollNo,
-        preferredRoommatesRollNos,
-        roomType,
-        blockName // corrected the field name
-      });
-    } catch (creationError) {
-      console.error('Error creating new application instance:', creationError);
-      return res.status(500).json({ message: 'Error creating new application instance' });
-    }
-
-    await newApplication.save();
-
-    res.status(201).json({ message: 'Application submitted successfully' });
+    res.status(200).json({ message: 'Room assigned successfully, and amounts reduced for the student and any paid preferred roommates' });
   } catch (error) {
-    console.error('Error submitting application:', error.message || error);
+    console.error('Error assigning room:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };

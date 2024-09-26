@@ -7,7 +7,7 @@ const {
   registerAdmin,
   loginAdmin,
   allocateRooms,
-  assignRoom,
+  manualAssignStudentToRoom,
   removeStudentFromRoom,
   modifyStudent,
   removeStudent,
@@ -33,7 +33,7 @@ router.post('/login', loginAdmin);
 router.post('/allocate-rooms', authMiddleware, allocateRooms);
 
 // Room management routes
-router.post('/assign-room', authMiddleware, assignRoom);
+router.post('/assign-room', authMiddleware, manualAssignStudentToRoom);
 router.post('/remove-student-from-room', authMiddleware, removeStudentFromRoom);
 router.get('/rooms', authMiddleware, getAllRooms);
 router.post('/rooms/vacate-all', authMiddleware, vacateAllRooms); 

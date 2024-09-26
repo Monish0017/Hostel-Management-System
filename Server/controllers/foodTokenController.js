@@ -122,14 +122,25 @@ exports.clearTokens = async (req, res) => {
             return res.status(400).json({ message: 'Invalid Token ID format' });
         }
 
-        // Delete the token from the database
-        const result = await FoodToken.deleteOne({ _id: tokenId });
+        // Find the token in the database
+        const token = await FoodToken.findById(tokenId);
 
-        if (result.deletedCount === 0) {
+        // Check if token exists
+        if (!token) {
             return res.status(404).json({ message: 'Token not found' });
         }
 
-        res.status(200).json({ message: 'Token cleared successfully' });
+        // Check the current quantity
+        if (token.quantity > 1) {
+            // Decrement the quantity
+            token.quantity -= 1;
+            await token.save(); // Save the updated token
+            return res.status(200).json({ message: 'Token quantity decremented successfully', quantity: token.quantity });
+        } else {
+            // If quantity is 1, delete the token
+            await FoodToken.deleteOne({ _id: tokenId });
+            return res.status(200).json({ message: 'Token cleared successfully' });
+        }
     } catch (err) {
         console.error('Error clearing tokens:', err);
         res.status(500).json({ message: 'Error clearing tokens', error: err.message || 'Unknown error' });
@@ -147,17 +158,16 @@ exports.generateQRCode = async (req, res) => {
             return res.status(400).json({ message: 'Invalid token ID' });
         }
 
-        const studentId = req.user.id;
 
         // Find the token
-        const token = await FoodToken.findOne({ _id: tokenId, student: studentId });
+        const token = await FoodToken.findOne({ _id: tokenId });
 
         if (!token) {
             return res.status(404).json({ message: 'Token not found or not valid' });
         }
 
         // Generate QR code
-        const qrCodeData = await QRCode.toDataURL(`TokenID:${tokenId},Item:${token.foodItemName},Quantity:${token.quantity}`);
+        const qrCodeData = await QRCode.toDataURL(`TokenID:${tokenId}`);
         
         res.status(200).json({ qrCode: qrCodeData });
     } catch (err) {
@@ -223,5 +233,30 @@ exports.getStudentTokens = async (req, res) => {
     } catch (err) {
         console.error('Error fetching student tokens:', err);
         res.status(500).json({ message: 'Error fetching student tokens', error: err.message || 'Unknown error' });
+    }
+};
+
+// Get token details by token ID
+exports.getTokenDetails = async (req, res) => {
+    try {
+        const { tokenId } = req.params;
+
+        // Validate tokenId format
+        if (!mongoose.Types.ObjectId.isValid(tokenId)) {
+            return res.status(400).json({ message: 'Invalid Token ID format' });
+        }
+
+        // Find the token details
+        const token = await FoodToken.findById(tokenId).populate('foodItemName', 'name price'); // Populate food item details if needed
+
+        if (!token) {
+            return res.status(404).json({ message: 'Token not found' });
+        }
+
+        // Return token details
+        res.status(200).json({ token });
+    } catch (err) {
+        console.error('Error fetching token details:', err);
+        res.status(500).json({ message: 'Error fetching token details', error: err.message || 'Unknown error' });
     }
 };

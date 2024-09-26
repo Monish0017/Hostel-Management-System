@@ -52,7 +52,7 @@ const RoomAllocation = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage('Room application Submitted successfully.');
+        setSuccessMessage('Room allocated successfully.');
         setErrorMessage('');
       } else {
         const errorData = await response.json();
