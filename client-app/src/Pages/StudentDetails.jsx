@@ -28,7 +28,7 @@ const StudentDetails = () => {
 
   // Fetch all students from MongoDB
   useEffect(() => {
-    fetch(`${serverBaseUrl}admin/students`, {
+    fetch(`${serverBaseUrl}/admin/students`, {
       headers: {
         'x-auth-token': token,
       }
