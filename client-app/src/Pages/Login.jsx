@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './CSS/Login.css';
 
 const Login = () => {
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
   const [rollNo, setRollNo] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,7 +12,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const response = await fetch(`${serverBaseUrl}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

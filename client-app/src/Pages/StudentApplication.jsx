@@ -3,6 +3,7 @@ import './CSS/StudentApplication.css';
 import profile from '../assets/profile.jpg';
 
 const StudentApplication = () => {
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -11,7 +12,7 @@ const StudentApplication = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch('http://localhost:3000/application/getstudent', {
+        const response = await fetch(`${serverBaseUrl}/application/getstudent`, {
           headers: {
             'x-auth-token': localStorage.getItem('token'), // Assuming you have token stored in localStorage
           },
@@ -33,7 +34,7 @@ const StudentApplication = () => {
 
   const handleConfirmAll = async () => {
     try {
-      const response = await fetch('http://localhost:3000/application/process', {
+      const response = await fetch(`${serverBaseUrl}/application/process`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +65,7 @@ const StudentApplication = () => {
   
   const handleDeleteUnpaid = async () => {
     try {
-      const response = await fetch('http://localhost:3000/application/cleanup', {
+      const response = await fetch(`${serverBaseUrl}/application/cleanup`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

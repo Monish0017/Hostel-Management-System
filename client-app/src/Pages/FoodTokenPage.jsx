@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const FoodTokenPage = () => {
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
   const [foodItems, setFoodItems] = useState([]); // Changed to hold fetched food items
   const [foodItemName, setFoodItemName] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -21,7 +22,7 @@ const FoodTokenPage = () => {
   // Fetch food items from backend
   const fetchFoodItems = useCallback(async () => {
     try {
-      const response = await axios.get('  http://localhost:3000/food/student/food-items', {
+      const response = await axios.get(`${serverBaseUrl}/food/student/food-items`, {
         headers: { 'x-auth-token': authToken },
       });
       const foodItemsData = response.data; // Assuming 'items' is the key for food items
@@ -37,7 +38,7 @@ const FoodTokenPage = () => {
   // Fetch booked tokens
   const fetchTokens = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:3000/food/student/tokens', {
+      const response = await axios.get(`${serverBaseUrl}/food/student/tokens`, {
         headers: { 'x-auth-token': authToken },
       });
       if (response.data && response.data.tokens.length > 0) {
@@ -61,7 +62,7 @@ const FoodTokenPage = () => {
   const handleBookToken = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/food/student/food-token',
+        `${serverBaseUrl}/food/student/food-token`,
         { foodItemName, quantity, bookingDate },
         { headers: { 'x-auth-token': authToken } }
       );
@@ -86,7 +87,7 @@ const FoodTokenPage = () => {
 
   const handleCancelToken = async (tokenId) => {
     try {
-      await axios.delete(`http://localhost:3000/food/student/food-token/${tokenId}`, {
+      await axios.delete(`${serverBaseUrl}/food/student/food-token/${tokenId}`, {
         headers: { 'x-auth-token': authToken },
       });
       fetchTokens(); // Refresh tokens after cancellation
@@ -102,7 +103,7 @@ const FoodTokenPage = () => {
     try {
       document.getElementById("qr").scrollIntoView();
       const response = await axios.get(
-        `http://localhost:3000/food/student/food-token/${tokenId}/qrcode`,
+        `${serverBaseUrl}/food/student/food-token/${tokenId}/qrcode`,
         { headers: { 'x-auth-token': authToken } }
       );
       setQrCode(response.data.qrCode);

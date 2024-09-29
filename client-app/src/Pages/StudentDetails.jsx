@@ -3,6 +3,7 @@ import './CSS/StudentDetails.css';
 import profile from '../assets/profile.jpg';
 
 const StudentDetails = () => {
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -27,7 +28,7 @@ const StudentDetails = () => {
 
   // Fetch all students from MongoDB
   useEffect(() => {
-    fetch('http://localhost:3000/admin/students', {
+    fetch(`${serverBaseUrl}admin/students`, {
       headers: {
         'x-auth-token': token,
       }
@@ -61,7 +62,7 @@ const StudentDetails = () => {
     const formData = new FormData();
     formData.append('file', file);
 
-    fetch('http://localhost:3000/admin/add-students', {
+    fetch(`${serverBaseUrl}/admin/add-students`, {
       method: 'POST',
       body: formData,
     })
@@ -89,7 +90,7 @@ const StudentDetails = () => {
   // Handle deleting a student
   const handleDeleteStudent = (student) => {
     if (window.confirm(`Are you sure you want to delete ${student.fullName}?`)) {
-      fetch(`http://localhost:3000/admin/remove-student/${student.rollNo}`, {
+      fetch(`${serverBaseUrl}/admin/remove-student/${student.rollNo}`, {
         method: 'DELETE',
         headers: {
           'x-auth-token': token,
@@ -118,7 +119,7 @@ const StudentDetails = () => {
     e.preventDefault();
   
     // URL for updating student data
-    const url = `http://localhost:3000/admin/modify-student/${selectedStudent.rollNo}`;
+    const url = `${serverBaseUrl}/admin/modify-student/${selectedStudent.rollNo}`;
   
     fetch(url, {
       method: 'PUT',
@@ -157,7 +158,7 @@ const StudentDetails = () => {
   // Handle deleting all students
   const handleDeleteAllStudents = () => {
     if (window.confirm('Are you sure you want to delete all students?')) {
-      fetch('http://localhost:3000/admin/remove-all-students', {
+      fetch(`${serverBaseUrl}/admin/remove-all-students`, {
         method: 'DELETE',
         headers: {
           'x-auth-token': token,

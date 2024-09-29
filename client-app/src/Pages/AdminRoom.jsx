@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CSS/AdminRoom.css';
 
 const AdminRoom = () => {
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [newRoom, setNewRoom] = useState({
@@ -28,7 +29,7 @@ const AdminRoom = () => {
   const fetchRooms = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/admin/rooms', {
+      const response = await fetch(`${serverBaseUrl}/admin/rooms`, {
         method: 'GET',
         headers: {
           'x-auth-token': token,
@@ -75,7 +76,7 @@ const AdminRoom = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const url = 'http://localhost:3000/admin/add-room';
+    const url = `${serverBaseUrl}/admin/add-room`;
 
     try {
       await fetch(url, {
@@ -108,7 +109,7 @@ const AdminRoom = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/admin/assign-room', {
+      const response = await fetch(`${serverBaseUrl}/admin/assign-room`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ const AdminRoom = () => {
   const handleDeleteRoom = async (roomId) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3000/admin/rooms/${roomId}`, {
+      await fetch(`${serverBaseUrl}/admin/rooms/${roomId}`, {
         method: 'DELETE',
         headers: {
           'x-auth-token': token,
@@ -157,7 +158,7 @@ const AdminRoom = () => {
   const handleRemoveStudentFromRoom = async (studentRollNo) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch('http://localhost:3000/admin/remove-student-from-room', {
+      await fetch(`${serverBaseUrl}/admin/remove-student-from-room`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

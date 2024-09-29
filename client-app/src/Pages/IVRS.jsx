@@ -3,6 +3,7 @@ import axios from 'axios';
 import './CSS/IVRS.css';
 
 const IVRS = () => {
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
   const [studentRollNo, setStudentRollNo] = useState('');
   const [leaveType, setLeaveType] = useState('');
   const [fromDate, setFromDate] = useState('');
@@ -26,7 +27,7 @@ const IVRS = () => {
       const token = localStorage.getItem('token'); // Get the token from local storage
 
       // Apply for leave and get the applicationId
-      const leaveResponse = await axios.post('http://localhost:3000/api/ivrs/create-application', leaveData, {
+      const leaveResponse = await axios.post(`${serverBaseUrl}/api/ivrs/create-application`, leaveData, {
         headers: {
           'x-auth-token': token, // Set the token in headers
         },
@@ -64,7 +65,7 @@ const IVRS = () => {
     if (applicationId) {
       const fetchLeaveStatus = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/api/applications/status/${applicationId}`, {
+          const response = await axios.get(`${serverBaseUrl}/api/applications/status/${applicationId}`, {
             headers: {
               'x-auth-token': localStorage.getItem('x-auth-token'),
             },

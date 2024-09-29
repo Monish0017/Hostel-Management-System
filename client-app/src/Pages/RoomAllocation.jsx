@@ -8,6 +8,7 @@ const RoomAllocation = () => {
   const [priorityStatus, setPriorityStatus] = useState('Normal');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
 
   const handleRoomSelection = (capacity) => {
     setSelectedRoomCapacity(capacity);
@@ -42,7 +43,7 @@ const RoomAllocation = () => {
 
     try {
       const token = localStorage.getItem('token'); // Get the JWT token from localStorage
-      const response = await fetch('http://localhost:3000/api/apply', {
+      const response = await fetch(`${serverBaseUrl}/api/apply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

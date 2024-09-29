@@ -5,6 +5,7 @@ import profile from '../assets/profile.jpg';
 const StudentProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const [error, setError] = useState(null);
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
 
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
@@ -16,7 +17,7 @@ const StudentProfile = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/students/profile', {
+      const response = await fetch(`${serverBaseUrl}/students/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

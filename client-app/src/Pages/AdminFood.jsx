@@ -15,7 +15,7 @@ const AdminFood = () => {
   const html5QrCodeRef = useRef(null); // Reference for the HTML5 QR Code instance
 
   const token = localStorage.getItem('token');
-  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
 
   // Fetch all food items (admin only)
   const fetchFoodItems = async () => {
