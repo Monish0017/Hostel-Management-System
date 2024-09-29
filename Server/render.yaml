@@ -1,0 +1,16 @@
+# render.yaml
+services:
+  - type: web
+    name: hostel-management-system-api
+    env: node
+    region: oregon    # Adjust based on the desired region, options: oregon, frankfurt, etc.
+    plan: free        # You can choose the free plan for small projects
+    buildCommand: 'npm install --legacy-peer-deps'  # Command to install dependencies
+    startCommand: 'npm run dev'    # Command to start your Node.js server
+    autoDeploy: true            # Enable automatic deploy on new commits
+    branch: main                # Replace with the branch you want to deploy (e.g., master or main)
+    healthCheckPath: '/'        # Health check endpoint (optional, change if necessary)
+    disk:
+      name: persistent-storage  # Optional: Persistent disk setup, not required for MongoDB
+      sizeGB: 1                 # Storage size for static assets/logs (adjust as needed)
+
