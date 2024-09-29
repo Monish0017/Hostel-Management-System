@@ -29,7 +29,7 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
-const studentApplicationRoutes = require('./routes/studentApplicationRoutes');
+const studentApplicationRoutes = require('./routes/stduentApplicationRoutes');
 // const ivrsRoutes = require('./routes/ivrsRoutes');
 
 // Use routes
