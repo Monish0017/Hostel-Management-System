@@ -8,6 +8,6 @@
     { "src": "/admin(.*)", "dest": "/server.js" },
     { "src": "/api(.*)", "dest": "/server.js" },
     { "src": "/payments(.*)", "dest": "/server.js" },
-    { "src": "/application(.*)", "dest": "/server.js" },
+    { "src": "/application(.*)", "dest": "/server.js" }
   ]
 }
