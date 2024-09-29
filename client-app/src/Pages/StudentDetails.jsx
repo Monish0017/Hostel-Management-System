@@ -3,7 +3,7 @@ import './CSS/StudentDetails.css';
 import profile from '../assets/profile.jpg';
 
 const StudentDetails = () => {
-  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditing, setIsEditing] = useState(false);

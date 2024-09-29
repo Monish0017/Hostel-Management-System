@@ -3,7 +3,7 @@ import axios from 'axios';
 import './CSS/IVRS.css';
 
 const IVRS = () => {
-  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
   const [studentRollNo, setStudentRollNo] = useState('');
   const [leaveType, setLeaveType] = useState('');
   const [fromDate, setFromDate] = useState('');

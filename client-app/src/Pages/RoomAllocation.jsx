@@ -8,7 +8,7 @@ const RoomAllocation = () => {
   const [priorityStatus, setPriorityStatus] = useState('Normal');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   const handleRoomSelection = (capacity) => {
     setSelectedRoomCapacity(capacity);

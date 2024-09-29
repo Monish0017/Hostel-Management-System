@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const FoodTokenPage = () => {
-  const serverBaseUrl = 'https://hostel-management-system-api-46-4gf7yz7n1.vercel.app'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
   const [foodItems, setFoodItems] = useState([]); // Changed to hold fetched food items
   const [foodItemName, setFoodItemName] = useState('');
   const [quantity, setQuantity] = useState(1);
