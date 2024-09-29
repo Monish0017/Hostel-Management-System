@@ -2,19 +2,19 @@
     "version": 2,
     "builds": [
       {
-        "src": "index.js",
+        "src": "server.js",
         "use": "@vercel/node"
       }
     ],
     "routes": [
-      { "src": "/students(.*)", "dest": "/index.js" },
-      { "src": "/food(.*)", "dest": "/index.js" },
-      { "src": "/faculty(.*)", "dest": "/index.js" },
-      { "src": "/auth(.*)", "dest": "/index.js" },
-      { "src": "/admin(.*)", "dest": "/index.js" },
-      { "src": "/api(.*)", "dest": "/index.js" },
-      { "src": "/payments(.*)", "dest": "/index.js" },
-      { "src": "/application(.*)", "dest": "/index.js" }
+      { "src": "/students(.*)", "dest": "/server.js" },
+      { "src": "/food(.*)", "dest": "/server.js" },
+      { "src": "/faculty(.*)", "dest": "/server.js" },
+      { "src": "/auth(.*)", "dest": "/server.js" },
+      { "src": "/admin(.*)", "dest": "/server.js" },
+      { "src": "/api(.*)", "dest": "/server.js" },
+      { "src": "/payments(.*)", "dest": "/server.js" },
+      { "src": "/application(.*)", "dest": "/server.js" }
     ]
   }
   
