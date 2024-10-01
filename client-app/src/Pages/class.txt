@@ -4,6 +4,12 @@ landing-title
 landing-page
 button-container
 btn
+top-btn
+top-buttons
+
+Apply
+form-container
+form-full
 
 Login
 full
@@ -123,7 +129,13 @@ add
 rem-btn
 allocate-btn
 
-
+StudentApplication
+student-app
+button-group
+delete-button
+confirm-button
+student-grid(StudentDetails)
+student-box(StudentDetails)
 
 colour codes
 #141619   black

@@ -5,6 +5,7 @@ import profile from '../assets/profile.jpg';
 const StudentProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const [error, setError] = useState(null);
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
@@ -16,7 +17,7 @@ const StudentProfile = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/students/profile', {
+      const response = await fetch(`${serverBaseUrl}/students/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -62,6 +63,7 @@ const StudentProfile = () => {
           <div className="general-info">
             <h3>General Information</h3>
             <p><strong>Roll No:</strong> {profileData.rollNo}</p>
+            <p><strong>Amount :</strong> {profileData.amount}</p>
             <p><strong>Father's Name:</strong> {profileData.fatherName}</p>
             <p><strong>Email:</strong> {profileData.email}</p>
             <p><strong>Contact Phone:</strong> {profileData.contactPhone}</p>

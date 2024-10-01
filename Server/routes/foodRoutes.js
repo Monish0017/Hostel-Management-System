@@ -18,6 +18,8 @@ router.get('/student/food-token/:tokenId/qrcode', auth, foodTokenControllers.gen
 router.get('/student/food-items', auth, foodItemControllers.getAllFoodItems);
 router.get('/student/tokens', auth, foodTokenControllers.getStudentTokens);
 
+router.get('/token-details/:tokenId' , authAdmin , foodTokenControllers.getTokenDetails);
+
 // Utility route (may be set as a cron job)
 router.delete('/cleanup-expired-tokens', authAdmin, foodTokenControllers.cleanupExpiredTokens);
 

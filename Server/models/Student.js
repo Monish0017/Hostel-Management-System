@@ -44,6 +44,9 @@ const studentSchema = new mongoose.Schema({
   secondaryMobileNumber: {
     type: String,
   },
+  amount: {
+    type: String,
+  },
   room: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room'

@@ -1,0 +1,86 @@
+/* Main container styling */
+.student-app-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Button group to align buttons side by side */
+  .button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Styling for both buttons */
+  .button-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Confirm button specific styling */
+  .confirm-button {
+    background-color: #0A21C0; /* Blue */
+    color: white;
+  }
+  
+  .confirm-button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #0A21C0;
+  }
+  
+  /* Delete button specific styling */
+  .delete-button {
+    background-color: #050A44;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #050A44;
+  }
+  
+  .student-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    /* Space between grid items */
+  }
+  
+  .student-box {
+    flex: 1 0 calc(25% - 16px);
+    /* Four boxes per row, ensuring all boxes are the same size */
+    height: 200px;
+    /* Ensure boxes are square */
+    max-width: calc(25% - 16px);
+    /* Ensure boxes do not exceed 25% of the container width */
+    background-color: #56596C;
+    padding: 16px;
+    border: 1px solid #B3B4BD;
+    border-radius: 8px;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    color: white;
+  }
+  
+  .student-box:hover {
+    background-color: #141619;
+  }
+  
+  .student-box p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }

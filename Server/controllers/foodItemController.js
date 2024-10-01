@@ -1,3 +1,5 @@
+const { ref, uploadBytes, getDownloadURL } = require('firebase/storage'); // Firebase storage functions
+const { storage } = require('../firebaseConfig');
 const FoodItem = require('../models/FoodItem');
 
 // Add a food item (Admin)
@@ -6,24 +8,37 @@ exports.addFoodItem = async (req, res) => {
         console.log("Request Body:", req.body);
         console.log("Uploaded File:", req.file);
 
-        const { name, availableDays } = req.body;
+        const { name, availableDays, price } = req.body; // Include price in destructuring
 
         // Check for necessary fields
-        if (!name || !availableDays) {
-            return res.status(400).json({ error: 'Name and availableDays are required' });
+        if (!name || !availableDays || !price) {
+            return res.status(400).json({ error: 'Name, availableDays, and price are required' });
         }
 
-        const imagePath = req.file ? `/Assets/${req.file.filename}` : null;
-
-        if (!imagePath) {
+        if (!req.file) {
             return res.status(400).json({ error: 'Image is required' });
         }
 
         // Parse availableDays if it is a JSON string
         const parsedAvailableDays = typeof availableDays === 'string' ? JSON.parse(availableDays) : availableDays;
 
-        // Create new food item
-        const newFoodItem = new FoodItem({ name, image: imagePath, availableDays: parsedAvailableDays });
+        // Create a reference to Firebase Storage
+        const storageRef = ref(storage, `foodItems/${req.file.originalname}`);
+
+        // Upload the file to Firebase Storage using buffer from Multer
+        const snapshot = await uploadBytes(storageRef, req.file.buffer);
+
+        // Get the download URL after uploading
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        // Create new food item with the download URL
+        const newFoodItem = new FoodItem({
+            name,
+            image: downloadURL,  // Store the Firebase download URL
+            availableDays: parsedAvailableDays,
+            price: parseFloat(price) // Convert price to a number and store it
+        });
+
         await newFoodItem.save();
 
         res.status(201).json(newFoodItem);
@@ -37,7 +52,12 @@ exports.addFoodItem = async (req, res) => {
 exports.deleteFoodItem = async (req, res) => {
     try {
         const { id } = req.params;
-        await FoodItem.findByIdAndDelete(id);
+        const deletedFoodItem = await FoodItem.findByIdAndDelete(id);
+        
+        if (!deletedFoodItem) {
+            return res.status(404).json({ error: 'Food item not found' });
+        }
+        
         res.status(200).json({ message: 'Food item deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });

@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const FoodTokenPage = () => {
-  const [foodItems] = useState(['Chicken Biriyani', 'Egg Gravy']); 
+  const [foodItems] = useState(['Chicken-biryani', 'Vegetable-curry']); 
   const [foodItemName, setFoodItemName] = useState('');  // Added this line
   const [quantity, setQuantity] = useState(1);
   const [bookingDate, setBookingDate] = useState('');
@@ -18,9 +18,26 @@ const FoodTokenPage = () => {
 
   const authToken = localStorage.getItem('token');
 
+  // Fetch food items from backend
+  const fetchFoodItems = useCallback(async () => {
+    try {
+      const response = await axios.get(`${serverBaseUrl}/food/student/food-items`, {
+        headers: { 'x-auth-token': authToken },
+      });
+      const foodItemsData = response.data; // Assuming 'items' is the key for food items
+      setFoodItems(foodItemsData.map(item => item.name)); // Extract only the 'name' property
+    } catch (err) {
+      console.error('Error fetching food items:', err);
+      setError('Failed to fetch food items');
+      setModalTitle('Error Fetching Food Items');
+      setModalIsOpen(true);
+    }
+  }, [authToken]);
+
+  // Fetch booked tokens
   const fetchTokens = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:3000/food/student/tokens', {
+      const response = await axios.get(`${serverBaseUrl}/food/student/tokens`, {
         headers: { 'x-auth-token': authToken },
       });
       if (response.data && response.data.tokens.length > 0) {
@@ -37,13 +54,14 @@ const FoodTokenPage = () => {
   }, [authToken]);
 
   useEffect(() => {
-    fetchTokens();
-  }, [fetchTokens]);
+    fetchFoodItems(); // Fetch food items on component load
+    fetchTokens();    // Fetch tokens on component load
+  }, [fetchFoodItems, fetchTokens]);
 
   const handleBookToken = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/food/student/food-token',
+        `${serverBaseUrl}/food/student/food-token`,
         { foodItemName, quantity, bookingDate },
         { headers: { 'x-auth-token': authToken } }
       );
@@ -55,7 +73,7 @@ const FoodTokenPage = () => {
       }
     } catch (err) {
       if (err.response) {
-        const { data } = err.response;  // Removed 'status' here
+        const { data } = err.response;
         setError(data.message || 'Failed to book token');
         setModalIsOpen(true);
       } else {
@@ -68,7 +86,7 @@ const FoodTokenPage = () => {
 
   const handleCancelToken = async (tokenId) => {
     try {
-      await axios.delete(`http://localhost:3000/food/student/food-token/${tokenId}`, {
+      await axios.delete(`${serverBaseUrl}/food/student/food-token/${tokenId}`, {
         headers: { 'x-auth-token': authToken },
       });
       fetchTokens(); // Refresh tokens after cancellation
@@ -84,7 +102,7 @@ const FoodTokenPage = () => {
     try {
       document.getElementById("qr").scrollIntoView();
       const response = await axios.get(
-        `http://localhost:3000/food/student/food-token/${tokenId}/qrcode`,
+        `${serverBaseUrl}/food/student/food-token/${tokenId}/qrcode`,
         { headers: { 'x-auth-token': authToken } }
       );
       setQrCode(response.data.qrCode);
@@ -96,11 +114,10 @@ const FoodTokenPage = () => {
     }
   };
 
-
-   // Get tomorrow's date in the format YYYY-MM-DD
-   const tomorrow = new Date();
-   tomorrow.setDate(tomorrow.getDate() + 1);
-   const minDate = tomorrow.toISOString().split("T")[0];
+  // Get tomorrow's date in the format YYYY-MM-DD
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const minDate = tomorrow.toISOString().split("T")[0];
 
   return (
     <div className="food-token-page">
@@ -145,7 +162,6 @@ const FoodTokenPage = () => {
             {tokens.map((token) => (
               <li key={token._id} className="token-item">
                 <span>
-                  <p>Token ID: {token._id} </p>
                   <p>Food Item: {token.foodItemName}</p>
                   <p>Quantity: {token.quantity}</p> 
                   <p>Booking Date: {token.bookingDate}</p>
@@ -153,11 +169,10 @@ const FoodTokenPage = () => {
                   <button onClick={() => handleGenerateQRCode(token._id)} className="qr-button">Generate QR Code</button>
                 </span>
               </li>
-              
             ))}
           </ul>
         ) : (
-          <p>No Tokens</p> 
+          <p>No Tokens</p>
         )}
       </div>
 

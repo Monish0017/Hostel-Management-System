@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
-import Fee from './Fee';
 import './CSS/StudentHome.css';
 import IVRS from './IVRS';
 import Information from './Information';
@@ -11,18 +10,43 @@ import FoodTokenPage from './FoodTokenPage';
 
 const StudentHome = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeComponent, setActiveComponent] = useState('StudentProfile');
 
-  const handleSidebarClick = (component) => {
+  useEffect(() => {
+    const path = location.pathname.split('/').pop(); // Get the last part of the path
+    switch (path) {
+      case 'fee':
+        setActiveComponent('Fee');
+        break;
+      case 'ivrs':
+        setActiveComponent('IVRS');
+        break;
+      case 'information':
+        setActiveComponent('Information');
+        break;
+      case 'room-allocation':
+        setActiveComponent('Room');
+        break;
+      case 'food-tokens':
+        setActiveComponent('Food');
+        break;
+      default:
+        setActiveComponent('StudentProfile');
+        break;
+    }
+  }, [location.pathname]);
+
+  const handleSidebarClick = (component, path) => {
     setActiveComponent(component);
+    navigate(path); // Navigate to the respective route
   };
+
 
   const renderComponent = () => {
     switch (activeComponent) {
       case 'StudentProfile':
         return <StudentProfile />;
-      case 'Fee':
-        return <Fee />;
       case 'IVRS':
         return <IVRS />;
       case 'Information':
@@ -78,12 +102,6 @@ const StudentHome = () => {
               onClick={() => handleSidebarClick('Information')}
             >
               Information
-            </li>
-            <li
-              className={activeComponent === 'Fee' ? 'active' : ''}
-              onClick={() => handleSidebarClick('Fee')}
-            >
-              Fees
             </li>
           </ul>
           <button

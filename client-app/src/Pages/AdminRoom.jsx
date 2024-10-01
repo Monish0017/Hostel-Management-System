@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './CSS/AdminRoom.css';
 
 const AdminRoom = () => {
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
   const [rooms, setRooms] = useState([]);
-  const [applications, setApplications] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [newRoom, setNewRoom] = useState({
     hostelName: '',
@@ -15,7 +15,12 @@ const AdminRoom = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [showAddRoomForm, setShowAddRoomForm] = useState(false);
-  const [showApplications, setShowApplications] = useState(false);
+  const [showManualAssignmentForm, setShowManualAssignmentForm] = useState(false);
+  const [manualAssignment, setManualAssignment] = useState({
+    rollNo: '',
+    blockName: '',
+    roomNo: '',
+  });
 
   useEffect(() => {
     fetchRooms();
@@ -24,7 +29,7 @@ const AdminRoom = () => {
   const fetchRooms = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/admin/rooms', {
+      const response = await fetch(`${serverBaseUrl}/admin/rooms`, {
         method: 'GET',
         headers: {
           'x-auth-token': token,
@@ -43,36 +48,11 @@ const AdminRoom = () => {
     }
   };
 
-  const fetchApplications = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/admin/applications', {
-        method: 'GET',
-        headers: {
-          'x-auth-token': token,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Network response was not ok: ${errorText}`);
-      }
-      const data = await response.json();
-      setApplications(data);
-      setShowApplications(true);
-      setShowAddRoomForm(false);
-      setSelectedRoom(null);
-    } catch (error) {
-      console.error('Error fetching applications:', error);
-    }
-  };
-
   const handleRoomClick = (room) => {
     setSelectedRoom(room);
     setIsEditing(false);
     setShowAddRoomForm(false);
-    setShowApplications(false);
+    setShowManualAssignmentForm(false);
   };
 
   const handleFormChange = (e) => {
@@ -83,7 +63,6 @@ const AdminRoom = () => {
   const handleAddRoom = () => {
     setShowAddRoomForm(true);
     setSelectedRoom(null);
-    setShowApplications(false);
     setNewRoom({
       hostelName: '',
       blockName: '',
@@ -92,11 +71,12 @@ const AdminRoom = () => {
       roomType: '',
       capacity: '',
     });
+    setShowManualAssignmentForm(false);
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const url = 'http://localhost:3000/admin/add-room';
+    const url = `${serverBaseUrl}/admin/add-room`;
 
     try {
       await fetch(url, {
@@ -114,32 +94,71 @@ const AdminRoom = () => {
     }
   };
 
-  const handleAssignRoom = async (rollNo, applicationId) => {
+  const handleManualAssignRoom = async (e) => {
+    e.preventDefault();
+
+    // Debugging output to verify state before sending
+    console.log('Manual Assignment:', manualAssignment);
+
+    const { rollNo, blockName, roomNo } = manualAssignment;
+
+    if (!rollNo || !blockName || !roomNo) {
+      alert("All fields are required for manual assignment.");
+      return; // Prevent sending if any field is empty
+    }
+
     try {
       const token = localStorage.getItem('token');
-      await fetch('http://localhost:3000/admin/assign-room', {
+      const response = await fetch(`${serverBaseUrl}/admin/assign-room`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-auth-token': token,
         },
-        body: JSON.stringify({
-          studentRollNo: rollNo,
-          applicationId,
-        }),
+        body: JSON.stringify(manualAssignment),
       });
-      alert('Student assigned successfully');
+
+      const data = await response.json();
+      alert(data.message || 'Student assigned successfully');
       fetchRooms();
+      resetManualAssignmentForm(); // Reset manual assignment fields
     } catch (error) {
-      console.error('Error assigning room:', error);
+      console.error('Error assigning student manually:', error);
       alert('Failed to assign student');
     }
   };
 
-  const handleRemoveStudent = async (studentRollNo) => {
+  const resetManualAssignmentForm = () => {
+    setManualAssignment({ rollNo: '', blockName: '', roomNo: '' }); // Reset fields
+    setShowManualAssignmentForm(false); // Hide form after submission
+  };
+
+  const handleDeleteRoom = async (roomId) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch('http://localhost:3000/admin/remove-student-from-room', {
+      await fetch(`${serverBaseUrl}/admin/rooms/${roomId}`, {
+        method: 'DELETE',
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+      fetchRooms();
+      setSelectedRoom(null);
+    } catch (error) {
+      console.error('Error deleting room:', error);
+    }
+  };
+
+  const handleBackToRooms = () => {
+    setSelectedRoom(null);
+    setShowAddRoomForm(false);
+    setShowManualAssignmentForm(false);
+  };
+
+  const handleRemoveStudentFromRoom = async (studentRollNo) => {
+    try {
+      const token = localStorage.getItem('token');
+      await fetch(`${serverBaseUrl}/admin/remove-student-from-room`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,63 +174,35 @@ const AdminRoom = () => {
     }
   };
 
-  const handleDeleteRoom = async (roomId) => {
-    try {
-      const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3000/admin/rooms/${roomId}`, {
-        method: 'DELETE',
-        headers: {
-          'x-auth-token': token,
-        },
-      });
-      fetchRooms();
-      setSelectedRoom(null);
-    } catch (error) {
-      console.error('Error deleting room:', error);
-    }
-  };
-
-  const handleVacateAllRooms = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      await fetch('http://localhost:3000/admin/rooms/vacate-all', {
-        method: 'POST',
-        headers: {
-          'x-auth-token': token,
-        },
-      });
-      alert('All rooms vacated successfully');
-      fetchRooms();
-    } catch (error) {
-      console.error('Error vacating rooms:', error);
-      alert('Failed to vacate rooms');
-    }
-  };
-
-  const handleBackToRooms = () => {
-    setSelectedRoom(null);
-    setShowAddRoomForm(false);
-    setShowApplications(false);
+  const handleManualAssignmentChange = (e) => {
+    const { name, value } = e.target;
+    setManualAssignment({ ...manualAssignment, [name]: value });
   };
 
   return (
     <div className="room-allocation-container">
       <div className="top-right-button">
-        <button className="view-application-btn" onClick={fetchApplications}>
-          View Application Forms
+        <button
+          className="manual-assign-btn"
+          onClick={() => {
+            setShowManualAssignmentForm(!showManualAssignmentForm);
+            setShowAddRoomForm(false); // Hide add room form when showing manual assignment
+            if (showManualAssignmentForm) {
+              resetManualAssignmentForm(); // Reset form if switching back to show
+            }
+          }}
+        >
+          Manual Assignment of Room
         </button>
       </div>
 
       <h2>Room Allocation</h2>
 
-      {!selectedRoom && !showAddRoomForm && !showApplications ? (
+      {!selectedRoom && !showAddRoomForm && !showManualAssignmentForm ? (
         <>
           <div className="room-actions">
             <button className="action-btn" onClick={handleAddRoom}>
               Add Room
-            </button>
-            <button className="action-btn" onClick={fetchApplications}>
-              Allocate Room (Based on Application)
             </button>
           </div>
 
@@ -232,13 +223,6 @@ const AdminRoom = () => {
               <p>No rooms available</p>
             )}
           </div>
-
-          {/* "Vacate All Rooms" button at the bottom of the room page */}
-          <div className="vacate-all-rooms-section">
-            <button className="vacate-all-btn" onClick={handleVacateAllRooms}>
-              Vacate All Rooms
-            </button>
-          </div>
         </>
       ) : selectedRoom ? (
         <div className="room-details">
@@ -253,21 +237,22 @@ const AdminRoom = () => {
           <p>Room Type: {selectedRoom.roomType}</p>
           <p>Capacity: {selectedRoom.capacity}</p>
 
-          <h4>Students in this room:</h4>
-          <ul>
-            {selectedRoom.students.length > 0 ? (
-              selectedRoom.students.map((rollNo) => (
-                <li key={rollNo}>
-                  {rollNo}
-                  <button className="rem-btn" onClick={() => handleRemoveStudent(rollNo)}>
-                    Remove Student
+          <h4>Students:</h4>
+          {selectedRoom.students && selectedRoom.students.length > 0 ? (
+            <ul>
+              {selectedRoom.students.map((student) => (
+                <li key={student}>
+                  {student}
+                  <button className="remove-btn" onClick={() => handleRemoveStudentFromRoom(student)}>
+                    Remove
                   </button>
                 </li>
-              ))
-            ) : (
-              <p>No students in this room.</p>
-            )}
-          </ul>
+              ))}
+            </ul>
+          ) : (
+            <p>No students in this room.</p>
+          )}
+
           <div className="room-details-actions">
             <button className="delete-btn" onClick={() => handleDeleteRoom(selectedRoom._id)}>
               Delete Room
@@ -279,7 +264,7 @@ const AdminRoom = () => {
           <button className="back-btn" onClick={handleBackToRooms}>
             Back to Rooms
           </button>
-          <h3>{isEditing ? 'Modify Room' : 'Add Room'}</h3>
+          <h3>{isEditing ? 'Edit Room' : 'Add Room'}</h3>
           <form onSubmit={handleFormSubmit}>
             <input
               type="text"
@@ -306,7 +291,7 @@ const AdminRoom = () => {
               required
             />
             <input
-              type="text"
+              type="number"
               name="floor"
               value={newRoom.floor}
               placeholder="Floor"
@@ -329,35 +314,50 @@ const AdminRoom = () => {
               onChange={handleFormChange}
               required
             />
-            <button className="add" type="submit">{isEditing ? 'Save' : 'Add Room'}</button>
+            <button type="submit" className="submit-btn">
+              {isEditing ? 'Update Room' : 'Add Room'}
+            </button>
           </form>
         </div>
-      ) : showApplications ? (
-        <div className="application-form-section">
-          <button className="back-btn" onClick={handleBackToRooms}>
-            Back to Rooms
-          </button>
-          <h3>Application Forms</h3>
-          {applications.length > 0 ? (
-            <div className="application-grid">
-              {applications.map((app) => (
-                <div key={app._id} className="application-box">
-                  <p>Student RollNo: {app.studentRollNo}</p>
-                  <p>Room Type: {app.roomType}</p>
-                  <p>Block: {app.blockName}</p>
-                  <button className='allocate-btn'
-                    onClick={() => handleAssignRoom(app.studentRollNo, app._id)}
-                  >
-                    Allocate Room
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>No applications found</p>
-          )}
-        </div>
-      ) : null}
+      ) : (
+        showManualAssignmentForm && (
+          <div className="manual-assignment-form">
+            <button className="back-btn" onClick={handleBackToRooms}>
+              Back to Rooms
+            </button>
+            <h3>Manual Room Assignment</h3>
+            <form onSubmit={handleManualAssignRoom}>
+              <input
+                type="text"
+                name="rollNo"
+                value={manualAssignment.rollNo}
+                placeholder="Student Roll Number"
+                onChange={handleManualAssignmentChange}
+                required
+              />
+              <input
+                type="text"
+                name="blockName"
+                value={manualAssignment.blockName}
+                placeholder="Block Name"
+                onChange={handleManualAssignmentChange}
+                required
+              />
+              <input
+                type="text"
+                name="roomNo"
+                value={manualAssignment.roomNo}
+                placeholder="Room Number"
+                onChange={handleManualAssignmentChange}
+                required
+              />
+              <button type="submit" className="submit-btn">
+                Assign Room
+              </button>
+            </form>
+          </div>
+        )
+      )}
     </div>
   );
 };

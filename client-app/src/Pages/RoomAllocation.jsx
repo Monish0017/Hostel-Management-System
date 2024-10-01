@@ -8,6 +8,7 @@ const RoomAllocation = () => {
   const [priorityStatus, setPriorityStatus] = useState('Normal');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   const handleRoomSelection = (capacity) => {
     setSelectedRoomCapacity(capacity);
@@ -42,7 +43,7 @@ const RoomAllocation = () => {
 
     try {
       const token = localStorage.getItem('token'); // Get the JWT token from localStorage
-      const response = await fetch('http://localhost:3000/api/apply', {
+      const response = await fetch(`${serverBaseUrl}/api/apply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +53,7 @@ const RoomAllocation = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage('Room application Submitted successfully.');
+        setSuccessMessage('Room allocated successfully.');
         setErrorMessage('');
       } else {
         const errorData = await response.json();

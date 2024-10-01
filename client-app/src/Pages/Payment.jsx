@@ -24,10 +24,11 @@ const Payment = ({ rollNo, block }) => {
   const blockFee = getFee(block);
   const totalFee = blockFee + messFee;
   const token = localStorage.getItem('token');
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   const handleBackendSubmit = async (rollNo, totalFee) => {
     try {
-      const response = await fetch('http://localhost:3000/payments/submit-payment', {
+      const response = await fetch(`${serverBaseUrl}/payments/submit-payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

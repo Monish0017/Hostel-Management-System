@@ -4,6 +4,7 @@ import StudentDetails from './StudentDetails';
 import './CSS/StudentHome.css'; // Ensure the correct relative path
 import AdminRoom from './AdminRoom';
 import AdminFood from './AdminFood';
+import StudentApplication from './StudentApplication';
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ const AdminHome = () => {
         return <AdminRoom/>
       case 'AFood':
         return <AdminFood/>
+      case 'Apply':
+          return <StudentApplication/>
       default:
         return null;
     }
@@ -54,6 +57,12 @@ const AdminHome = () => {
               onClick={() => handleSidebarClick('Room')}
             >
               Room
+            </li>
+            <li
+              className={activeComponent === 'Apply' ? 'active' : ''}
+              onClick={() => handleSidebarClick('Apply')}
+            >
+              Student Application
             </li>
           </ul>
           <button

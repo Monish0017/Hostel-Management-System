@@ -29,6 +29,21 @@ exports.bookFoodToken = async (req, res) => {
             return res.status(400).json({ message: 'Food item is not available' });
         }
 
+        // Calculate the total amount
+        const totalAmount = foodItem.price * quantity; // Price multiplied by quantity
+
+        // Convert student.amount from string to number
+        const studentBalance = parseFloat(student.amount); // Ensure to handle NaN if conversion fails
+
+        // Check if the student has sufficient balance
+        if (studentBalance < totalAmount) {
+            return res.status(400).json({ message: 'Insufficient balance' });
+        }
+
+        // Deduct the amount from the student's balance
+        student.amount = (studentBalance - totalAmount).toString(); // Convert back to string before saving
+        await student.save(); // Save the updated student
+
         // Create a new food token
         const token = new FoodToken({
             student: student._id, // Use student._id
@@ -45,18 +60,45 @@ exports.bookFoodToken = async (req, res) => {
     }
 };
 
+
 // Cancel a food token
 exports.cancelFoodToken = async (req, res) => {
     try {
         const { tokenId } = req.params;
         const studentId = req.user.id;
 
-        // Find and remove the token
-        const result = await FoodToken.findOneAndDelete({ _id: tokenId, student: studentId });
-
-        if (!result) {
+        // Find the token to get details about the food item and quantity
+        const token = await FoodToken.findOne({ _id: tokenId, student: studentId });
+        
+        if (!token) {
             return res.status(404).json({ message: 'Token not found or not authorized to cancel' });
         }
+
+        // Find the food item to get its price
+        const foodItem = await FoodItem.findOne({ name: token.foodItemName });
+        
+        if (!foodItem) {
+            return res.status(404).json({ message: 'Food item not found' });
+        }
+
+        // Calculate the total amount to add back
+        const totalAmountToAddBack = foodItem.price * token.quantity;
+
+        // Find the student and update the amount
+        const student = await Student.findById(studentId);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        // Convert student.amount from string to number
+        const studentBalance = parseFloat(student.amount);
+        
+        // Update the student's amount
+        student.amount = (studentBalance + totalAmountToAddBack).toString(); // Convert back to string before saving
+        await student.save(); // Save the updated student
+
+        // Remove the token
+        await FoodToken.findByIdAndDelete(tokenId);
 
         res.status(200).json({ message: 'Food token canceled successfully' });
     } catch (err) {
@@ -80,14 +122,25 @@ exports.clearTokens = async (req, res) => {
             return res.status(400).json({ message: 'Invalid Token ID format' });
         }
 
-        // Delete the token from the database
-        const result = await FoodToken.deleteOne({ _id: tokenId });
+        // Find the token in the database
+        const token = await FoodToken.findById(tokenId);
 
-        if (result.deletedCount === 0) {
+        // Check if token exists
+        if (!token) {
             return res.status(404).json({ message: 'Token not found' });
         }
 
-        res.status(200).json({ message: 'Token cleared successfully' });
+        // Check the current quantity
+        if (token.quantity > 1) {
+            // Decrement the quantity
+            token.quantity -= 1;
+            await token.save(); // Save the updated token
+            return res.status(200).json({ message: 'Token quantity decremented successfully', quantity: token.quantity });
+        } else {
+            // If quantity is 1, delete the token
+            await FoodToken.deleteOne({ _id: tokenId });
+            return res.status(200).json({ message: 'Token cleared successfully' });
+        }
     } catch (err) {
         console.error('Error clearing tokens:', err);
         res.status(500).json({ message: 'Error clearing tokens', error: err.message || 'Unknown error' });
@@ -105,17 +158,16 @@ exports.generateQRCode = async (req, res) => {
             return res.status(400).json({ message: 'Invalid token ID' });
         }
 
-        const studentId = req.user.id;
 
         // Find the token
-        const token = await FoodToken.findOne({ _id: tokenId, student: studentId });
+        const token = await FoodToken.findOne({ _id: tokenId });
 
         if (!token) {
             return res.status(404).json({ message: 'Token not found or not valid' });
         }
 
         // Generate QR code
-        const qrCodeData = await QRCode.toDataURL(`TokenID:${tokenId},Item:${token.foodItemName},Quantity:${token.quantity}`);
+        const qrCodeData = await QRCode.toDataURL(`TokenID:${tokenId}`);
         
         res.status(200).json({ qrCode: qrCodeData });
     } catch (err) {
@@ -181,5 +233,30 @@ exports.getStudentTokens = async (req, res) => {
     } catch (err) {
         console.error('Error fetching student tokens:', err);
         res.status(500).json({ message: 'Error fetching student tokens', error: err.message || 'Unknown error' });
+    }
+};
+
+// Get token details by token ID
+exports.getTokenDetails = async (req, res) => {
+    try {
+        const { tokenId } = req.params;
+
+        // Validate tokenId format
+        if (!mongoose.Types.ObjectId.isValid(tokenId)) {
+            return res.status(400).json({ message: 'Invalid Token ID format' });
+        }
+
+        // Find the token details
+        const token = await FoodToken.findById(tokenId).populate('foodItemName', 'name price'); // Populate food item details if needed
+
+        if (!token) {
+            return res.status(404).json({ message: 'Token not found' });
+        }
+
+        // Return token details
+        res.status(200).json({ token });
+    } catch (err) {
+        console.error('Error fetching token details:', err);
+        res.status(500).json({ message: 'Error fetching token details', error: err.message || 'Unknown error' });
     }
 };
