@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const FoodTokenPage = () => {
-  const [foodItems] = useState(['Chicken-biryani', 'Vegetable-curry']); 
+  const [foodItems] = useState(['Chicken Biriyani', 'Egg Gravy']); 
   const [foodItemName, setFoodItemName] = useState('');  // Added this line
   const [quantity, setQuantity] = useState(1);
   const [bookingDate, setBookingDate] = useState('');
