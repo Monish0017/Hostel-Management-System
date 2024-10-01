@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const FoodTokenPage = () => {
-  const [foodItems] = useState(['Chicken-biryani', 'Vegetable-curry']); 
+  const [foodItems, setFoodItems] = useState(['Chicken-biryani', 'Vegetable-curry']); 
   const [foodItemName, setFoodItemName] = useState('');  // Added this line
   const [quantity, setQuantity] = useState(1);
   const [bookingDate, setBookingDate] = useState('');
@@ -15,7 +15,7 @@ const FoodTokenPage = () => {
   const [qrCode, setQrCode] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
-
+  const serverBaseUrl = 'http://localhost:3000';
   const authToken = localStorage.getItem('token');
 
   // Fetch food items from backend

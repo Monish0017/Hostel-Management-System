@@ -3,7 +3,7 @@ import './CSS/StudentApplication.css';
 import profile from '../assets/profile.jpg';
 
 const StudentApplication = () => {
-  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
+  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');

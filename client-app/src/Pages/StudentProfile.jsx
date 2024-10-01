@@ -5,7 +5,7 @@ import profile from '../assets/profile.jpg';
 const StudentProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const [error, setError] = useState(null);
-  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
+  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
 
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
@@ -57,10 +57,10 @@ const StudentProfile = () => {
       <div className="profile">
         <div className="profile-header">
           <img src={profile} alt="Profile" className="profile-picture" />
-          <h2>{profileData.fullName}</h2>
+          <h2>Hello {profileData.fullName}!</h2>
         </div>
         <div className="profile-details">
-          <div className="general-info">
+          <div className="general-info box">
             <h3>General Information</h3>
             <p><strong>Roll No:</strong> {profileData.rollNo}</p>
             <p><strong>Amount :</strong> {profileData.amount}</p>
@@ -71,14 +71,14 @@ const StudentProfile = () => {
             <p><strong>Secondary Mobile No:</strong> {profileData.secondaryMobileNumber}</p>
             <p><strong>Residential Address:</strong> {profileData.residentialAddress}</p>
           </div>
-          <div className="academic-info">
+          <div className="academic-info box">
             <h3>Academic Information</h3>
             <p><strong>Programme:</strong> {profileData.programme}</p>
             <p><strong>Class Year:</strong> {profileData.classYear}</p>
           </div>
-          <div className="academic-info">
+          {/* <div className="academic-info">
             <h3>Hostel Information</h3>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

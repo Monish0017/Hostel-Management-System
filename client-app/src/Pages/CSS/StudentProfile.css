@@ -1,52 +1,32 @@
-/* Profile section styles */
-.profile {
-    background-color: white;
-    padding: 0.5rem;
-    border: 3px solid #56596c;
-    border-radius: 8px;
-    width: 100%;
-    max-width: fit-content; 
-}
-
-
-/* Adding equal spacing from the top and bottom */
-.profile-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center;
-    height: 100%;
-}
-
+/* Additional styles for the profile picture */
 .profile-header {
-    text-align: center;
-    margin-bottom: 1rem;
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem; /* Space between header and details */
+    border-bottom: 2px solid var(--hov-but); /* Add a bottom border for the line */
+    padding-bottom: 1rem; /* Optional: add some padding below the header */
 }
 
 .profile-picture {
     width: 100px;
     height: 100px; /* Ensure the height matches the width for a circular image */
     border-radius: 50%;
-    margin-bottom: 1rem;
+    margin-right: 1rem; /* Space between picture and name */
 }
 
+/* Ensure all elements align properly */
 .profile-details {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-wrap: wrap; /* Allow wrapping to next line if necessary */
+    gap: 20px; /* Space between boxes */
 }
 
-.profile-details > div {
-    width: 30%;
-    margin-bottom: 1rem;
-}
+.box {
+    background-color: white; /* Light background color for the boxes */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Inner spacing */
+    flex: 1; /* Allow boxes to grow */
+    min-width: 250px; /* Minimum width for each box */
 
-.general-info h3 {
-    border-bottom: 2px solid #050A44;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.general-info p {
-    margin: 0.5rem 0;
 }

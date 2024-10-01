@@ -1,3 +1,12 @@
+:root {
+  --rest-but: #101624;
+  --shadow-but: #dbe3ee;
+  --base: #eff1f5;
+  --box: white;
+  --header: #242e4c;
+  --hov-but: #9db2bf;
+}
+
 .full {
   display: flex;
   align-items: center;
@@ -12,21 +21,12 @@
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 5px var(--shadow-but);
   text-align: center;
-  max-width: fit-content;
+  max-width: 300px;
   width: 100%;
-  margin-top: 2rem;
-  /* Space between header and login box */
-  margin-bottom: 2rem;
-  /* Space below the login box */
-}
-
-.main h1 {
-  margin-bottom: 2rem;
-  margin-top: 1rem;
-  font-size: 24px;
-  text-align: center;
+  margin-top: 2rem; /* Space between header and login box */
+  margin-bottom: 2rem; /* Space below the login box */
 }
 
 .user,
@@ -39,64 +39,56 @@
 
 .input {
   display: flex;
-  flex-direction: column;
-  /* Ensure inputs are stacked vertically */
-  width: 100%;
+  flex-direction: column; /* Ensure inputs are stacked vertically */
+  align-items: center; /* Center input elements horizontally */
 }
 
 .input input {
-  margin-bottom: 1rem;
-  /* Space below each input field */
-  width: 100%;
-  max-width: 320px;
-  /* Ensure input boxes are not too wide */
+  width: 100%; /* Ensure inputs take full width */
+  max-width: 280px; /* Limit max width for better appearance */
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #56596C;
+  border: 1px solid var(--header);
   border-radius: 5px;
-  background-color: #B3B4BD;
-  color: #141619;
+  background-color: var(--shadow-but);
+  color: black;
   text-align: center;
 }
 
 .input input:last-of-type {
-  margin-bottom: 0;
-  /* Remove margin for the last input */
+  margin-bottom: 0; /* Remove margin for the last input */
 }
 
 .input input:not(:last-of-type) {
-  margin-bottom: 1rem;
-  /* Space between inputs */
+  margin-bottom: 1rem; /* Space between inputs */
 }
 
 .user select,
 .input input {
   width: 100%;
-  max-width: fit-content;
+  max-width: 280px; /* Limit max width for better appearance */
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #56596C;
+  border: 1px solid var(--header);
   border-radius: 5px;
-  background-color: #B3B4BD;
-  color: #141619;
+  background-color: var(--shadow-but);
+  color: black;
   text-align: center;
 }
 
 .user select:focus,
 .input input:focus {
-  border-color: #0A21C0;
+  border-color: var(--header);
   background-color: white;
   outline: none;
 }
 
 .input input::placeholder {
-  color: transparent;
-  /* Hide placeholder text when input is focused */
+  color: transparent; /* Hide placeholder text when input is focused */
 }
 
 .input input:not(:focus)::placeholder {
-  color: #141619;
-  /* Show placeholder text when input is not focused */
+  color: black; /* Show placeholder text when input is not focused */
 }
 
 .forgot {
@@ -113,7 +105,7 @@
 }
 
 .but {
-  background-color: #0A21C0;
+  background-color: var(--rest-but);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -121,17 +113,17 @@
   border-radius: 4px;
   font-size: 16px;
   width: 50%;
-  margin: 0 auto;
-  /* Center the button */
+  margin: 0 auto; /* Center the button */
 }
 
 .but:hover {
-  background-color: #050A44;
+  background-color: var(--hov-but);
+  color: black;
+  font-weight: 600;
 }
 
 .error-popup {
-  background-color: #f44336;
-  /* Red background for error */
+  background-color: #f44336; /* Red background for error */
   color: white;
   padding: 10px;
   border-radius: 5px;

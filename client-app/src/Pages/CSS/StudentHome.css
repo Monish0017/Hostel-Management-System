@@ -1,4 +1,13 @@
 /* Container and layout styles */
+:root {
+  --rest-but: #101624;
+  --shadow-but: #dbe3ee;
+  --base: #eff1f5;
+  --box: white;
+  --header: #242e4c;
+  --hov-but: #9db2bf;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -23,7 +32,7 @@
 /* Sidebar styling */
 .sidebar {
   width: 200px;
-  background-color: #151619; /* Sidebar color */
+  background-color: var(--header); /* Sidebar color */
   position: fixed;
   top: 80px; /* Adjust to be below header */
   height: calc(100vh - 80px); /* Adjust height to avoid overlapping header */
@@ -52,8 +61,8 @@
 
 /* Active sidebar item styling */
 .sidebar li.active {
-  background-color: #0A21C0; /* Fixed color for active item */
-  color: white; /* Ensure text color is white for readability */
+  background-color: var(--hov-but); /* Fixed color for active item */
+  color: black; /* Ensure text color is white for readability */
 }
 
 /* Hover effect for sidebar items (excluding active items) */
@@ -65,8 +74,8 @@
 /* Log out button styling */
 .logout-button {
   padding: 0.5rem 1rem;
-  color: white;
-  background-color: #0A21C0;
+  color: black;
+  background-color: var(--hov-but);
   border: none;
   border-radius: 5px;
   cursor: pointer;
