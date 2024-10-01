@@ -106,7 +106,7 @@ const StudentApplication = () => {
         ) : (
           applications.map((application) => (
             <div key={application.rollNo} className="student-application">
-              <img src={profile} alt="Profile" className="profile-picture" />
+              <img src={application.image} alt={profile} className="profile-picture" />
               <p>Full Name: {application.fullName}</p>
               <p>Roll No: {application.rollNo}</p>
             </div>

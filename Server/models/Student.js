@@ -47,6 +47,10 @@ const studentSchema = new mongoose.Schema({
   amount: {
     type: String,
   },
+  image: {  
+    type: String,  
+    required: false, 
+  },
   room: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room'

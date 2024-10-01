@@ -11,11 +11,12 @@ const Apply = () => {
     rollNo: '',
     contactPhone: '',
     programme: '',
-    classYear:'',
+    classYear: '',
     fatherName: '',
     residentialAddress: '',
     primaryMobileNumber: '',
     secondaryMobileNumber: '',
+    image: '', // Initialize the image attribute
   });
 
   const handleChange = (e) => {
@@ -25,19 +26,30 @@ const Apply = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const selectedImage = e.target.files[0]; // Get the selected file
+    setFormData((prevData) => ({
+      ...prevData,
+      image: selectedImage // Update the image in formData
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    const formDataToSend = new FormData();
+    // Append form fields to FormData object
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
+    }
+
     try {
       const response = await fetch(`${serverBaseUrl}/application/apply`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend, // Send FormData instead of JSON
       });
       
-      if (response) {
+      if (response.ok) {
         const data = await response.json();
         console.log('Application submitted successfully:', data);
         navigate('/');  // Navigate to home or success page after submission
@@ -69,7 +81,7 @@ const Apply = () => {
           <label>Programme:</label>
           <input type="text" name="programme" value={formData.programme} onChange={handleChange} required />
 
-          <label>classYear:</label>
+          <label>Class Year:</label>
           <input type="text" name="classYear" value={formData.classYear} onChange={handleChange} required />
 
           <label>Father's Name:</label>
@@ -84,8 +96,11 @@ const Apply = () => {
           <label>Secondary Mobile Number:</label>
           <input type="text" name="secondaryMobileNumber" value={formData.secondaryMobileNumber} onChange={handleChange} required />
 
+          <label>Upload Image:</label>
+          <input type="file" accept="image/*" onChange={handleImageChange} required /> {/* Image upload field */}
+
           <button type="submit">Submit</button>
-          <button onClick={() => navigate('/')}>Back</button>
+          <button type="button" onClick={() => navigate('/')}>Back</button>
         </form>
       </div>
     </div>

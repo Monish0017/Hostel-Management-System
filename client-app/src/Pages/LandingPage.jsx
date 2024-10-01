@@ -17,17 +17,20 @@ const LandingPage = () => {
           <button onClick={() => navigate('/adminLogin')} className="btn">
             Admin
           </button>
+          <button onClick={() => navigate('/employeeLogin')} className="btn">
+            Employee
+          </button> {/* Added Employee Login Button */}
         </div>
       </div>
 
-        <div className="top-buttons">
-          <button onClick={() => navigate('/apply')} className="top-btn1">
-            Student Application
-          </button>
-          <button onClick={() => navigate('/fee')} className="top-btn2">
-            Make Payment
-          </button>
-        </div>
+      <div className="top-buttons">
+        <button onClick={() => navigate('/apply')} className="top-btn1">
+          Student Application
+        </button>
+        <button onClick={() => navigate('/fee')} className="top-btn2">
+          Make Payment
+        </button>
+      </div>
     </>
   );
 };

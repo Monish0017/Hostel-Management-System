@@ -1,6 +1,8 @@
+// src/components/AdminHome.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
+import EmployeeDetails from './EmployeeDetails'; // Import the new component
 import './CSS/StudentHome.css'; // Ensure the correct relative path
 import AdminRoom from './AdminRoom';
 import AdminFood from './AdminFood';
@@ -18,12 +20,14 @@ const AdminHome = () => {
     switch (activeComponent) {
       case 'Details':
         return <StudentDetails />;
+      case 'EmployeeDetails': 
+        return <EmployeeDetails />;
       case 'Room':
-        return <AdminRoom/>
+        return <AdminRoom />;
       case 'AFood':
-        return <AdminFood/>
+        return <AdminFood />;
       case 'Apply':
-          return <StudentApplication/>
+        return <StudentApplication />;
       default:
         return null;
     }
@@ -39,6 +43,12 @@ const AdminHome = () => {
               onClick={() => handleSidebarClick('Details')}
             >
               Student Details
+            </li>
+            <li
+              className={activeComponent === 'EmployeeDetails' ? 'active' : ''} // Add active state for EmployeeDetails
+              onClick={() => handleSidebarClick('EmployeeDetails')}
+            >
+              Employee Details
             </li>
             <li
               className={activeComponent === 'IVRS' ? 'active' : ''}

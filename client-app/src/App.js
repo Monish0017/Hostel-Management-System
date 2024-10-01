@@ -18,6 +18,8 @@ import AdminFood from './Pages/AdminFood';
 import AdminRoom from './Pages/AdminRoom';
 import Apply from './Pages/Apply';
 import StudentApplication from './Pages/StudentApplication';
+import EmployeeLogin from './Pages/EmployeeLogin'; 
+import EmployeeQrScanner from './Pages/EmployeeQrScanner';
 
 const App = () => {
   return (
@@ -33,7 +35,6 @@ const App = () => {
           <Route path="profile" element={<StudentProfile />} />
           <Route path="ivrs" element={<IVRS />} />
           <Route path="food-tokens" element={<FoodTokenPage />} />
-
           <Route path="information" element={<Information />} />        
           <Route path="room-allocation" element={<RoomAllocation />} />
         </Route>
@@ -42,6 +43,8 @@ const App = () => {
         <Route path="/admin/AdminRoom" element={<AdminRoom/>} />
         <Route path="/admin/apply" element={<StudentApplication />} />
 
+        <Route path="/employeeLogin" element={<EmployeeLogin />} />
+        <Route path="/employeeScan" element={<EmployeeQrScanner/>}/>
       </Routes>
     </Router>
   );

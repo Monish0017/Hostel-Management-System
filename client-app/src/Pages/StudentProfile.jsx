@@ -56,7 +56,7 @@ const StudentProfile = () => {
     <div className="profile-wrapper">
       <div className="profile">
         <div className="profile-header">
-          <img src={profile} alt="Profile" className="profile-picture" />
+          <img src={profileData.image} alt={profile} className="profile-picture" />
           <h2>Hello {profileData.fullName}!</h2>
         </div>
         <div className="profile-details">

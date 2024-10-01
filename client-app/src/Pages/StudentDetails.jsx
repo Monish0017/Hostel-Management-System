@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './CSS/StudentDetails.css'; 
+import './CSS/StudentDetails.css';
 import profile from '../assets/profile.jpg';
 
 const StudentDetails = () => {
@@ -7,19 +7,19 @@ const StudentDetails = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdding, setIsAdding] = useState(false); // State for Add Student
   const [newStudent, setNewStudent] = useState({
     fullName: '',
+    email: '',
     rollNo: '',
     contactPhone: '',
     programme: '',
+    amount: '',
     classYear: '',
     fatherName: '',
     residentialAddress: '',
     primaryMobileNumber: '',
     secondaryMobileNumber: '',
-    feePaid: false,
-    blockNo: '',
-    roomNo: ''
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [file, setFile] = useState(null); // State to hold uploaded file
@@ -36,56 +36,73 @@ const StudentDetails = () => {
       .then(response => response.json())
       .then(data => setStudents(data))
       .catch(error => console.error('Error fetching student data:', error));
-  }, []);
+  }, [token]);
 
-  // Handle student selection
-  const handleStudentClick = (student) => {
-    setSelectedStudent(student);
-    setIsEditing(false);
+  // Handle form input change
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setNewStudent({
+      ...newStudent,
+      [name]: value,
+    });
   };
 
-  // Handle search by roll number
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  // Handle form submission for adding or editing a student
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
 
-  const handleUpload = (event) => {
-    setFile(event.target.files[0]); // Set the uploaded file
-  };
+    // Prepare form data for file upload
+    const formData = new FormData();
+    Object.keys(newStudent).forEach(key => formData.append(key, newStudent[key]));
 
-  const handleFileSubmit = () => {
-    if (!file) {
-      alert('Please select a file before submitting.');
-      return;
+    if (file) {
+      formData.append('image', file); // Attach file if available
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
+    // Determine if adding or editing
+    const url = isAdding
+      ? `${serverBaseUrl}/admin/add-student` // New student endpoint
+      : `${serverBaseUrl}/admin/modify-student/${selectedStudent.rollNo}`; // Existing student modification
 
-    fetch(`${serverBaseUrl}/admin/add-students`, {
-      method: 'POST',
+    fetch(url, {
+      method: isEditing ? 'PUT' : 'POST',
+      headers: {
+        'x-auth-token': token,
+      },
       body: formData,
     })
       .then(response => response.json())
       .then(data => {
-        if (data.error) {
-          console.error('Error uploading student data:', data.error);
-          alert(`Error: ${data.error}`);
+        if (isAdding) {
+          setStudents([...students, data]); // Add new student to the list
+          setIsAdding(false); // Exit add mode
         } else {
-          setStudents(data); // Update students list
-          setFile(null); // Reset file input
-          alert('File uploaded successfully.');
+          const updatedStudents = students.map(s =>
+            s.rollNo === selectedStudent.rollNo ? data : s
+          );
+          setStudents(updatedStudents);
+          setIsEditing(false);
+          setSelectedStudent(null);
         }
+
+        // Reset form and file
+        setNewStudent({
+          fullName: '',
+          email: '',
+          rollNo: '',
+          contactPhone: '',
+          programme: '',
+          amount: '',
+          classYear: '',
+          fatherName: '',
+          residentialAddress: '',
+          primaryMobileNumber: '',
+          secondaryMobileNumber: '',
+        });
+        setFile(null);
       })
-      .catch(error => console.error('Error uploading student data:', error));
+      .catch(error => console.error('Error saving student data:', error));
   };
-
-  // Handle editing a student
-  const handleEditStudent = (student) => {
-    setIsEditing(true);
-    setNewStudent(student);
-  };
-
 
   // Handle deleting a student
   const handleDeleteStudent = (student) => {
@@ -106,71 +123,16 @@ const StudentDetails = () => {
     }
   };
 
-  // Handle form input change
-  const handleFormChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setNewStudent({
-      ...newStudent,
-      [name]: type === 'checkbox' ? checked : value
-    });
+  // Handle adding a new student
+  const handleAddStudent = () => {
+    setIsAdding(true); // Trigger the Add Student form to appear
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-  
-    // URL for updating student data
-    const url = `${serverBaseUrl}/admin/modify-student/${selectedStudent.rollNo}`;
-  
-    fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
-      },
-      body: JSON.stringify(newStudent),
-    })
-      .then(response => response.json())
-      .then(data => {
-        const updatedStudents = students.map(s =>
-          s.rollNo === selectedStudent.rollNo ? data : s
-        );
-        setStudents(updatedStudents);
-        setIsEditing(false);
-        setSelectedStudent(null);
-        setNewStudent({ // Reset form
-          fullName: '',
-          rollNo: '',
-          contactPhone: '',
-          programme: '',
-          classYear: '',
-          fatherName: '',
-          residentialAddress: '',
-          primaryMobileNumber: '',
-          secondaryMobileNumber: '',
-          feePaid: false,
-          blockNo: '',
-          roomNo: ''
-        });
-      })
-      .catch(error => console.error('Error saving student data:', error));
-  };
-  
-  // Handle deleting all students
-  const handleDeleteAllStudents = () => {
-    if (window.confirm('Are you sure you want to delete all students?')) {
-      fetch(`${serverBaseUrl}/admin/remove-all-students`, {
-        method: 'DELETE',
-        headers: {
-          'x-auth-token': token,
-        }
-      })
-        .then(response => response.json())
-        .then(() => {
-          setStudents([]); // Clear the students list
-          alert('All students have been deleted successfully.');
-        })
-        .catch(error => console.error('Error deleting all students:', error));
-    }
+  // Handle editing a student
+  const handleEditStudent = (student) => {
+    setSelectedStudent(student);
+    setNewStudent(student);
+    setIsEditing(true);
   };
 
   // Filter students by roll number
@@ -178,10 +140,14 @@ const StudentDetails = () => {
     student.rollNo && student.rollNo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Handle search input change
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <div>
-      {!isEditing && !selectedStudent ? (
+      {!isEditing && !selectedStudent && !isAdding ? (
         <>
           <h2>Students List</h2>
           <div className="search-container">
@@ -192,13 +158,43 @@ const StudentDetails = () => {
               onChange={handleSearch}
               className="search-bar"
             />
-            <input
-              type="file"
-              accept=".xlsx, .xls"
-              onChange={handleUpload}
-            />
-            <button className="upload-btn" onClick={handleFileSubmit}>Upload</button>
+            <button className="add-btn" onClick={handleAddStudent}>Add Student</button>
           </div>
+          <div className="student-list">
+            <div className="student-grid">
+              {filteredStudents.map(student => (
+                <div key={student.rollNo} className="student-box" onClick={() => setSelectedStudent(student)}>
+                  <img
+                    className="profile-picture"
+                    src={student.image ? student.image : profile}
+                    alt="Profile"
+                  />
+                  <div className="student-info">
+                    <h3>{student.fullName}</h3>
+                    <p>{student.rollNo}</p>
+                  </div>
+                </div>
+              ))} 
+            </div>
+          </div>
+          <button className="delete-all-btn" onClick={() => {
+            if (window.confirm('Are you sure you want to delete all students?')) {
+              fetch(`${serverBaseUrl}/admin/remove-all-students`, {
+                method: 'DELETE',
+                headers: {
+                  'x-auth-token': token,
+                }
+              })
+                .then(response => response.json())
+                .then(() => {
+                  setStudents([]);
+                  setSelectedStudent(null);
+                })
+                .catch(error => console.error('Error deleting all students:', error));
+            }
+          }}>
+            Delete All Students
+          </button>
         </>
       ) : null}
 
@@ -217,8 +213,8 @@ const StudentDetails = () => {
           <p>Full Name: {selectedStudent.fullName}</p>
           <p>Email: {selectedStudent.email}</p>
           <p>Roll No: {selectedStudent.rollNo}</p>
-          <p>Amount: {selectedStudent.amount}</p>
           <p>Contact Phone: {selectedStudent.contactPhone}</p>
+          <p>Amount: {selectedStudent.amount}</p>
           <p>Programme: {selectedStudent.programme}</p>
           <p>Class Year: {selectedStudent.classYear}</p>
           <p>Father's Name: {selectedStudent.fatherName}</p>
@@ -229,8 +225,9 @@ const StudentDetails = () => {
         </div>
       ) : null}
 
-      {isEditing ? (
+      {isEditing || isAdding ? (
         <form onSubmit={handleFormSubmit} className="student-form">
+          {/* Full Name */}
           <input
             type="text"
             name="fullName"
@@ -239,6 +236,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Email */}
           <input
             type="email"
             name="email"
@@ -247,6 +246,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Roll No */}
           <input
             type="text"
             name="rollNo"
@@ -255,6 +256,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Contact Phone */}
           <input
             type="text"
             name="contactPhone"
@@ -263,6 +266,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Programme */}
           <input
             type="text"
             name="programme"
@@ -271,6 +276,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Class Year */}
           <input
             type="text"
             name="classYear"
@@ -279,6 +286,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Father's Name */}
           <input
             type="text"
             name="fatherName"
@@ -287,6 +296,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Residential Address */}
           <input
             type="text"
             name="residentialAddress"
@@ -295,6 +306,17 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          <input
+            type="text"
+            name="amount"
+            placeholder="Amount"
+            value={newStudent.amount}
+            onChange={handleFormChange}
+            required
+          />
+
+          {/* Primary Mobile Number */}
           <input
             type="text"
             name="primaryMobileNumber"
@@ -303,6 +325,8 @@ const StudentDetails = () => {
             onChange={handleFormChange}
             required
           />
+
+          {/* Secondary Mobile Number */}
           <input
             type="text"
             name="secondaryMobileNumber"
@@ -310,34 +334,34 @@ const StudentDetails = () => {
             value={newStudent.secondaryMobileNumber}
             onChange={handleFormChange}
           />
-          <label>
-            <input
-              type="checkbox"
-              name="feePaid"
-              checked={newStudent.feePaid}
-              onChange={handleFormChange}
-            />
-            Fee Paid
-          </label>
-          <button type="submit">{isEditing ? 'Update' : 'Add'} Student</button>
-          <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-        </form>
-      ) : null}
 
-      {!isEditing && !selectedStudent ? (
-        <div>
-          <div className="student-grid">
-            {filteredStudents.map(student => (
-              <div key={student.rollNo} onClick={() => handleStudentClick(student)} className="student-box">
-                <img src={profile} alt="Profile" className="profile-picture"/>
-                <p>Full Name: {student.fullName}</p>
-                <p>Roll No: {student.rollNo}</p>
-              </div>
-            ))}
-          </div>
-        <button className="delete-all-btn" onClick={handleDeleteAllStudents}>Delete All Students</button>
-        </div>
-        
+          {/* File Upload */}
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+
+          <button type="submit">{isAdding ? 'Add Student' : 'Update Student'}</button>
+          <button type="button" onClick={() => {
+            setIsEditing(false);
+            setIsAdding(false);
+            setNewStudent({
+              fullName: '',
+              email: '',
+              rollNo: '',
+              contactPhone: '',
+              programme: '',
+              classYear: '',
+              fatherName: '',
+              residentialAddress: '',
+              primaryMobileNumber: '',
+              secondaryMobileNumber: '',
+            });
+            setFile(null);
+          }}>
+            Cancel
+          </button>
+        </form>
       ) : null}
     </div>
   );

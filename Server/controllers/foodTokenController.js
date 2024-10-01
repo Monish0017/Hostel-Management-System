@@ -26,7 +26,19 @@ exports.bookFoodToken = async (req, res) => {
         // Check if the food item is available on the booking date
         const bookingDay = moment(bookingDate).format('dddd'); // Get the day of the week (e.g., "Monday")
         if (!foodItem.availableDays.includes(bookingDay)) {
-            return res.status(400).json({ message: 'Food item is not available' });
+            return res.status(400).json({ message: 'Food item is not available on the selected day' });
+        }
+
+        // Check if the booking date is in the future
+        const currentTime = moment(); // Get the current time
+        const bookingMoment = moment(bookingDate); // Convert booking date to moment
+
+        // If the booking date is in the future, check the current time
+        if (bookingMoment.isAfter(currentTime, 'day')) {
+            // Booking for a future date, check the current time
+            if (currentTime.hour() >= 17) { // 5 PM in 24-hour format
+                return res.status(400).json({ message: 'Cannot book tokens after 5 PM for future dates' });
+            }
         }
 
         // Calculate the total amount
@@ -61,7 +73,6 @@ exports.bookFoodToken = async (req, res) => {
 };
 
 
-// Cancel a food token
 exports.cancelFoodToken = async (req, res) => {
     try {
         const { tokenId } = req.params;
@@ -72,6 +83,22 @@ exports.cancelFoodToken = async (req, res) => {
         
         if (!token) {
             return res.status(404).json({ message: 'Token not found or not authorized to cancel' });
+        }
+
+        // Get the current date and time
+        const currentDate = new Date();
+        
+        // Parse the token's booking date (assuming the token has a 'bookingDate' field)
+        const bookingDate = new Date(token.bookingDate);
+        
+        // Set the cutoff time for cancellation to 5:00 PM the day before the booking
+        const cancellationCutoff = new Date(bookingDate);
+        cancellationCutoff.setDate(bookingDate.getDate() - 1); // Set to the day before
+        cancellationCutoff.setHours(17, 0, 0, 0); // Set to 5:00 PM
+        
+        // Check if the current time is past the cutoff time
+        if (currentDate > cancellationCutoff) {
+            return res.status(403).json({ message: 'Cancellation is no longer allowed after 5:00 PM the day before' });
         }
 
         // Find the food item to get its price
@@ -107,46 +134,6 @@ exports.cancelFoodToken = async (req, res) => {
     }
 };
 
-// Clear food tokens based on token ID
-exports.clearTokens = async (req, res) => {
-    try {
-        const { tokenId } = req.body;
-
-        // Check if tokenId is provided
-        if (!tokenId) {
-            return res.status(400).json({ message: 'Token ID is required' });
-        }
-
-        // Validate tokenId format
-        if (!mongoose.Types.ObjectId.isValid(tokenId)) {
-            return res.status(400).json({ message: 'Invalid Token ID format' });
-        }
-
-        // Find the token in the database
-        const token = await FoodToken.findById(tokenId);
-
-        // Check if token exists
-        if (!token) {
-            return res.status(404).json({ message: 'Token not found' });
-        }
-
-        // Check the current quantity
-        if (token.quantity > 1) {
-            // Decrement the quantity
-            token.quantity -= 1;
-            await token.save(); // Save the updated token
-            return res.status(200).json({ message: 'Token quantity decremented successfully', quantity: token.quantity });
-        } else {
-            // If quantity is 1, delete the token
-            await FoodToken.deleteOne({ _id: tokenId });
-            return res.status(200).json({ message: 'Token cleared successfully' });
-        }
-    } catch (err) {
-        console.error('Error clearing tokens:', err);
-        res.status(500).json({ message: 'Error clearing tokens', error: err.message || 'Unknown error' });
-    }
-};
-
 
 // Generate QR code for a food token
 exports.generateQRCode = async (req, res) => {
@@ -158,7 +145,7 @@ exports.generateQRCode = async (req, res) => {
             return res.status(400).json({ message: 'Invalid token ID' });
         }
 
-
+        
         // Find the token
         const token = await FoodToken.findOne({ _id: tokenId });
 
@@ -167,7 +154,7 @@ exports.generateQRCode = async (req, res) => {
         }
 
         // Generate QR code
-        const qrCodeData = await QRCode.toDataURL(`TokenID:${tokenId}`);
+        const qrCodeData = await QRCode.toDataURL(`${tokenId}`);
         
         res.status(200).json({ qrCode: qrCodeData });
     } catch (err) {

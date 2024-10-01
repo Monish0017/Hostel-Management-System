@@ -1,0 +1,105 @@
+/* Employee.css */
+
+.employee-scan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light background for contrast */
+}
+
+h2 {
+    color: #343a40; /* Dark text for headers */
+}
+
+.error-employee {
+    color: #dc3545; /* Bootstrap's danger color for error messages */
+    margin-bottom: 20px;
+}
+
+.add-employee {
+    width: 100%;
+    max-width: 400px;
+    background: #fff; /* White background for the input area */
+    border: 1px solid #ced4da; /* Light border for input box */
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.add-employee input[type="text"],
+.add-employee input[type="file"],
+.add-employee input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.available-days {
+    margin: 10px 0;
+}
+
+.available-days label {
+    margin-right: 10px;
+}
+
+button {
+    background-color: #007bff; /* Bootstrap's primary color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darken the button on hover */
+}
+
+.food-list {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.food-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #fff;
+    width: 100%;
+}
+
+.food-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#reader {
+    margin-top: 20px;
+    border: 2px dashed #007bff; /* Dashed border for the QR code scanner */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.scanned-data {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #007bff;
+    background-color: #e9ecef; /* Light background for scanned data */
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}

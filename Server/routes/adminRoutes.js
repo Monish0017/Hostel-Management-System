@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const upload = require('../middleware/upload');
 
 const {
   registerAdmin,
   loginAdmin,
+  removeEmployee,
+  modifyEmployee,
+  getAllEmployees,
+  registerEmployee,
   allocateRooms,
   manualAssignStudentToRoom,
   removeStudentFromRoom,
@@ -17,10 +20,10 @@ const {
   deleteAllStudents,
   getAllRooms,
   deleteRoom,
+  addStudent,
   vacateAllRooms,
   addRoom,
   getRoomDetailsWithStudents,
-  uploadStudents
 } = require('../controllers/adminController');
 
 const authMiddleware = require('../middleware/adminAuth');
@@ -42,16 +45,22 @@ router.post('/add-room', authMiddleware, addRoom);
 router.get('/roomdetails' , authMiddleware , getRoomDetailsWithStudents);
 
 // Route for uploading students
-router.post('/add-students', upload.single('file'), uploadStudents);
-router.put('/modify-student/:rollNo', authMiddleware, modifyStudent);
+router.put('/modify-student/:rollNo', upload.single('image') , authMiddleware, modifyStudent);
 router.delete('/remove-student/:rollNo', authMiddleware, removeStudent);
 router.delete('/students', authMiddleware, deleteAllStudents);
 
 // Student details routes
 router.get('/students', authMiddleware, getAllStudents);
 router.get('/students/:rollNo/payments', authMiddleware, getStudentPayments);
+router.post('/add-student', upload.single('image') , authMiddleware, addStudent);
 
 // Application management routes
 router.get('/applications', authMiddleware, getAllApplications);
+
+// Employee Routes
+router.post('/add-employee', upload.single('image') , authMiddleware, registerEmployee);
+router.get('/employees', authMiddleware , getAllEmployees);
+router.put('/modify-employee/:employeeId', upload.single('image') ,authMiddleware , modifyEmployee);
+router.delete('/remove-employee/:employeeId', authMiddleware ,removeEmployee);
 
 module.exports = router;

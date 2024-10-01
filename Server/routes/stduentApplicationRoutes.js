@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const adminauth = require('../middleware/adminAuth');
+const upload = require('../middleware/upload');
+
 const {
   submitApplication,
   processApplication,
@@ -9,7 +11,7 @@ const {
 } = require('../controllers/studentApplicationController');
 
 // Route to submit an application
-router.post('/apply', submitApplication);
+router.post('/apply', upload.single('image') , submitApplication);
 
 router.get('/getstudent' , adminauth , getAllApplications);
 

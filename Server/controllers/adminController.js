@@ -1,31 +1,73 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const RoomAllocator = require('../utils/allocation');
 const Student = require('../models/Student');
 const Room = require('../models/Room');
 const Payment = require('../models/Payment');
+const Employee = require('../models/Employee');
 const Application = require('../models/Application');
-const multer = require('multer');
-const excelToJson = require('convert-excel-to-json');
-const path = require('path');
+const { ref, uploadBytes, getDownloadURL, deleteObject } = require('firebase/storage'); 
+const { storage } = require('../firebaseConfig'); 
 
-// Set storage engine for Multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // directory to save uploaded files
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+const addStudent = async (req, res) => {
+  const { fullName, rollNo, email, contactPhone, amount , programme, classYear, fatherName, residentialAddress, primaryMobileNumber, secondaryMobileNumber } = req.body;
+
+  // Validate input
+  if (!fullName || !rollNo || !email || !contactPhone || !programme || !classYear || !fatherName || !residentialAddress || !primaryMobileNumber) {
+    return res.status(400).json({ message: 'Please provide all required fields.' });
   }
-});
 
-// Initialize upload variable with storage config
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1000000 }, // limit file size to 1MB (optional)
-}).single('file'); // expects the 'file' field in the form data
+  try {
+    // Check if the student already exists
+    const existingStudent = await Student.findOne({ rollNo });
+    if (existingStudent) {
+      return res.status(400).json({ message: 'Student with this roll number already exists.' });
+    }
 
+    const password = rollNo.toLowerCase();
+    console.log(password);
+    // Handle image upload if provided
+    let imageUrl = '';
+    if (req.file) {
+      const file = req.file;
+      const fileName = `${rollNo}-${Date.now()}-${file.originalname}`; // Create a unique filename
+      const fileRef = ref(storage, `students/${fileName}`);
+
+      // Upload the file to Firebase Storage
+      const snapshot = await uploadBytes(fileRef, file.buffer);
+      imageUrl = await getDownloadURL(snapshot.ref); // Get the image URL
+    }
+
+    // Hash the password using bcrypt
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create a new student
+    const newStudent = new Student({
+      fullName,
+      rollNo,
+      email,
+      password: hashedPassword,
+      contactPhone,
+      amount,
+      programme,
+      classYear,
+      fatherName,
+      residentialAddress,
+      primaryMobileNumber,
+      secondaryMobileNumber,
+      image: imageUrl, // Save the image URL in the student record
+    });
+
+    // Save the new student to the database
+    await newStudent.save();
+    res.status(201).json({ message: 'Student added successfully', student: newStudent });
+  } catch (error) {
+    console.error('Error adding student:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 // Fetch all students
 const getAllStudents = async (req, res) => {
@@ -36,50 +78,6 @@ const getAllStudents = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
-
-const uploadStudents = (req, res) => {
-
-  upload(req, res, async (err) => {
-    if (err) {
-      return res.status(400).json({ error: 'Error uploading file' });
-    }
-
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
-    }
-
-    const filePath = req.file.path;
-    try {
-      const result = excelToJson({ sourceFile: filePath });
-      const studentData = result.Sheet1;
-      const newStudents = [];
-
-      studentData.forEach(async (studentRow) => {
-        const { rollNo, fullName, email, contactPhone, programme, classYear } = studentRow;
-
-        if (!rollNo || !fullName || !email) {
-          console.error(`Skipping row with missing data: ${JSON.stringify(studentRow)}`);
-          return;
-        }
-
-        const existingStudent = await Student.findOne({ rollNo });
-        if (!existingStudent) {
-          newStudents.push({ rollNo, fullName, email, contactPhone, programme, classYear });
-        }
-      });
-
-      if (newStudents.length > 0) {
-        await Student.insertMany(newStudents);
-        res.status(201).json({ msg: `${newStudents.length} students uploaded successfully` });
-      } else {
-        res.status(400).json({ msg: 'No new students to upload' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Error processing the Excel file' });
-    }
-  });
-};
-
 
 // Fetch student payment details
 const getStudentPayments = async (req, res) => {
@@ -289,12 +287,46 @@ const modifyStudent = async (req, res) => {
   const updates = req.body;
 
   try {
-    const student = await Student.findOneAndUpdate({ rollNo }, updates, { new: true });
+    const student = await Student.findOne({ rollNo });
     if (!student) {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    res.status(200).json({ message: 'Student updated successfully', student });
+    // Check if there's an image file uploaded
+    if (req.file) {
+      // Delete the existing image from Firebase if it exists
+      if (student.image) { // Assume profileImageUrl contains the path to the image in Firebase Storage
+        const imageRef = ref(storage, student.image); // Create a reference to the file to delete
+
+        await deleteObject(imageRef)
+          .then(() => {
+            console.log('Previous image deleted successfully from Firebase Storage');
+          })
+          .catch((error) => {
+            console.error('Error deleting previous image from Firebase Storage:', error);
+            return res.status(500).json({ error: 'Failed to delete previous image' });
+          });
+      }
+
+      // Upload the new image to Firebase Storage
+      const newImageRef = ref(storage, `students/${req.file.filename}`); // Specify the path to store the image
+
+      await uploadBytes(newImageRef, req.file.buffer).then(async () => {
+        // Get the download URL for the new image
+        const newImageUrl = await getDownloadURL(newImageRef);
+
+        // Update the student record with the new image URL
+        updates.image = newImageUrl;
+      }).catch((error) => {
+        console.error('Error uploading new image to Firebase:', error);
+        return res.status(500).json({ error: 'Failed to upload new image' });
+      });
+    }
+
+    // Update the student with the provided updates
+    const updatedStudent = await Student.findOneAndUpdate({ rollNo }, updates, { new: true });
+
+    res.status(200).json({ message: 'Student updated successfully', student: updatedStudent });
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
@@ -319,11 +351,26 @@ const removeStudent = async (req, res) => {
       }
     }
 
+    // Delete student profile image from Firebase Storage
+    if (student.image) { // Assume profileImageUrl contains the path to the image in Firebase Storage
+      const imageRef = ref(storage, student.image); // Create a reference to the file to delete
+
+      deleteObject(imageRef)
+        .then(() => {
+          console.log('Image deleted successfully from Firebase Storage');
+        })
+        .catch((error) => {
+          console.error('Error deleting image from Firebase Storage:', error);
+        });
+    }
+
     res.status(200).json({ message: 'Student removed successfully' });
   } catch (error) {
+    console.error('Error removing student:', error);
     res.status(500).json({ error: 'Server error' });
   }
 };
+
 
 // Fetch all applications
 const getAllApplications = async (req, res) => {
@@ -432,11 +479,176 @@ const getRoomDetailsWithStudents = async (req, res) => {
   }
 };
 
+const registerEmployee = async (req, res) => {
+  console.log(req.body); // This will log the non-file fields
+
+  try {
+      // Accessing fields directly from req.body
+      const { fullName, contactPhone, email, position, salary, address } = req.body;
+
+      // Check for necessary fields
+      if (!fullName || !contactPhone || !email || !position || !salary || !address) {
+          return res.status(400).json({ error: 'All fields are required' });
+      }
+      
+      console.log(req.body);
+      console.log(req.file);
+
+      // Check for file upload
+      if (!req.file) {
+          return res.status(400).json({ error: 'Profile image is required' });
+      }
+
+      // Hash the password using bcrypt
+      const password = fullName.substring(0, 6).toLowerCase(); // Generate a default password based on full name
+      const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+
+      // Create a reference to Firebase Storage for the employee image
+      const storageRef = ref(storage, `employees/${Date.now()}_${req.file.originalname}`); // Use timestamp for unique filenames
+
+      // Upload the file to Firebase Storage using buffer from Multer
+      const snapshot = await uploadBytes(storageRef, req.file.buffer);
+
+      // Get the download URL after uploading
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      // Create a new Employee document
+      const newEmployee = new Employee({
+          fullName,
+          contactPhone,
+          email,
+          position,
+          salary,
+          password: hashedPassword, // Store the hashed password
+          address,
+          image: downloadURL, // Store the Firebase download URL for the image
+      });
+
+      // Save the new employee to MongoDB
+      await newEmployee.save();
+      
+      // Respond with the new employee details (excluding the password)
+      res.status(201).json({
+          _id: newEmployee._id, // Return the MongoDB ID
+          fullName: newEmployee.fullName,
+          contactPhone: newEmployee.contactPhone,
+          email: newEmployee.email,
+          position: newEmployee.position,
+          salary: newEmployee.salary,
+          address: newEmployee.address,
+          image: newEmployee.image, // Include the image URL in the response
+      });
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ error: error.message });
+  }
+};
+
+// Get all employees
+const getAllEmployees = async (req, res) => {
+  try {
+    const employees = await Employee.find();
+    res.json(employees);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Modify an existing employee
+const modifyEmployee = async (req, res) => {
+  const { employeeId } = req.params; // Extracting employeeId from request parameters
+  const updates = req.body; // Destructuring properties from req.body
+
+  try {
+    const employee = await Employee.findById(employeeId); // Find the employee by ID
+    if (!employee) {
+      return res.status(404).json({ message: 'Employee not found' }); // Handle case where employee is not found
+    }
+
+    // Check if there's an image file uploaded
+    if (req.file) {
+      // Delete the existing image from Firebase if it exists
+      if (employee.image) {
+        const imageRef = ref(storage, employee.image); // Create a reference to the file to delete
+
+        await deleteObject(imageRef)
+          .then(() => {
+            console.log('Previous image deleted successfully from Firebase Storage');
+          })
+          .catch((error) => {
+            console.error('Error deleting previous image from Firebase Storage:', error);
+            return res.status(500).json({ error: 'Failed to delete previous image' });
+          });
+      }
+
+      // Upload the new image to Firebase Storage
+      const newImageRef = ref(storage, `employees/${req.file.filename}`); // Specify the path to store the image
+
+      await uploadBytes(newImageRef, req.file.buffer).then(async () => {
+        // Get the download URL for the new image
+        const newImageUrl = await getDownloadURL(newImageRef);
+
+        // Update the employee record with the new image URL
+        updates.image = newImageUrl; // Update the image field with the new URL
+      }).catch((error) => {
+        console.error('Error uploading new image to Firebase:', error);
+        return res.status(500).json({ error: 'Failed to upload new image' });
+      });
+    }
+
+    // Update the employee with the provided updates
+    const updatedEmployee = await Employee.findByIdAndUpdate(employeeId, updates, { new: true, runValidators: true });
+
+    if (!updatedEmployee) {
+      return res.status(404).json({ message: 'Employee not found' }); // Handle case where employee is not found
+    }
+
+    res.status(200).json({ message: 'Employee updated successfully', employee: updatedEmployee }); // Respond with success message and updated employee data
+  } catch (error) {
+    console.error(error); // Log the error for debugging
+    res.status(500).json({ error: 'Server error' }); // Send error response
+  }
+};
+
+
+// Remove an employee
+const removeEmployee = async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+
+    // Find the employee to get their image URL
+    const employee = await Employee.findById(employeeId);
+    if (!employee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    // Delete employee record
+    await Employee.findByIdAndDelete(employeeId); // Use findByIdAndDelete instead of findByIdAndRemove
+
+    // Delete employee image from Firebase Storage if it exists
+    if (employee.image) {
+      const imageRef = ref(storage, employee.image); // Create a reference to the file to delete
+
+      await deleteObject(imageRef)
+        .then(() => {
+          console.log('Image deleted successfully from Firebase Storage');
+        })
+        .catch((error) => {
+          console.error('Error deleting image from Firebase Storage:', error);
+        });
+    }
+
+    res.status(204).send(); // Successfully deleted
+  } catch (error) {
+    console.error('Error removing employee:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   registerAdmin,
   loginAdmin,
   getAllStudents,
-  uploadStudents,
   getStudentPayments,
   removeStudentFromRoom,
   manualAssignStudentToRoom,
@@ -447,7 +659,12 @@ module.exports = {
   getAllRooms,
   deleteRoom,
   vacateAllRooms,
+  registerEmployee,
+  removeEmployee,
+  modifyEmployee,
+  getAllEmployees,
   addRoom,
   getRoomDetailsWithStudents,
+  addStudent,
   allocateRooms
 };
