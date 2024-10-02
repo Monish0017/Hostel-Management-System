@@ -281,7 +281,6 @@ const deleteRoom = async (req, res) => {
 };
 
 
-
 // Modify an existing student
 const modifyStudent = async (req, res) => {
   const { rollNo } = req.params;
@@ -296,7 +295,7 @@ const modifyStudent = async (req, res) => {
     // Check if there's an image file uploaded
     if (req.file) {
       // Delete the existing image from Firebase if it exists
-      if (student.image) { // Assume profileImageUrl contains the path to the image in Firebase Storage
+      if (student.image) { // Assume student.image contains the path to the image in Firebase Storage
         const imageRef = ref(storage, student.image); // Create a reference to the file to delete
 
         await deleteObject(imageRef)
@@ -309,8 +308,11 @@ const modifyStudent = async (req, res) => {
           });
       }
 
+      // Generate a new filename using Date.now()
+      const newImageName = `students/${Date.now()}-${req.file.originalname}`; // Include the timestamp
+
       // Upload the new image to Firebase Storage
-      const newImageRef = ref(storage, `students/${req.file.filename}`); // Specify the path to store the image
+      const newImageRef = ref(storage, newImageName); // Specify the path to store the image
 
       await uploadBytes(newImageRef, req.file.buffer).then(async () => {
         // Get the download URL for the new image
@@ -332,6 +334,7 @@ const modifyStudent = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
 
 // Remove a student
 const removeStudent = async (req, res) => {
