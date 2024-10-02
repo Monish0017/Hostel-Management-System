@@ -28,7 +28,7 @@ const StudentComplaints = () => {
   }, [token]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
 
     // Send the complaint text to the server
     try {
@@ -63,8 +63,8 @@ const StudentComplaints = () => {
           placeholder="Describe your issue..."
           required
         />
+        <button type="submit">Submit Complaint</button> {/* Move the button inside the form */}
       </form>
-      <button type="submit">Submit Complaint</button>
 
       <h3>Your Complaints</h3>
       {complaints.length === 0 ? (
