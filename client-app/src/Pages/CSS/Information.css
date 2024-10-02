@@ -13,9 +13,8 @@
     flex: 1 0 calc(25% - 16px);
     height: 200px;
     max-width: calc(25% - 16px);
-    background-color: #56596c;
+    background-color: var(--grid);
     padding: 16px;
-    border: 1px solid #B3B4BD;
     border-radius: 8px;
     cursor: pointer;
     box-sizing: border-box;
@@ -27,7 +26,8 @@
 }
 
 .details-box:hover {
-    background-color: #141619;
+    background-color:var(--header);
+    color: white;
 }
 
 .details-box p {
@@ -56,13 +56,17 @@
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
-    background-color: #0A21C0;
+    background-color: var(--rest-but);
     color: white;
     cursor: pointer;
 }
 
 .back-button:hover {
-    background-color: #050A44;
+    background-color: var(--hov-but); /* Hover background color */
+    color: black; /* Hover text color */
+    font-weight: 600; /* Set weight to avoid size changes */
+    border: 1.5px solid transparent; 
+    border-color: var(--rest-but);
 }
 
 .view-toggle {
@@ -75,14 +79,18 @@
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #f1f1f1;
-    color: #141619;
+    background-color: var(--rest-but);
+    color: white;
     cursor: pointer;
     margin: 0 5px;
 }
 
+.toggle-button:hover {
+    transform: scale(1.05);
+}
+
 .toggle-button.active {
-    background-color: #0A21C0;
+    font-weight: 600;
     color: white;
 }
 
@@ -92,4 +100,5 @@
     border: 1px solid white;
     border-radius: 8px;
     margin-top: 16px;
+    box-shadow: 0 0 10px 5px var(--shadow-but);
 }

@@ -1,50 +1,75 @@
 /* Container for Payment form */
 .payment-container {
   max-width: 500px;
-  margin: 100px auto;
+  margin: 200px auto;
   background-color: white;
   padding: 30px;
   border-radius: 15px;
-  border: 3px solid #56596c;
+  box-shadow: 0 0 10px 5px var(--shadow-but);
   text-align: center;
 }
 
 /* Headings Styling */
 .payment-container h2 {
-  color: #050A44;
+  color: black;
   font-size: 24px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
 .payment-container p {
-  color: #141619;
+  color: black;
   font-size: 20px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
-/* Form Labels */
-.form-group label {
-  font-weight: bold;
-  font-size: 16px;
-  color: #141619;
-  text-align: left;
-  display: block;
-  margin-bottom: 8px;
+.form-group select{
+  width: 60%%;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 5px;
 }
 
+.form-group input{ 
+  width: 50%;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 5px;
+  border: 1px solid var(--grid);
+}
 
 /* Payment Details */
 .payment-details {
   background-color: white; /* Changed from black to white */
   padding: 16px;
   border-radius: 8px;
-  color: #141619; /* Change text color to dark gray for visibility */
+  color: black; /* Change text color to dark gray for visibility */
   margin-top: 16px;
-  border: 1px solid #B3B4BD; /* Optional: Add a light border for definition */
 }
 
 .payment-details p {
   margin: 5px 0;
+}
+
+.logout2 {
+  background-color: var(--rest-but);
+  color: white;
+  margin-right: 0;      
+  margin-left: auto;  
+  position: absolute; 
+  right: 20px;          
+  top: 100px;           
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout2:hover{
+  background-color: var(--hov-but);
+  color: black;
+  font-weight: 600;
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but);
 }

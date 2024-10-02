@@ -1,12 +1,4 @@
-/* CSS: Complaint Management (StudentComplaints.css & AdminComplaints.css) */
 
-.complaint-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
   .complaint-box {
     background-color: #f8f9fa;
     border: 1px solid #ddd;
@@ -25,22 +17,37 @@
     border: 1px solid #ddd;
   }
   
-  textarea {
-    width: 100%;
+  .comp textarea {
+    width: 80%;
     height: 100px;
     margin-bottom: 10px;
     padding: 10px;
   }
   
-  button {
-    background-color: #007bff;
+  .comp button {
+    background-color: var(--rest-but);
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    border-radius: 4px;
+    margin-top: 20px;
+
   }
   
-  button:hover {
-    background-color: #0056b3;
+  .comp button:hover {
+    background-color: var(--hov-but); 
+    color: black; 
+    font-weight: 600; 
+    border: 1.5px solid transparent; 
+    border-color: var(--rest-but);
   }
   
+  .complaint-grid {
+    background-color: white;
+    padding: 16px;
+    border: 1px solid white;
+    border-radius: 8px;
+    margin-top: 16px;
+    box-shadow: 0 0 10px 5px var(--shadow-but);
+}

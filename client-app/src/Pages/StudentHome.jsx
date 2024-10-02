@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
-import IVRS from './IVRS';
 import Information from './Information';
 import RoomAllocation from './RoomAllocation';
 import FoodTokenPage from './FoodTokenPage';
@@ -50,8 +49,6 @@ const StudentHome = () => {
     switch (activeComponent) {
       case 'StudentProfile':
         return <StudentProfile />;
-      case 'IVRS':
-        return <IVRS />;
       case 'Information':
         return <Information />;
       case 'Room':
@@ -77,22 +74,10 @@ const StudentHome = () => {
               Student Profile
             </li>
             <li
-              className={activeComponent === 'IVRS' ? 'active' : ''}
-              onClick={() => handleSidebarClick('IVRS')}
-            >
-              IVRS
-            </li>
-            <li
               className={activeComponent === 'Room' ? 'active' : ''}
               onClick={() => handleSidebarClick('Room')}
             >
               Room
-            </li>
-            <li
-              className={activeComponent === 'Events' ? 'active' : ''}
-              onClick={() => handleSidebarClick('Events')}
-            >
-              Events
             </li>
             <li
               className={activeComponent === 'Food' ? 'active' : ''}

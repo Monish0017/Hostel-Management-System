@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Html5Qrcode } from 'html5-qrcode';
 import './CSS/EmployeeScanQR.css'; // Adjust according to your stylesheet
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const EmployeeScanQR = () => {
   const [qrData, setQrData] = useState(null);
@@ -12,6 +13,7 @@ const EmployeeScanQR = () => {
   const [showZeroQuantityPopup, setShowZeroQuantityPopup] = useState(false);
   const html5QrCodeRef = useRef(null);
   
+  const navigate=useNavigate();
   const token = localStorage.getItem('token');
   const serverBaseUrl = 'http://localhost:3000';
 
@@ -123,6 +125,7 @@ const EmployeeScanQR = () => {
 
   return (
     <div className="employee-scan-qr">
+      <button className='logout1' onClick={() => navigate('/')}>Log Out</button>
       <h2>Employee QR Scanner</h2>
       {error && <p className="error">{error}</p>}
       <button onClick={handleScannerToggle}>

@@ -1,3 +1,5 @@
+employee login and login has same
+
 Landing page
 body
 landing-title
@@ -40,14 +42,6 @@ content
 sidebar 
 logout-button
 
-IVRS
-ivrs-container
-leave-application-container
-leave-history-table
-apply-button
-form-group
-form-actions
-
 Fee
 payment-container
 payment-detail
@@ -89,6 +83,12 @@ qr-code
 error-modal-overlay
 error-modal
 
+Complaint
+comp
+
+Employee
+food-item-display
+logout1
 
 ADMIN
 
@@ -136,10 +136,3 @@ delete-button
 confirm-button
 student-grid(StudentDetails)
 student-box(StudentDetails)
-
-colour codes
-#141619   black
-#56596c   dark grey
-#050A44   navy
-#0A21C0   blue
-#B3B4BD   light grey

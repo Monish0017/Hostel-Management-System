@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import Payment from './Payment'; // Import the Payment component
 import './CSS/Fee.css';
+import { useNavigate } from 'react-router-dom';
 
 function Fee() {
   const [rollNo, setRollNo] = useState('');
   const [block, setBlock] = useState('');
+  const navigate=useNavigate();
 
   return (
     <div className='payment-container'>
       <h2>Fee Payment</h2>
+      <button className='logout2' onClick={() => navigate('/')}>Back</button>
       <div className='form-group'>
-        <label>Roll No:</label>
         <input
           type="text"
           value={rollNo}
@@ -19,7 +21,6 @@ function Fee() {
         />
       </div>
       <div className='form-group'>
-        <label>Select Block:</label>
         <select value={block} onChange={(e) => setBlock(e.target.value)}>
           <option value="">Select Block</option>
           <option value="K-Block">K-Block</option>

@@ -1,12 +1,4 @@
 /* Container and layout styles */
-:root {
-  --rest-but: #101624;
-  --shadow-but: #dbe3ee;
-  --base: #eff1f5;
-  --box: white;
-  --header: #242e4c;
-  --hov-but: #9db2bf;
-}
 
 .container {
   display: flex;
@@ -63,6 +55,7 @@
 .sidebar li.active {
   background-color: var(--hov-but); /* Fixed color for active item */
   color: black; /* Ensure text color is white for readability */
+  font-weight: 600;
 }
 
 /* Hover effect for sidebar items (excluding active items) */
@@ -87,5 +80,5 @@
 
 .logout-button:hover {
   transform: scale(1.07);
-  font-weight: bold;
+  font-weight: 600;
 }

@@ -1,54 +1,18 @@
-/* Employee.css */
-
-.employee-scan {
+.employee-scan-qr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Light background for contrast */
-}
+    justify-content: center;
+    min-height: 100vh;
+  }
 
-h2 {
-    color: #343a40; /* Dark text for headers */
-}
+  .employee-scan-qr h2{
+    margin-top: 100px;
+  }
 
-.error-employee {
-    color: #dc3545; /* Bootstrap's danger color for error messages */
-    margin-bottom: 20px;
-}
 
-.add-employee {
-    width: 100%;
-    max-width: 400px;
-    background: #fff; /* White background for the input area */
-    border: 1px solid #ced4da; /* Light border for input box */
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.add-employee input[type="text"],
-.add-employee input[type="file"],
-.add-employee input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-}
-
-.available-days {
-    margin: 10px 0;
-}
-
-.available-days label {
-    margin-right: 10px;
-}
-
-button {
-    background-color: #007bff; /* Bootstrap's primary color */
+.employee-scan-qr button {
+    background-color: var(--rest-but); 
     color: white;
     padding: 10px 15px;
     border: none;
@@ -57,49 +21,58 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3; /* Darken the button on hover */
+.employee-scan-qr button:hover {
+    background-color: var(--hov-but); 
+    color: black;
+    font-weight: 600;
+    border: 1.5px solid transparent; 
+    border-color: var(--rest-but);
 }
 
-.food-list {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
-}
-
-.food-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ced4da;
+.logout1 {
+    margin-right: 0;      
+    margin-left: auto;  
+    position: absolute; 
+    right: 20px;          
+    top: 100px;           
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
-    padding: 15px;
-    margin: 10px 0;
-    background-color: #fff;
-    width: 100%;
+    cursor: pointer;
 }
 
-.food-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
 
 #reader {
     margin-top: 20px;
-    border: 2px dashed #007bff; /* Dashed border for the QR code scanner */
     padding: 10px;
-    border-radius: 5px;
 }
+  
 
-.scanned-data {
+  .food-item-display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    background-color: white;
+    padding: 20px;
     margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #007bff;
-    background-color: #e9ecef; /* Light background for scanned data */
-    border-radius: 5px;
-    width: 100%;
-    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px var(--shadow-but);
+  }
+  
+  .food-item-display h3 {
+    grid-column: span 2;
     text-align: center;
-}
+  }
+  
+  .food-item-display p {
+    margin: 0;
+    padding: 10px 0;
+  }
+  
+  .food-item-display img {
+    grid-column: span 2;
+    max-width: 150px;
+    margin: 10px auto;
+    display: block;
+  }
+ 

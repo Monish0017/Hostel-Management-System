@@ -1,39 +1,10 @@
 /* General styles */
 .food-token-page h1 {
-  color: #141619;
+  color: black;
   text-align:center;
   padding: 20px;
 }
 
-.food-item {
-  background-color: white;
-  border: 3px solid #B3B4BD;
-  border-radius: 8px;
-  margin: 10px;
-  padding: 15px;
-  width: 200px;
-  text-align: center;
-  box-shadow: 2px 2px 10px #B3B4BD;
-}
-
-.food-item-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.food-item-name {
-  font-weight: bold;
-  color: #141619;
-}
-
-.food-item-days {
-  font-size: 0.9em;
-  color: #050A44;
-  margin-top: 5px;
-}
 
 /* Book token form */
 .book-token-form h2{
@@ -45,9 +16,15 @@
   background-color: white;
   padding: 10px;
   border-radius: 8px;
-  border: 3px solid #56596c;
   max-width: 400px;
   margin: 0 auto;
+  box-shadow: 0 0 10px 5px var(--shadow-but);
+}
+
+.book-token-form select{
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 5px;
 }
 
 .book-token-form input[type="text"], 
@@ -57,14 +34,14 @@
   padding: 10px;
   margin-top: 15px;
   border-radius: 5px;
-  border: 1px solid #B3B4BD;
+  border: 1px solid var(--grid);
 }
 
 .book-token-form button {
   width: 90%;
   margin: 20px;
   padding: 10px;
-  background-color: #0A21C0;
+  background-color: var(--rest-but);
   color: white;
   border: none;
   border-radius: 5px;
@@ -86,12 +63,11 @@
 }
 
 .token-item {
-  background-color: #56596c;
+  background-color: var(--grid);
   color: white;
   padding: 15px;
   border-radius: 8px;
-  border: 1px solid #B3B4BD;
-  margin: 10px 0;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,7 +76,8 @@
 .cancel-button {
   padding: 8px 12px;
   margin-left: 0px;
-  background-color: #050A44;
+  margin-right: 20px;
+  background-color: var(--rest-but);
   color: white;
   border: none;
   border-radius: 5px;
@@ -108,15 +85,13 @@
 }
 
 .cancel-button:hover {
-  background-color: white;
-  color: black;
-  border: 2px solid #050A44;
+  font-weight: 600;
 }
 
 .qr-button {
   padding: 8px 12px;
   margin-left: 10px;
-  background-color: #0A21C0;
+  background-color: var(--rest-but);
   color: white;
   border: none;
   border-radius: 5px;
@@ -124,9 +99,7 @@
 }
 
 .qr-button:hover {
-  background-color: white;
-  color: black;
-  border: 2px solid #0A21C0;
+  font-weight: 600;
 }
 
 
@@ -157,7 +130,7 @@
   
   /* Styles for the overlay */
   .error-modal-overlay {
-    background-color: #B3B4BD;
+    background-color: var(--grid);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -177,12 +150,12 @@
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #0A21C0;
+    background-color: var(--rest-but);
     color: white;
     cursor: pointer;
   }
   
   .error-modal button:hover {
-    background-color: #050A44;
+    transform: scale(1.05);
   }
   

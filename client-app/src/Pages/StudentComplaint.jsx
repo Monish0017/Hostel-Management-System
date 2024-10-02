@@ -54,7 +54,7 @@ const StudentComplaints = () => {
   };
 
   return (
-    <div>
+    <div className='comp'>
       <h2>Submit a Complaint</h2>
       <form onSubmit={handleSubmit}>
         <textarea
@@ -63,8 +63,8 @@ const StudentComplaints = () => {
           placeholder="Describe your issue..."
           required
         />
-        <button type="submit">Submit Complaint</button>
       </form>
+      <button type="submit">Submit Complaint</button>
 
       <h3>Your Complaints</h3>
       {complaints.length === 0 ? (

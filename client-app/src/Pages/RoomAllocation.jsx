@@ -68,10 +68,8 @@ const RoomAllocation = () => {
   return (
     <div className="container1 mt-5">
       <h2>Room Allocation</h2>
-      <p>Priority Status: {priorityStatus}</p>
 
       <div className="form-group1">
-        <label>Select Block:</label>
         <select
           className="form-control"
           value={blockName}
@@ -86,7 +84,6 @@ const RoomAllocation = () => {
       </div>
 
       <div className="form-group1">
-        <label>Select Room Capacity:</label>
         <select
           className="form-control"
           value={selectedRoomCapacity}
@@ -101,7 +98,7 @@ const RoomAllocation = () => {
 
       {roommatePreferences.length > 0 && (
         <div className="form-group1 mt-3">
-          <label>Enter Roommate Preferences:</label>
+          <label>Enter Roommate Roll No:</label>
           {roommatePreferences.map((preference, index) => (
             <input
               key={index}

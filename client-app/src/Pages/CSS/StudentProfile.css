@@ -24,6 +24,8 @@
 
 .box {
     background-color: white; /* Light background color for the boxes */
+    border: 1.5px solid transparent; 
+    border-color: var(--rest-but);
     border-radius: 8px; /* Rounded corners */
     padding: 16px; /* Inner spacing */
     flex: 1; /* Allow boxes to grow */

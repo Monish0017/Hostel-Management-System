@@ -1,12 +1,3 @@
-:root {
-  --rest-but: #101624;
-  --shadow-but: #dbe3ee;
-  --base: #eff1f5;
-  --box: white;
-  --header: #242e4c;
-  --hov-but: #9db2bf;
-}
-
 .full {
   display: flex;
   align-items: center;
@@ -117,13 +108,15 @@
 }
 
 .but:hover {
-  background-color: var(--hov-but);
-  color: black;
-  font-weight: 600;
+  background-color: var(--hov-but); /* Hover background color */
+  color: black; /* Hover text color */
+  font-weight: 600; /* Set weight to avoid size changes */
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but); /* Change border color without changing width */
 }
 
 .error-popup {
-  background-color: #f44336; /* Red background for error */
+  background-color: red; /* Red background for error */
   color: white;
   padding: 10px;
   border-radius: 5px;

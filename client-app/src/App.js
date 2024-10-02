@@ -8,7 +8,6 @@ import StudentProfile from './Pages/StudentProfile';
 import Header from './Pages/Header';
 import RoomAllocation from './Pages/RoomAllocation';
 import LandingPage from './Pages/LandingPage';
-import IVRS from './Pages/IVRS';
 import Information from './Pages/Information';
 import FoodTokenPage from './Pages/FoodTokenPage';
 
@@ -33,7 +32,6 @@ const App = () => {
         <Route path="fee" element={<Fee />} />
         <Route path="/home" element={<StudentHome />}>
           <Route path="profile" element={<StudentProfile />} />
-          <Route path="ivrs" element={<IVRS />} />
           <Route path="food-tokens" element={<FoodTokenPage />} />
           <Route path="information" element={<Information />} />        
           <Route path="room-allocation" element={<RoomAllocation />} />

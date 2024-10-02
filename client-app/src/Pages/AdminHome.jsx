@@ -54,12 +54,6 @@ const AdminHome = () => {
               Employee Details
             </li>
             <li
-              className={activeComponent === 'IVRS' ? 'active' : ''}
-              onClick={() => handleSidebarClick('IVRS')}
-            >
-              IVRS
-            </li>
-            <li
               className={activeComponent === 'AFood' ? 'active' : ''}
               onClick={() => handleSidebarClick('AFood')}
             >

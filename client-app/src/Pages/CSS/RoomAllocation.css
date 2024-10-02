@@ -5,20 +5,20 @@
     background-color: white;
     padding: 30px;
     border-radius: 15px;
-    border: 3px solid #56596c;
+    box-shadow: 0 0 10px 5px var(--shadow-but);
     text-align: center;
 }
 
 /* Headings Styling */
 .container1 h2 {
-    color: #050A44;
+    color: black;
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
 .container1 p {
-    color: #141619;
+    color: black;
     font-size: 20px;
     margin-bottom: 20px;
     font-weight: bold;
@@ -28,10 +28,9 @@
 .form-group1 label {
     font-weight: bold;
     font-size: 16px;
-    color: #141619;
-    /* Dark blue for visibility against white background */
     text-align: left;
     display: block;
+    margin-left: 50px;
     margin-bottom: 8px;
 }
 
@@ -39,41 +38,37 @@
     cursor: pointer;
 }
 
-/* Form Controls Styling (Dropdown and Input fields) */
 .form-control {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin-bottom: 20px;
     font-size: 16px;
-    border: 1px solid black;
+    border: 1.5px solid transparent; 
+    border-color: var(--rest-but);    
     border-radius: 5px;
     box-sizing: border-box;
     background-color: white;
     color: #141619;
-    outline: none;
-}
-
-.form-control:focus {
-    border-color: #050A44;
-    box-shadow: 0 0 5px #050A44;
 }
 
 /* Button Styling */
 .btn1 {
-    width: 100%;
+    width: 50%;
     padding: 12px;
     font-size: 18px;
-    background-color: #0A21C0;
+    background-color: var(--rest-but);
     color: white;
-    border: 2px solid #050A44;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn1:hover {
-    background-color: #050A44;
-    color: white;
+    background-color: var(--hov-but); /* Hover background color */
+    color: black; /* Hover text color */
+    font-weight: 600; /* Set weight to avoid size changes */
+    border: 1.5px solid transparent; 
+    border-color: var(--rest-but);
 }
 
 /* Success and Error Messages */
@@ -84,12 +79,7 @@
     border-radius: 5px;
 }
 
-.alert-success {
-    background-color: #56596c;
+.alert-success, .alert-danger {
+    background-color: var(--grid);
     color: white;
-}
-
-.alert-danger {
-    background-color: #B3B4BD;
-    color: black;
 }
