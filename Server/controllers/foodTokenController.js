@@ -24,20 +24,22 @@ exports.bookFoodToken = async (req, res) => {
         }
 
         // Check if the food item is available on the booking date
-        const bookingDay = moment(bookingDate).format('dddd'); // Get the day of the week (e.g., "Monday")
+        const bookingMoment = moment(bookingDate); // Convert booking date to moment
+        const bookingDay = bookingMoment.format('dddd'); // Get the day of the week (e.g., "Monday")
         if (!foodItem.availableDays.includes(bookingDay)) {
             return res.status(400).json({ message: 'Food item is not available on the selected day' });
         }
 
-        // Check if the booking date is in the future
+        // Get current time
         const currentTime = moment(); // Get the current time
-        const bookingMoment = moment(bookingDate); // Convert booking date to moment
+        const tomorrow = moment().add(1, 'day').startOf('day'); // Start of tomorrow
+        const after5PM = moment().hour(17).minute(0); // 5 PM today
 
-        // If the booking date is in the future, check the current time
-        if (bookingMoment.isAfter(currentTime, 'day')) {
-            // Booking for a future date, check the current time
-            if (currentTime.hour() >= 17) { // 5 PM in 24-hour format
-                return res.status(400).json({ message: 'Cannot book tokens after 5 PM for future dates' });
+        // Check if the booking date is for tomorrow
+        if (bookingMoment.isSame(tomorrow, 'day')) {
+            // Allow booking only if it's before 5 PM today
+            if (currentTime.isAfter(after5PM)) {
+                return res.status(400).json({ message: 'Cannot book tokens for tomorrow after 5 PM' });
             }
         }
 
@@ -71,6 +73,7 @@ exports.bookFoodToken = async (req, res) => {
         res.status(500).json({ message: 'Error booking food token', error: err.message || 'Unknown error' });
     }
 };
+
 
 
 exports.cancelFoodToken = async (req, res) => {

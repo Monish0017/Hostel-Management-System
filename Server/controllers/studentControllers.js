@@ -1,5 +1,5 @@
 const Student = require('../models/Student');
-
+const Room = require('../models/Room');
 const Complaint = require('../models/Complaint');
 
 
@@ -48,17 +48,28 @@ const getStudentComplaints = async (req, res) => {
   }
 };
 
-// Function to get a student profile
 const getStudentProfile = async (req, res) => {
   try {
     const student = await Student.findById(req.user.id).select('-password');
     if (!student) {
       return res.status(404).json({ error: 'Student not found' });
     }
-    res.json(student);
+
+    console.log(1);
+    // Find the associated room information using rollNo
+    const room = await Room.findOne({ students: student.rollNo }).select('blockName roomNo');
+
+    // Add room information to the student profile response
+    const profileData = {
+      ...student.toObject(),
+      blockName: room ? room.blockName : null,
+      roomNo: room ? room.roomNo : null,
+    };
+
+    res.json(profileData);
   } catch (error) {
     console.error('Error fetching student profile:', error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Server error', details: error.message });
   }
 };
 

@@ -8,8 +8,8 @@ const EmployeeScanQR = () => {
   const [showScanner, setShowScanner] = useState(false);
   const [error, setError] = useState(null);
   const [foodItemData, setFoodItemData] = useState(null);
-  const [showPopup, setShowPopup] = useState(false); // Popup for successful token clear
-  const [showZeroQuantityPopup, setShowZeroQuantityPopup] = useState(false); // Popup for zero quantity
+  const [showPopup, setShowPopup] = useState(false); 
+  const [showZeroQuantityPopup, setShowZeroQuantityPopup] = useState(false);
   const html5QrCodeRef = useRef(null);
   
   const token = localStorage.getItem('token');
@@ -23,7 +23,6 @@ const EmployeeScanQR = () => {
       stopScanner();
     }
 
-    // Cleanup on unmount
     return () => {
       stopScanner();
     };
@@ -60,10 +59,8 @@ const EmployeeScanQR = () => {
         headers: { 'x-auth-token': token },
       });
 
-      // Show popup on successful token clear
       setShowPopup(true);
 
-      // Check if the quantity is 0 and show the corresponding popup
       if (response.data.foodItem.quantity === 0) {
         setShowZeroQuantityPopup(true);
       }

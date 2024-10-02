@@ -56,14 +56,14 @@ const StudentProfile = () => {
     <div className="profile-wrapper">
       <div className="profile">
         <div className="profile-header">
-          <img src={profileData.image} alt={profile} className="profile-picture" />
+          <img src={profileData.image || profile} alt="Profile" className="profile-picture" />
           <h2>Hello {profileData.fullName}!</h2>
         </div>
         <div className="profile-details">
           <div className="general-info box">
             <h3>General Information</h3>
             <p><strong>Roll No:</strong> {profileData.rollNo}</p>
-            <p><strong>Amount :</strong> {profileData.amount}</p>
+            <p><strong>Amount:</strong> {profileData.amount}</p>
             <p><strong>Father's Name:</strong> {profileData.fatherName}</p>
             <p><strong>Email:</strong> {profileData.email}</p>
             <p><strong>Contact Phone:</strong> {profileData.contactPhone}</p>
@@ -76,9 +76,11 @@ const StudentProfile = () => {
             <p><strong>Programme:</strong> {profileData.programme}</p>
             <p><strong>Class Year:</strong> {profileData.classYear}</p>
           </div>
-          {/* <div className="academic-info">
+          <div className="hostel-info box">
             <h3>Hostel Information</h3>
-          </div> */}
+            <p><strong>Block Name:</strong> {profileData.blockName || 'Not Allocated'}</p>
+            <p><strong>Room No:</strong> {profileData.roomNo || 'Not Allocated'}</p>
+          </div>
         </div>
       </div>
     </div>
