@@ -37,7 +37,7 @@ const employeeRoutes = require('./routes/employeeRoutes');
 // const ivrsRoutes = require('./routes/ivrsRoutes');
 
 // Use routes
-app.use('/students', studentRoutes);
+app.use('/student', studentRoutes);
 app.use('/food', foodRoutes);
 app.use('/faculty', facultyRoutes);
 app.use('/auth', authRoutes);

@@ -17,7 +17,7 @@ const StudentProfile = () => {
     }
 
     try {
-      const response = await fetch(`${serverBaseUrl}/students/profile`, {
+      const response = await fetch(`${serverBaseUrl}/student/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -24,6 +24,9 @@ const {
   vacateAllRooms,
   addRoom,
   getRoomDetailsWithStudents,
+  getAllComplaints,
+  deleteComplaint,
+  deleteAllComplaints,
 } = require('../controllers/adminController');
 
 const authMiddleware = require('../middleware/adminAuth');
@@ -62,5 +65,10 @@ router.post('/add-employee', upload.single('image') , authMiddleware, registerEm
 router.get('/employees', authMiddleware , getAllEmployees);
 router.put('/modify-employee/:employeeId', upload.single('image') ,authMiddleware , modifyEmployee);
 router.delete('/remove-employee/:employeeId', authMiddleware ,removeEmployee);
+
+// Complaint
+router.get('/complaints' , authMiddleware , getAllComplaints);
+router.delete('/complaints/:id' , authMiddleware , deleteComplaint);
+router.delete('/delete-complaints' , authMiddleware , deleteAllComplaints);
 
 module.exports = router;

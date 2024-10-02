@@ -1,12 +1,13 @@
+// src/components/StudentHome.js
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import StudentProfile from './StudentProfile';
-import './CSS/StudentHome.css';
 import IVRS from './IVRS';
 import Information from './Information';
 import RoomAllocation from './RoomAllocation';
 import FoodTokenPage from './FoodTokenPage';
-
+import StudentComplaint from './StudentComplaint'; // Import StudentComplaint component
+import './CSS/StudentHome.css';
 
 const StudentHome = () => {
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ const StudentHome = () => {
       case 'food-tokens':
         setActiveComponent('Food');
         break;
+      case 'complaint':
+        setActiveComponent('Complaint'); // Add case for Complaint
+        break;
       default:
         setActiveComponent('StudentProfile');
         break;
@@ -41,7 +45,6 @@ const StudentHome = () => {
     setActiveComponent(component);
     navigate(path); // Navigate to the respective route
   };
-
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -54,9 +57,9 @@ const StudentHome = () => {
       case 'Room':
         return <RoomAllocation />;
       case 'Food':
-        return <FoodTokenPage/>
-        
-      // Add more cases for other components if needed
+        return <FoodTokenPage />;
+      case 'Complaint':
+        return <StudentComplaint />; // Render StudentComplaint component
       default:
         return null;
     }
@@ -102,6 +105,12 @@ const StudentHome = () => {
               onClick={() => handleSidebarClick('Information')}
             >
               Information
+            </li>
+            <li
+              className={activeComponent === 'Complaint' ? 'active' : ''} // Add Complaint to sidebar
+              onClick={() => handleSidebarClick('Complaint')}
+            >
+              Complaint Management
             </li>
           </ul>
           <button

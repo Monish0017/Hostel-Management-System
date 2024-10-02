@@ -9,6 +9,7 @@ const Employee = require('../models/Employee');
 const Application = require('../models/Application');
 const { ref, uploadBytes, getDownloadURL, deleteObject } = require('firebase/storage'); 
 const { storage } = require('../firebaseConfig'); 
+const Complaint = require("../models/Complaint");
 
 const addStudent = async (req, res) => {
   const { fullName, rollNo, email, contactPhone, amount , programme, classYear, fatherName, residentialAddress, primaryMobileNumber, secondaryMobileNumber } = req.body;
@@ -645,7 +646,44 @@ const removeEmployee = async (req, res) => {
   }
 };
 
+// Fetch all complaints for admin view
+const getAllComplaints = async (req, res) => {
+  try {
+    const complaints = await Complaint.find({});
+    res.status(200).json(complaints);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching complaints', error });
+  }
+};
+
+// Delete a complaint
+const deleteComplaint = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const complaint = await Complaint.findByIdAndDelete(id);
+    if (!complaint) {
+      return res.status(404).json({ message: 'Complaint not found' });
+    }
+    res.status(200).json({ message: 'Complaint deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting complaint', error });
+  }
+};
+
+// Delete all complaints controller
+const deleteAllComplaints = async (req, res) => {
+  try {
+    await Complaint.deleteMany({}); // Delete all complaints from the database
+    return res.status(200).json({ message: 'All complaints deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting complaints:', error);
+    return res.status(500).json({ message: 'Server error', error });
+  }
+};
+
 module.exports = {
+  deleteAllComplaints,
   registerAdmin,
   loginAdmin,
   getAllStudents,
@@ -666,5 +704,7 @@ module.exports = {
   addRoom,
   getRoomDetailsWithStudents,
   addStudent,
+  getAllComplaints,
+  deleteComplaint,
   allocateRooms
 };

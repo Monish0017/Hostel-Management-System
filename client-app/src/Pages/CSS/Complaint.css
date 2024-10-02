@@ -1,0 +1,46 @@
+/* CSS: Complaint Management (StudentComplaints.css & AdminComplaints.css) */
+
+.complaint-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .complaint-box {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .complaint-box:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .complaint-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ddd;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

@@ -2,11 +2,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentDetails from './StudentDetails';
-import EmployeeDetails from './EmployeeDetails'; // Import the new component
-import './CSS/StudentHome.css'; // Ensure the correct relative path
+import EmployeeDetails from './EmployeeDetails';
 import AdminRoom from './AdminRoom';
 import AdminFood from './AdminFood';
 import StudentApplication from './StudentApplication';
+import AdminComplaint from './AdminComplaint'; // Import AdminComplaint component
+import './CSS/StudentHome.css'; // Ensure the correct relative path
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const AdminHome = () => {
         return <AdminFood />;
       case 'Apply':
         return <StudentApplication />;
+      case 'Complaint':
+        return <AdminComplaint />; // Add rendering for AdminComplaint
       default:
         return null;
     }
@@ -45,7 +48,7 @@ const AdminHome = () => {
               Student Details
             </li>
             <li
-              className={activeComponent === 'EmployeeDetails' ? 'active' : ''} // Add active state for EmployeeDetails
+              className={activeComponent === 'EmployeeDetails' ? 'active' : ''}
               onClick={() => handleSidebarClick('EmployeeDetails')}
             >
               Employee Details
@@ -73,6 +76,12 @@ const AdminHome = () => {
               onClick={() => handleSidebarClick('Apply')}
             >
               Student Application
+            </li>
+            <li
+              className={activeComponent === 'Complaint' ? 'active' : ''} // Add active state for AdminComplaint
+              onClick={() => handleSidebarClick('Complaint')}
+            >
+              Complaint Management
             </li>
           </ul>
           <button
