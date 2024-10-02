@@ -1,8 +1,9 @@
+
+
 .student-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  /* Space between grid items */
+  gap: 16px;/* Space between grid items */
 }
 
 .student-box {
@@ -12,9 +13,10 @@
   /* Ensure boxes are square */
   max-width: calc(25% - 16px);
   /* Ensure boxes do not exceed 25% of the container width */
-  background-color: #56596C;
+  background-color: var(--shadow-but);
+  border: 1px solid var(--grid);
+
   padding: 16px;
-  border: 1px solid #B3B4BD;
   border-radius: 8px;
   cursor: pointer;
   box-sizing: border-box;
@@ -24,11 +26,12 @@
   align-items: center;
   background-size: cover;
   background-position: center;
-  color: white;
+  color: black;
 }
 
 .student-box:hover {
-  background-color: #141619;
+  background-color: var(--header);
+  color: white;
 }
 
 .student-box p {
@@ -54,7 +57,7 @@
 .search-bar {
   flex: 1;
   padding: 8px;
-  border: 1px solid #56596c;
+  border: 1px solid var(--grid);
   border-radius: 4px;
   margin-right: 8px;
   width: calc(100% - 100px);
@@ -64,33 +67,41 @@
   padding: 8px 8px;
   border: none;
   border-radius: 4px;
-  background-color: #0A21C0;
+  background-color: var(--rest-but);
   color: white;
+  cursor: pointer;
+}
+
+.modify-btn button{
+  padding: 8px 12px;
+  margin-top: 30px;
+  margin-right: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--rest-but);
+  color: white;
+}
+
+.modify-btn button:hover{
+  font-weight: 600;
   cursor: pointer;
 }
 
 .add-btn:hover {
-  background-color: #050a44;
+  background-color: var(--hov-but); /* Hover background color */
+  color: black; /* Hover text color */
+  font-weight: 600; /* Set weight to avoid size changes */
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but); /* Change border color without changing width */
 }
 
-.btn-det {
-  padding: 8px 8px;
-  margin-left: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #0A21C0;
-  color: white;
-  cursor: pointer;
-}
 
-.btn-det:hover {
-  background-color: #050A44;
-}
+
+
 
 .student-details {
   background-color: white;
   padding: 16px;
-  border: 1px solid #B3B4BD;
   border-radius: 8px;
   margin-top: 16px;
 }
@@ -98,8 +109,8 @@
 .student-form {
   background-color: white;
   padding: 16px;
-  border: 1px solid #B3B4BD;
   border-radius: 8px;
+  box-shadow: 0 0 10px 5px var(--shadow-but);
   margin-top: 80px;
   /* Space from the header */
   max-width: 500px;
@@ -117,10 +128,9 @@
   flex-direction: column;
 }
 
-.student-form input[type="text"],
-.student-form input[type="number"] {
+.student-form input[type="text"],[type="number"],[type="email"] {
   padding: 8px;
-  border: 1px solid #B3B4BD;
+  border: 1px solid var(--rest-but);
   border-radius: 4px;
 }
 
@@ -135,38 +145,42 @@
 }
 
 .student-form button {
+  width: 30%;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: #0A21C0;
+  background-color: var(--rest-but);
   color: white;
   cursor: pointer;
   margin-top: 8px;
+  justify-content: space-between;
 }
 
 .student-form button:hover {
-  background-color: #050A44;
+  background-color: var(--hov-but); /* Hover background color */
+  color: black; /* Hover text color */
+  font-weight: 600; /* Set weight to avoid size changes */
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but);
 }
 
 .back-btn {
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #0A21C0;
+  background-color: var(--rest-but);
   color: white;
   cursor: pointer;
 }
 
 .back-btn:hover {
-  background-color: #050A44;
+  background-color: var(--hov-but); /* Hover background color */
+  color: black; /* Hover text color */
+  font-weight: 600; /* Set weight to avoid size changes */
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but); /* Change border color without changing width */
 }
 
-.student-details-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 50px;
-}
 
 input[type="file"] {
   padding: 8px;
@@ -187,34 +201,11 @@ input[type="file"] {
   display: none;
 }
 
-.custom-file-upload {
-  padding: 10px 20px;
-  background-color: #0A21C0;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
-.custom-file-upload:hover {
-  background-color: #050A44;
-}
 
-.upload-btn {
-  padding: 10px 20px;
-  background-color: #0A21C0;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.upload-btn:hover {
-  background-color: #050A44;
-}
 
 .delete-all-btn {
-  background-color: #0A21C0;
+  background-color: var(--rest-btn);
   color: white;
   margin-left: 40%;
   padding: 10px 20px;
@@ -225,5 +216,9 @@ input[type="file"] {
 }
 
 .delete-all-btn:hover {
-  background-color: #050A44;
+  background-color: var(--hov-but); /* Hover background color */
+  color: black; /* Hover text color */
+  font-weight: 600; /* Set weight to avoid size changes */
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but); /* Change border color without changing width */
 }

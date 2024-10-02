@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './CSS/Complaint.css';
+import './CSS/AdminComplaint.css';
 
 const AdminComplaints = () => {
   const [complaints, setComplaints] = useState([]);
@@ -49,7 +49,7 @@ const AdminComplaints = () => {
       <h2>All Complaints</h2>
       <button onClick={handleDeleteAll} className="delete-all-button">Delete All Complaints</button>
       {selectedComplaint ? (
-        <div className="complaint-details">
+        <div className="complaint-details1">
           <h3>Complaint Details</h3>
           <p>{selectedComplaint.complaintText}</p>
           <p>Status: {selectedComplaint.status}</p>
@@ -57,9 +57,9 @@ const AdminComplaints = () => {
           <button onClick={() => setSelectedComplaint(null)}>Back to List</button>
         </div>
       ) : (
-        <div className="complaint-grid">
+        <div className="complaint-grid1">
           {complaints.map((complaint) => (
-            <div key={complaint._id} className="complaint-box" onClick={() => setSelectedComplaint(complaint)}>
+            <div key={complaint._id} className="complaint-box1" onClick={() => setSelectedComplaint(complaint)}>
               <p>{complaint.studentName}</p>
               <p>Status: {complaint.status}</p>
             </div>

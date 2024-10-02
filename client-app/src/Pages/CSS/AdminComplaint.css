@@ -1,0 +1,61 @@
+.complaint-box1 {
+    background-color: var(--shadow-but);
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .complaint-box1:hover{
+    cursor: pointer;
+    border: 1px solid var(--grid);
+  }
+  
+  
+  .delete-all-button  {
+    background-color: var(--rest-but);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 0;      
+    margin-left: auto;  
+    position: absolute; 
+    right: 20px;          
+    top: 100px;           
+
+  }
+  
+  .delete-all-button:hover {
+    background-color: var(--hov-but); 
+    color: black; 
+    font-weight: 600; 
+    border: 1.5px solid transparent; 
+    border-color: var(--rest-but);
+  }
+  
+  .complaint-details1 {
+        background-color: white;
+        padding: 16px;
+        border: 1px solid white;
+        border-radius: 8px;
+        margin-top: 40px;
+        box-shadow: 0 0 10px 5px var(--shadow-but);
+    }
+
+    .complaint-details1 button  {
+        background-color: var(--rest-but);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-right: 20px;          
+      }
+      
+      .complaint-details1 button:hover {
+        font-weight: 600; 
+        
+      }

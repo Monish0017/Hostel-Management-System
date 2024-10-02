@@ -23,6 +23,7 @@
 
 .book-token-form select{
   padding: 10px;
+  margin-left: 10px;
   margin-top: 15px;
   border-radius: 5px;
 }
@@ -32,6 +33,7 @@
 .book-token-form input[type="date"] {
   width: 90%;
   padding: 10px;
+  margin-left: 10px;
   margin-top: 15px;
   border-radius: 5px;
   border: 1px solid var(--grid);
@@ -63,8 +65,8 @@
 }
 
 .token-item {
-  background-color: var(--grid);
-  color: white;
+  background-color: var(--shadow-but);
+  color: black;
   padding: 15px;
   border-radius: 8px;
   margin: 10px;

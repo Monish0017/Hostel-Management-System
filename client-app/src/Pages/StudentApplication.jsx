@@ -105,10 +105,12 @@ const StudentApplication = () => {
           <p>No student applications found</p>
         ) : (
           applications.map((application) => (
-            <div key={application.rollNo} className="student-application">
+            <div key={application.rollNo} className="student-box">
               <img src={application.image} alt={profile} className="profile-picture" />
+              <div className="student-info">
               <p>Full Name: {application.fullName}</p>
               <p>Roll No: {application.rollNo}</p>
+              </div>
             </div>
           ))
         )}

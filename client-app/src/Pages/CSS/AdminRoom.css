@@ -18,7 +18,7 @@
 }
 
 .action-btn {
-  background-color: #0A21C0;
+  background-color: var(--rest-but);
   color: white;
   border: none;
   padding: 10px 15px;
@@ -26,9 +26,6 @@
   cursor: pointer;
 }
 
-.action-btn:hover {
-  background-color: #050A44; 
-}
 
 .top-right-button {
   display: flex;
@@ -36,17 +33,40 @@
   margin-bottom: 20px;
 }
 
-.view-application-btn {
-  background-color: white; 
+.manual-container {
+  background-color: white;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px; /* Set form width */
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.manual-assignment-form input {
+    width: 90%;
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid var(--grid);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px; /* Improve text size for readability */
+  }
+
+.manual-assign-btn {
+  background-color:var(--rest-but); 
+  color: white;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.view-application-btn:hover {
-  background-color: #050A44;
-  color: white;
+.manual-assign-btn:hover ,.action-btn:hover {
+  background-color: var(--hov-but); /* Hover background color */
+  color: black; /* Hover text color */
+  font-weight: 600; /* Set weight to avoid size changes */
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but); /* Change border color without changing width */
 }
 
 .room-grid {
@@ -56,12 +76,13 @@
 }
 
 .room-box {
-  background-color: #56596c;
+  background-color: var(--shadow-but);
+  border: 1px solid var(--grid);
   padding: 20px;
   border-radius: 10px;
   cursor: pointer;
   text-align: center;
-  color: white;
+  color: black;
 }
 
 .room-box p {
@@ -69,7 +90,8 @@
 }
 
 .room-box:hover {
-  background-color: #050A44; 
+  background-color: var(--header); 
+  color: white;
 }
 
 .room-details, .application-grid {
@@ -77,7 +99,6 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
-  border: 3px solid #56596c; 
 
 }
 
@@ -92,8 +113,8 @@
   margin-top: 20px;
 }
 
-.delete-btn, .vacate-all-btn, .add, .rem-but, .allocate-btn{
-  background-color: #0A21C0;
+.delete-btn, .submit-btn, .back-btn1, .remove-btn, .allocate-btn{
+  background-color: var(--rest-but);
   color: white; 
   border: none;
   padding: 10px 15px;
@@ -102,7 +123,7 @@
   margin-top: 20px;
 }
 
-.delete-btn:hover, .vacate-all-btn:hover, .add:hover, .rem-but:hover, .allocate-btn:hover {
+.delete-btn:hover, .submit-btn:hover, .remove-btn:hover, .back-btn1:hover, .allocate-btn:hover {
   transform: scale(1.05);
 }
 
@@ -110,7 +131,6 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  border: 3px solid #56596c;
   border-radius: 5px;
 }
 
@@ -118,7 +138,6 @@
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  border: 2px solid #B3B4BD; 
   border-radius: 5px;
   background-color: white;
 }

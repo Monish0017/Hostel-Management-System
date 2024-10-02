@@ -147,7 +147,7 @@ const AdminFood = () => {
           </div>
         ))}
       </div>
-      <button onClick={handleCleanupExpiredTokens}>Cancel Expired Tokens</button>
+      <button className='cancel' onClick={handleCleanupExpiredTokens}>Cancel Expired Tokens</button>
     </div>
   );
 };

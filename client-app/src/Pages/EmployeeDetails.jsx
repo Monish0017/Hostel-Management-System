@@ -154,14 +154,8 @@ const EmployeeDetails = () => {
     <div>
       {!selectedEmployee && !isEditing ? ( // Render employee list only if no employee is selected and not in editing mode
         <>
-          <div className="header-container">
             <h2>Employees List</h2>
-            <button className="add-employee-btn" onClick={() => {
-              resetForm();
-              setIsEditing(false); // Ensure we are in adding mode
-            }}>Add Employee</button>
-          </div>
-          <div className="search-container">
+            <div className="search-container">
             <input
               type="text"
               placeholder="Search by Employee Name"
@@ -169,39 +163,48 @@ const EmployeeDetails = () => {
               onChange={handleSearch}
               className="search-bar"
             />
+            <button className="add-btn" onClick={() => {
+              resetForm();
+              setIsEditing(false); // Ensure we are in adding mode
+            }}>Add Employee</button>
           </div>
+
+            
+          <div className="student-list">
           <div className="student-grid">
             {filteredEmployees.map((employee) => (
               <div key={employee._id} className="student-box" onClick={() => handleEmployeeClick(employee)}>
                 <img src={employee.image || profile} alt="Profile" className="profile-picture" />
-                <div className="employee-info">
+                <div className="student-info">
                   <h3>{employee.fullName}</h3>
                   <p>{employee.position}</p>
                 </div>
               </div>
             ))}
           </div>
+          </div>
         </>
       ) : null}
 
       {selectedEmployee && !isEditing ? ( // Render details for the selected employee
-        <div className="student-details-header">
+        <>
           <h2>Employee Details</h2>
-          <div>
+          <div className='modify-btn'>
             <button className="btn-det" onClick={() => handleEditEmployee(selectedEmployee)}>Edit</button>
             <button className="btn-det" onClick={() => handleDeleteEmployee(selectedEmployee)}>Delete</button>
           </div>
           <div className="student-details">
+            <img src={selectedEmployee.image || profile} alt="Profile" className="profile-picture" />
+
             <p>Full Name: {selectedEmployee.fullName}</p>
             <p>Email: {selectedEmployee.email}</p>
             <p>Contact Phone: {selectedEmployee.contactPhone}</p>
             <p>Position: {selectedEmployee.position}</p>
             <p>Salary: {selectedEmployee.salary}</p>
             <p>Address: {selectedEmployee.address}</p> {/* Display address */}
-            <img src={selectedEmployee.image || profile} alt="Profile" className="profile-picture" />
             <button className="back-btn" onClick={() => setSelectedEmployee(null)}>Back to List</button>
           </div>
-        </div>
+        </>
       ) : null}
 
       {(isEditing || !selectedEmployee) && ( // Render the form for adding or editing employee
@@ -255,7 +258,7 @@ const EmployeeDetails = () => {
             required
           />
           <input type="file" onChange={handleImageChange} /> {/* Input for image upload */}
-          <button type="submit" className="submit-btn">{isEditing ? 'Update Employee' : 'Add Employee'}</button>
+          <button type="submit" >{isEditing ? 'Update Employee' : 'Add Employee'}</button>
           <button type="button" onClick={resetForm} className="reset-btn">Cancel</button>
         </form>
       )}

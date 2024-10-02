@@ -226,7 +226,7 @@ const AdminRoom = () => {
         </>
       ) : selectedRoom ? (
         <div className="room-details">
-          <button className="back-btn" onClick={handleBackToRooms}>
+          <button className="back-btn1" onClick={handleBackToRooms}>
             Back to Rooms
           </button>
           <h3>Room Details</h3>
@@ -261,7 +261,7 @@ const AdminRoom = () => {
         </div>
       ) : showAddRoomForm ? (
         <div className="room-form">
-          <button className="back-btn" onClick={handleBackToRooms}>
+          <button className="back-btn1" onClick={handleBackToRooms}>
             Back to Rooms
           </button>
           <h3>{isEditing ? 'Edit Room' : 'Add Room'}</h3>
@@ -322,11 +322,12 @@ const AdminRoom = () => {
       ) : (
         showManualAssignmentForm && (
           <div className="manual-assignment-form">
-            <button className="back-btn" onClick={handleBackToRooms}>
+            <button className="back-btn1" onClick={handleBackToRooms}>
               Back to Rooms
             </button>
             <h3>Manual Room Assignment</h3>
-            <form onSubmit={handleManualAssignRoom}>
+            <div className='manual-container'>
+            <form >
               <input
                 type="text"
                 name="rollNo"
@@ -351,10 +352,12 @@ const AdminRoom = () => {
                 onChange={handleManualAssignmentChange}
                 required
               />
-              <button type="submit" className="submit-btn">
+              
+            </form>
+            </div>
+            <button type="submit" className="submit-btn" onClick={handleManualAssignRoom}>
                 Assign Room
               </button>
-            </form>
           </div>
         )
       )}

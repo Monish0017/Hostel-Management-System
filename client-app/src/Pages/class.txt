@@ -111,6 +111,7 @@ error-food
 available-days
 qr-btn
 food-image
+cancel
 
 AdminRoom
 room-allocation-container

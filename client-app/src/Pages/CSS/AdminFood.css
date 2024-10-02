@@ -1,6 +1,4 @@
-/* CSS for AdminFood component */
 .admin-food {
-  background-color: white;
   padding: 20px;
   border-radius: 10px;
   max-width: 800px;
@@ -14,40 +12,42 @@
 }
 
 .error-food {
-  color: #050A44;
+  color: black;
   text-align: center;
 }
 
 .add-food {
-  background-color: #56596c; 
+  background-color: white; 
+  box-shadow: 0 0 10px 5px var(--shadow-but);
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.add-food input[type="text"] {
-  width: 90%;
+.add-food input[type="text"],input[type="number"] {
+  width: 80%;
   padding: 10px;
-  border: 2px solid #0A21C0; 
   border-radius: 5px;
   margin-bottom: 10px;
-  color: #141619; 
+  color: black; 
+  border: 1px solid var(--rest-but);
 }
+
 
 .add-food input[type="file"] {
   display: block;
-  color: white;
+  color: black;
   margin-bottom: 10px;
 }
 
 .available-days label {
   display: block;
   margin: 5px 0;
-  color: white; 
+  color: black; 
 }
 
 .add-food button {
-  background-color: #0A21C0; 
+  background-color: var(--rest-but); 
   color: white;
   border: none;
   padding: 10px 15px;
@@ -56,39 +56,32 @@
   margin-top: 20px;
 }
 
-.add-food button:hover {
-  background-color: #050A44; 
+.add-food button:hover , .cancel:hover {
+  background-color: var(--hov-but); 
+  color: black; 
+  font-weight: 600; 
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but);
 }
 
-.qr-btn {
-  background-color: #0A21C0; 
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.qr-btn:hover {
-  transform: scale(1.05); 
-}
 
 .food-list {
+  background-color: white;
   display: flex;
   flex-wrap: wrap;
   gap: 20px; /* Space between cards */
   padding: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
   justify-content: center; /* Center cards horizontally */
 }
 
 .food-list ul {
   list-style: none;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
-  background-color: #fff;
+  box-shadow: 0 0 10px 5px var(--grid);
+  background-color: white;
   width: 250px;
   text-align: center;
   margin-bottom: 20px; /* Space between cards */
@@ -116,14 +109,15 @@
   margin-bottom: 15px;
 }
 
-.food-list button {
-  background-color: #050A44;
+.food-list button, .cancel {
+  background-color: var(--rest-but);
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
 .food-list button:hover {
@@ -131,13 +125,12 @@
 }
 
 .food-item {
-  background-color: white;
+  background-color: var(--shadow-but);
   border-radius: 8px;
   margin: 10px;
   padding: 15px;
   width: 200px;
   text-align: center;
-  box-shadow: 2px 2px 10px var(--grid);
 }
 
 .food-item-image {
@@ -150,11 +143,9 @@
 
 .food-item-name {
   font-weight: bold;
-  color: #141619;
 }
 
 .food-item-days {
   font-size: 0.9em;
-  color: #050A44;
   margin-top: 5px;
 }

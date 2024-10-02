@@ -22,7 +22,7 @@ const Apply = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -30,7 +30,7 @@ const Apply = () => {
     const selectedImage = e.target.files[0]; // Get the selected file
     setFormData((prevData) => ({
       ...prevData,
-      image: selectedImage, // Update the image in formData
+      image: selectedImage // Update the image in formData
     }));
   };
 
@@ -63,19 +63,40 @@ const Apply = () => {
   };
 
   return (
-    <div className="form-full">
+    <div className='form-full'>
       <div className="form-container">
         <form onSubmit={handleSubmit}>
-          <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-          <input type="text" name="rollNo" placeholder="Roll No" value={formData.rollNo} onChange={handleChange} required />
-          <input type="text" name="contactPhone" placeholder="Contact Phone" value={formData.contactPhone} onChange={handleChange} required />
-          <input type="text" name="programme" placeholder="Programme" value={formData.programme} onChange={handleChange} required />
-          <input type="text" name="classYear" placeholder="Class Year" value={formData.classYear} onChange={handleChange} required />
-          <input type="text" name="fatherName" placeholder="Father's Name" value={formData.fatherName} onChange={handleChange} required />
-          <textarea name="residentialAddress" placeholder="Residential Address" value={formData.residentialAddress} onChange={handleChange} required></textarea>
-          <input type="text" name="primaryMobileNumber" placeholder="Primary Mobile Number" value={formData.primaryMobileNumber} onChange={handleChange} required />
-          <input type="text" name="secondaryMobileNumber" placeholder="Secondary Mobile Number" value={formData.secondaryMobileNumber} onChange={handleChange} required />
+          <label>Full Name:</label>
+          <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required />
+
+          <label>Email:</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+
+          <label>Roll No:</label>
+          <input type="text" name="rollNo" value={formData.rollNo} onChange={handleChange} required />
+
+          <label>Contact Phone:</label>
+          <input type="text" name="contactPhone" value={formData.contactPhone} onChange={handleChange} required />
+
+          <label>Programme:</label>
+          <input type="text" name="programme" value={formData.programme} onChange={handleChange} required />
+
+          <label>Class Year:</label>
+          <input type="text" name="classYear" value={formData.classYear} onChange={handleChange} required />
+
+          <label>Father's Name:</label>
+          <input type="text" name="fatherName" value={formData.fatherName} onChange={handleChange} required />
+
+          <label>Residential Address:</label>
+          <textarea name="residentialAddress" value={formData.residentialAddress} onChange={handleChange} required></textarea>
+
+          <label>Primary Mobile Number:</label>
+          <input type="text" name="primaryMobileNumber" value={formData.primaryMobileNumber} onChange={handleChange} required />
+
+          <label>Secondary Mobile Number:</label>
+          <input type="text" name="secondaryMobileNumber" value={formData.secondaryMobileNumber} onChange={handleChange} required />
+
+          <label>Upload Image:</label>
           <input type="file" accept="image/*" onChange={handleImageChange} required /> {/* Image upload field */}
 
           <button type="submit">Submit</button>

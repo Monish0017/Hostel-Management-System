@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CSS/StudentDetails.css';
+
 import profile from '../assets/profile.jpg';
 
 const StudentDetails = () => {
@@ -199,9 +200,11 @@ const StudentDetails = () => {
       ) : null}
 
       {selectedStudent && !isEditing ? (
+
         <div className="student-details-header">
+
           <h2>Student Details</h2>
-          <div>
+          <div className='modify-btn'>
             <button className='btn-det' onClick={() => handleEditStudent(selectedStudent)}>Edit</button>
             <button className='btn-det' onClick={() => handleDeleteStudent(selectedStudent)}>Delete</button>
           </div>
@@ -210,6 +213,12 @@ const StudentDetails = () => {
 
       {!isEditing && selectedStudent ? (
         <div className="student-details">
+          <img
+              className="profile-picture-header"
+              src={selectedStudent.image ? selectedStudent.image : profile}
+              width="150px"
+              alt="Profile"
+            />
           <p>Full Name: {selectedStudent.fullName}</p>
           <p>Email: {selectedStudent.email}</p>
           <p>Roll No: {selectedStudent.rollNo}</p>
@@ -221,6 +230,9 @@ const StudentDetails = () => {
           <p>Residential Address: {selectedStudent.residentialAddress}</p>
           <p>Primary Mobile Number: {selectedStudent.primaryMobileNumber}</p>
           <p>Secondary Mobile Number: {selectedStudent.secondaryMobileNumber}</p>
+
+          
+          
           <button className="back-btn" onClick={() => setSelectedStudent(null)}>Back to List</button>
         </div>
       ) : null}

@@ -1,21 +1,11 @@
-
   .complaint-box {
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
+    background-color: var(--shadow-but);
+    margin-bottom: 20px;
     padding: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  .complaint-box:hover {
-    background-color: #e2e6ea;
-  }
-  
-  .complaint-details {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border: 1px solid #ddd;
-  }
   
   .comp textarea {
     width: 80%;
@@ -43,11 +33,4 @@
     border-color: var(--rest-but);
   }
   
-  .complaint-grid {
-    background-color: white;
-    padding: 16px;
-    border: 1px solid white;
-    border-radius: 8px;
-    margin-top: 16px;
-    box-shadow: 0 0 10px 5px var(--shadow-but);
-}
+ 

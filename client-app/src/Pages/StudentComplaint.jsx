@@ -56,15 +56,16 @@ const StudentComplaints = () => {
   return (
     <div className='comp'>
       <h2>Submit a Complaint</h2>
-      <form onSubmit={handleSubmit}>
+      <form>
         <textarea
           value={complaintText}
           onChange={(e) => setComplaintText(e.target.value)}
           placeholder="Describe your issue..."
           required
         />
-        <button type="submit">Submit Complaint</button> {/* Move the button inside the form */}
       </form>
+      <button type="submit" onClick={handleSubmit}>Submit Complaint</button> {/* Move the button inside the form */}
+
 
       <h3>Your Complaints</h3>
       {complaints.length === 0 ? (
