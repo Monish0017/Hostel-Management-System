@@ -4,7 +4,7 @@ import './CSS/StudentDetails.css';
 import profile from '../assets/profile.jpg';
 
 const StudentDetails = () => {
-  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isEditing, setIsEditing] = useState(false);

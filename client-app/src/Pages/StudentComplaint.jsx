@@ -5,12 +5,13 @@ const StudentComplaints = () => {
   const [complaints, setComplaints] = useState([]);
   const [complaintText, setComplaintText] = useState('');
   const token = localStorage.getItem('token'); // Assuming JWT is stored in localStorage
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   useEffect(() => {
     // Fetch the complaints submitted by the student
     const fetchComplaints = async () => {
       try {
-        const response = await fetch('http://localhost:3000/student/my-complaints', {
+        const response = await fetch(`${serverBaseUrl}/student/my-complaints`, {
           headers: { 'x-auth-token': token },
         });
         const data = await response.json();
@@ -32,7 +33,7 @@ const StudentComplaints = () => {
 
     // Send the complaint text to the server
     try {
-      const response = await fetch('http://localhost:3000/student/submit', {
+      const response = await fetch(`${serverBaseUrl}/student/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

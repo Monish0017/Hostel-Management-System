@@ -5,9 +5,10 @@ const AdminComplaints = () => {
   const [complaints, setComplaints] = useState([]);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const token = localStorage.getItem('token'); // Assuming JWT for admin is stored
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   useEffect(() => {
-    fetch('http://localhost:3000/admin/complaints', {
+    fetch(`${serverBaseUrl}/admin/complaints`, {
       headers: { 'x-auth-token': token },
     })
       .then((response) => response.json())
@@ -16,7 +17,7 @@ const AdminComplaints = () => {
   }, [token]);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/admin/complaints/${id}`, {
+    fetch(`${serverBaseUrl}/admin/complaints/${id}`, {
       method: 'DELETE',
       headers: { 'x-auth-token': token },
     })
@@ -31,7 +32,7 @@ const AdminComplaints = () => {
   // Function to handle deleting all complaints
   const handleDeleteAll = () => {
     if (window.confirm('Are you sure you want to delete all complaints?')) {
-      fetch('http://localhost:3000/admin/delete-complaints', {
+      fetch(`${serverBaseUrl}/admin/delete-complaints`, {
         method: 'DELETE',
         headers: { 'x-auth-token': token },
       })

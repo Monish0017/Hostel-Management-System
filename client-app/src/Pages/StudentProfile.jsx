@@ -5,7 +5,7 @@ import profile from '../assets/profile.jpg';
 const StudentProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const [error, setError] = useState(null);
-  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
