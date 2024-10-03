@@ -17,12 +17,13 @@
   margin-bottom: 20px;
 }
 
-.action-btn {
+.action-btn,.vacate-btn {
   background-color: var(--rest-but);
   color: white;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
+  margin-top: 20px;
   cursor: pointer;
 }
 
@@ -71,7 +72,7 @@
   cursor: pointer;
 }
 
-.manual-assign-btn:hover ,.action-btn:hover {
+.manual-assign-btn:hover ,.action-btn:hover,.vacate-btn:hover {
   background-color: var(--hov-but); /* Hover background color */
   color: black; /* Hover text color */
   font-weight: 600; /* Set weight to avoid size changes */

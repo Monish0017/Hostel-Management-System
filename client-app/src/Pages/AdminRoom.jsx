@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CSS/AdminRoom.css';
 
 const AdminRoom = () => {
-  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
+  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [newRoom, setNewRoom] = useState({
@@ -97,9 +97,6 @@ const AdminRoom = () => {
   const handleManualAssignRoom = async (e) => {
     e.preventDefault();
 
-    // Debugging output to verify state before sending
-    console.log('Manual Assignment:', manualAssignment);
-
     const { rollNo, blockName, roomNo } = manualAssignment;
 
     if (!rollNo || !blockName || !roomNo) {
@@ -179,6 +176,30 @@ const AdminRoom = () => {
     setManualAssignment({ ...manualAssignment, [name]: value });
   };
 
+  const handleVacateAllRooms = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${serverBaseUrl}/admin/rooms/vacate-all`, {
+        method: 'POST',
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to vacate rooms: ${errorText}`);
+      }
+
+      alert('All rooms have been vacated successfully');
+      fetchRooms(); // Refresh the rooms list after vacating
+    } catch (error) {
+      console.error('Error vacating all rooms:', error);
+      alert('Failed to vacate rooms');
+    }
+  };
+
   return (
     <div className="room-allocation-container">
       <div className="top-right-button">
@@ -223,6 +244,12 @@ const AdminRoom = () => {
               <p>No rooms available</p>
             )}
           </div>
+
+          <div className="vacate-rooms-action">
+            <button className="vacate-btn" onClick={handleVacateAllRooms}>
+              Vacate All Rooms
+            </button>
+          </div>
         </>
       ) : selectedRoom ? (
         <div className="room-details">
@@ -264,103 +291,95 @@ const AdminRoom = () => {
           <button className="back-btn1" onClick={handleBackToRooms}>
             Back to Rooms
           </button>
-          <h3>{isEditing ? 'Edit Room' : 'Add Room'}</h3>
-          <form>
+          <h3>Add Room</h3>
+          <form >
             <input
               type="text"
               name="hostelName"
               value={newRoom.hostelName}
-              placeholder="Hostel Name"
               onChange={handleFormChange}
+              placeholder="Hostel Name"
               required
             />
             <input
               type="text"
               name="blockName"
               value={newRoom.blockName}
-              placeholder="Block Name"
               onChange={handleFormChange}
+              placeholder="Block Name"
               required
             />
             <input
-              type="text"
+              type="number"
               name="roomNo"
               value={newRoom.roomNo}
-              placeholder="Room Number"
               onChange={handleFormChange}
+              placeholder="Room No"
               required
             />
             <input
               type="number"
               name="floor"
               value={newRoom.floor}
-              placeholder="Floor"
               onChange={handleFormChange}
+              placeholder="Floor"
               required
             />
             <input
               type="text"
               name="roomType"
               value={newRoom.roomType}
-              placeholder="Room Type"
               onChange={handleFormChange}
+              placeholder="Room Type"
               required
             />
             <input
               type="number"
               name="capacity"
               value={newRoom.capacity}
-              placeholder="Capacity"
               onChange={handleFormChange}
+              placeholder="Capacity"
               required
             />
+            
           </form>
-          <button onClick={handleFormSubmit} type="submit" className="submit-btn">
-              {isEditing ? 'Update Room' : 'Add Room'}
-            </button>
+          <button onClick={handleFormSubmit} type="submit" className='back-btn1'>Add Room</button>
         </div>
-      ) : (
-        showManualAssignmentForm && (
-          <div className="manual-assignment-form">
-            <button className="back-btn1" onClick={handleBackToRooms}>
-              Back to Rooms
-            </button>
-            <h3>Manual Room Assignment</h3>
-            <div className='manual-container'>
-            <form >
-              <input
-                type="text"
-                name="rollNo"
-                value={manualAssignment.rollNo}
-                placeholder="Student Roll Number"
-                onChange={handleManualAssignmentChange}
-                required
-              />
-              <input
-                type="text"
-                name="blockName"
-                value={manualAssignment.blockName}
-                placeholder="Block Name"
-                onChange={handleManualAssignmentChange}
-                required
-              />
-              <input
-                type="text"
-                name="roomNo"
-                value={manualAssignment.roomNo}
-                placeholder="Room Number"
-                onChange={handleManualAssignmentChange}
-                required
-              />
-              
-            </form>
-            </div>
-            <button type="submit" className="submit-btn" onClick={handleManualAssignRoom}>
-                Assign Room
-              </button>
-          </div>
-        )
-      )}
+      ) : showManualAssignmentForm ? (
+        <div className="manual-assignment-form">
+          <button className="back-btn1" onClick={handleBackToRooms}>
+            Back to Rooms
+          </button>
+          <h3>Manual Assignment of Room</h3>
+          <form onSubmit={handleManualAssignRoom}>
+            <input
+              type="text"
+              name="rollNo"
+              value={manualAssignment.rollNo}
+              onChange={handleManualAssignmentChange}
+              placeholder="Student Roll No"
+              required
+            />
+            <input
+              type="text"
+              name="blockName"
+              value={manualAssignment.blockName}
+              onChange={handleManualAssignmentChange}
+              placeholder="Block Name"
+              required
+            />
+            <input
+              type="text"
+              name="roomNo"
+              value={manualAssignment.roomNo}
+              onChange={handleManualAssignmentChange}
+              placeholder="Room No"
+              required
+            />
+            <button type="submit">Assign Room</button>
+          </form>
+        </div>
+      ) : null}
     </div>
   );
 };
