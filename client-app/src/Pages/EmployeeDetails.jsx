@@ -163,10 +163,10 @@ const EmployeeDetails = () => {
               onChange={handleSearch}
               className="search-bar"
             />
-            <button className="add-btn" onClick={() => {
+            {/* <button className="add-btn" onClick={() => {
               resetForm();
               setIsEditing(false); // Ensure we are in adding mode
-            }}>Add Employee</button>
+            }}>Add Employee</button> */}
           </div>
 
             

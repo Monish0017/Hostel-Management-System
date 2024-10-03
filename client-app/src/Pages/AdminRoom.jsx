@@ -265,7 +265,7 @@ const AdminRoom = () => {
             Back to Rooms
           </button>
           <h3>{isEditing ? 'Edit Room' : 'Add Room'}</h3>
-          <form onSubmit={handleFormSubmit}>
+          <form>
             <input
               type="text"
               name="hostelName"
@@ -314,10 +314,10 @@ const AdminRoom = () => {
               onChange={handleFormChange}
               required
             />
-            <button type="submit" className="submit-btn">
+          </form>
+          <button onClick={handleFormSubmit} type="submit" className="submit-btn">
               {isEditing ? 'Update Room' : 'Add Room'}
             </button>
-          </form>
         </div>
       ) : (
         showManualAssignmentForm && (

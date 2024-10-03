@@ -52,6 +52,16 @@
     font-size: 14px; /* Improve text size for readability */
   }
 
+.room-form input[type="text"],[type="number"]{
+    width: 90%;
+    padding: 6px;
+    margin-bottom: 10px;
+    border: 1px solid var(--grid);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px; /* Improve text size for readability */
+}
+
 .manual-assign-btn {
   background-color:var(--rest-but); 
   color: white;
@@ -127,17 +137,3 @@
   transform: scale(1.05);
 }
 
-.room-form {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  border-radius: 5px;
-}
-
-.room-form input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  background-color: white;
-}

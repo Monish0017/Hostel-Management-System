@@ -118,7 +118,7 @@ room-allocation-container
 room-actions 
 action-btn
 top-right-button 
-view-application-btn 
+view-application-btn
 room-grid 
 room-box
 room-details 
