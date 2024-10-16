@@ -6,7 +6,8 @@ import EmployeeDetails from './EmployeeDetails';
 import AdminRoom from './AdminRoom';
 import AdminFood from './AdminFood';
 import StudentApplication from './StudentApplication';
-import AdminComplaint from './AdminComplaint'; // Import AdminComplaint component
+import AdminComplaint from './AdminComplaint';
+import AdminBilling from './AdminBilling'; // Import AdminBilling component
 import './CSS/StudentHome.css'; // Ensure the correct relative path
 
 const AdminHome = () => {
@@ -30,7 +31,9 @@ const AdminHome = () => {
       case 'Apply':
         return <StudentApplication />;
       case 'Complaint':
-        return <AdminComplaint />; // Add rendering for AdminComplaint
+        return <AdminComplaint />;
+      case 'Billing': // Add case for AdminBilling
+        return <AdminBilling />;
       default:
         return null;
     }
@@ -72,10 +75,16 @@ const AdminHome = () => {
               Student Application
             </li>
             <li
-              className={activeComponent === 'Complaint' ? 'active' : ''} // Add active state for AdminComplaint
+              className={activeComponent === 'Complaint' ? 'active' : ''}
               onClick={() => handleSidebarClick('Complaint')}
             >
               Complaint Management
+            </li>
+            <li
+              className={activeComponent === 'Billing' ? 'active' : ''} // Add Billing section
+              onClick={() => handleSidebarClick('Billing')}
+            >
+              Billing
             </li>
           </ul>
           <button

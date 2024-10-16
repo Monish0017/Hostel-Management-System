@@ -24,7 +24,7 @@ const Payment = ({ rollNo, block }) => {
   const blockFee = getFee(block);
   const totalFee = blockFee + messFee;
   const token = localStorage.getItem('token');
-  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
+  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
 
   const handleBackendSubmit = async (rollNo, totalFee) => {
     try {
