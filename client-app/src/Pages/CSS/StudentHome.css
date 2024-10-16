@@ -1,79 +1,63 @@
-/* Container and layout styles */
-:root {
-  --rest-but: #101624;
-  --shadow-but: #dbe3ee;
-  --base: #eff1f5;
-  --box: white;
-  --header: #242e4c;
-  --hov-but: #9db2bf;
-  --grid:#526d82;
-}
-
+/* General Container and Layout Styles */
 .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   background-size: cover;
-  position: relative; 
-  z-index: 0; /* Ensure absolute positioning of child elements works correctly */
+  position: relative;
+  z-index: 0;
 }
 
 .main1 {
   display: flex;
   flex: 1;
-  margin-top: 50px; /* Ensure there's space below the header */
+  margin-top: 50px;
 }
 
 .content {
   flex: 1;
-  margin-left: 200px; /* Ensure content is positioned to the right of the sidebar */
-  padding: 20px; /* Add some padding for content spacing */
+  margin-left: 200px;
+  padding: 20px;
 }
 
-/* Sidebar styling */
+/* Sidebar Styling */
 .sidebar {
   width: 200px;
-  background-color: var(--header); /* Sidebar color */
+  background-color: var(--header);
   position: fixed;
-  top: 80px; /* Adjust to be below header */
-  height: calc(100vh - 80px); /* Adjust height to avoid overlapping header */
-  left: 0; /* Position sidebar on the left side */
+  top: 80px;
+  height: calc(100vh - 80px);
+  left: 0;
   display: flex;
-  flex-direction: column; /* Arrange children vertically */
-  box-sizing: border-box; /* Ensure padding is included in height */
-  z-index: 999; /* Ensure it’s below the header */
+  flex-direction: column;
+  z-index: 999;
 }
 
-/* Sidebar list styling */
 .sidebar ul {
   list-style-type: none;
   padding: 0;
   margin: 10px;
-  flex: 1; /* Allow the list to grow and fill the available space */
+  flex: 1;
 }
 
-/* Sidebar items styling */
 .sidebar li {
   padding: 10px;
   cursor: pointer;
-  color: white; /* Ensure text color is white for readability */
-  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  color: white;
+  transition: background-color 0.3s;
 }
 
-/* Active sidebar item styling */
 .sidebar li.active {
-  background-color: var(--hov-but); /* Fixed color for active item */
-  color: black; /* Ensure text color is white for readability */
+  background-color: var(--hov-but);
+  color: black;
   font-weight: 600;
 }
 
-/* Hover effect for sidebar items (excluding active items) */
 .sidebar li:not(.active):hover {
-  background-color: #56596c; /* Highlight color on hover */
+  background-color: #56596c;
   color: white;
 }
 
-/* Log out button styling */
 .logout-button {
   padding: 0.5rem 1rem;
   color: black;
@@ -81,13 +65,56 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 10px; /* Add margin to align with other items */
-  margin-top: auto; /* Push button to the bottom of the sidebar */
-  width: auto; /* Adjust width as needed */
-  box-sizing: border-box; /* Ensure padding and borders are included in width/height */
+  margin: 10px;
+  margin-top: auto;
+  width: auto;
 }
 
 .logout-button:hover {
   transform: scale(1.07);
   font-weight: 600;
 }
+
+/* Media Queries for Responsive Design */
+
+/* For screens with a width of 768px or less (tablets and mobiles) */
+@media (max-width: 768px) {
+  .main1 {
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    /* Sidebar takes full width */
+    height: auto;
+    /* Sidebar height adjusts to content */
+    position: static;
+    /* No fixed position for easier scrolling */
+    top: 0;
+  }
+
+  .sidebar ul {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .sidebar li {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .content {
+    margin-left: 0;
+    /* Remove margin to align content */
+    padding: 10px;
+    /* Reduce padding for smaller screens */
+  }
+
+  .logout-button {
+    width: 100%;
+    /* Full width button for smaller screens */
+    margin: 10px 0;
+  }
+}
+

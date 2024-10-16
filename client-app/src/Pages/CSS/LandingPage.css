@@ -17,21 +17,23 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.landing-page h3{
+.landing-page h3 {
   margin-top: 20px;
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 .landing-page {
   text-align: center;
-  background-color: var(--base); /* Light color that contrasts well with the body */
+  background-color: var(--base);
   padding: 50px;
   border-radius: 10px;
   box-shadow: 0 0 10px 5px var(--shadow-but);
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 250px;
+  width: 350px; /* Fixing the width */
   transform: translate(-50%, -50%);
+  height: auto; /* Let the height auto-adjust */
 }
 
 /* Container for buttons */
@@ -49,32 +51,33 @@ body {
   cursor: pointer;
   background-color: var(--rest-but);
   color: white;
-  border: 1.5px solid transparent; /* Keep consistent border width */
+  border: 1.5px solid transparent;
   border-radius: 5px;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  width: 100%; /* Set buttons to take up full space in their container */
 }
 
 .btn:hover {
   background-color: var(--hov-but);
   color: black;
-  border-color: var(--rest-but); /* No change in border width */
+  border-color: var(--rest-but);
   font-weight: 600;
 }
 
 .top-buttons {
   display: flex;
-  justify-content: space-between; /* Aligns buttons on opposite sides */
-  margin-top: 100px; /* Adjust margin as needed */
-  padding: 0 10px; /* Adds padding to the left and right for spacing */
-  width: 100%; /* Ensures full width of the container */
+  justify-content: space-between;
+  margin-top: 100px;
+  padding: 0 10px;
+  width: 100%;
 }
 
 .top-btn1, .top-btn2 {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: var(--rest-but); /* Use your defined color variables */
+  background-color: var(--rest-but);
   color: white;
-  border: 1.5px solid transparent; /* Set consistent border width */
+  border: 1.5px solid transparent;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
@@ -89,8 +92,58 @@ body {
 }
 
 .top-btn1:hover, .top-btn2:hover {
-  background-color: var(--hov-but); /* Hover background color */
-  color: black; /* Hover text color */
-  font-weight: 600; /* Set weight to avoid size changes */
-  border-color: var(--rest-but); /* Change border color without changing width */
+  background-color: var(--hov-but);
+  color: black;
+  font-weight: 600;
+  border-color: var(--rest-but);
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .landing-page {
+    padding: 30px;
+    top: 40%;
+    width: 90%; /* Adjust width for smaller screens */
+    transform: translate(-50%, -50%);
+  }
+
+  .landing-page h3 {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    white-space: nowrap; /* Prevent wrapping */
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 40px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .top-buttons {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0;
+  }
+
+  .top-btn1, .top-btn2 {
+    width: 90%;
+    margin: 10px 0;
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  .top-btn1 {
+    margin-left: 0;
+  }
+
+  .top-btn2 {
+    margin-right: 0;
+  }
 }

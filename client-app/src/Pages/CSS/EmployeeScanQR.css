@@ -76,3 +76,50 @@
     display: block;
   }
  
+
+  @media (max-width: 768px) {
+    .employee-scan-qr {
+      padding: 20px;
+      min-height: auto;
+    }
+  
+    .employee-scan-qr h2 {
+      margin-top: 50px;
+      font-size: 1.5rem; /* Adjust heading size */
+    }
+  
+    .employee-scan-qr button {
+      padding: 8px 12px; /* Smaller padding for buttons */
+    }
+  
+    .logout1 {
+      right: 10px; /* Adjust position */
+      top: 80px;   /* Adjust position for smaller screens */
+      padding: 8px 15px; /* Smaller padding */
+    }
+  
+    .food-item-display {
+      grid-template-columns: 1fr; /* Switch to one column */
+      grid-gap: 10px;
+      padding: 15px; /* Reduce padding */
+      box-shadow: 0 0 5px 3px var(--shadow-but);
+    }
+  
+    .food-item-display img {
+      max-width: 100px; /* Smaller image size */
+    }
+  
+    .food-item-display h3 {
+      font-size: 1.2rem; /* Smaller font size */
+    }
+  
+    .food-item-display p {
+      padding: 8px 0; /* Adjust text padding */
+    }
+  
+    #reader {
+      margin-top: 10px; /* Adjust margin */
+      padding: 8px;     /* Smaller padding */
+    }
+  }
+  
