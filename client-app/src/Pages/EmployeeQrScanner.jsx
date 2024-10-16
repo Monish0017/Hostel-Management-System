@@ -15,7 +15,7 @@ const EmployeeScanQR = () => {
   
   const navigate=useNavigate();
   const token = localStorage.getItem('token');
-  const serverBaseUrl = 'http://localhost:3000';
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com';
 
   // Initialize QR scanner
   useEffect(() => {
