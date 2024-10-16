@@ -72,13 +72,13 @@ const AdminHome = () => {
               className={activeComponent === 'Apply' ? 'active' : ''}
               onClick={() => handleSidebarClick('Apply')}
             >
-              Student Application
+              Application
             </li>
             <li
               className={activeComponent === 'Complaint' ? 'active' : ''}
               onClick={() => handleSidebarClick('Complaint')}
             >
-              Complaint Management
+              Complaints
             </li>
             <li
               className={activeComponent === 'Billing' ? 'active' : ''} // Add Billing section
