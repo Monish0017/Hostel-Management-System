@@ -9,7 +9,7 @@ const FoodItem = require('../models/FoodItem');
 exports.bookFoodToken = async (req, res) => {
     try {
         const { foodItemName, quantity, bookingDate } = req.body;
-        const studentRollNo = req.user.rollNo; // Extract rollNo from the authenticated user
+        const studentRollNo = req.user.rollNo;
 
         // Find the student by rollNo
         const student = await Student.findOne({ rollNo: studentRollNo });
@@ -24,30 +24,25 @@ exports.bookFoodToken = async (req, res) => {
         }
 
         // Check if the food item is available on the booking date
-        const bookingMoment = moment(bookingDate); // Convert booking date to moment
-        const bookingDay = bookingMoment.format('dddd'); // Get the day of the week (e.g., "Monday")
+        const bookingMoment = moment(bookingDate);
+        const bookingDay = bookingMoment.format('dddd');
         if (!foodItem.availableDays.includes(bookingDay)) {
             return res.status(400).json({ message: 'Food item is not available on the selected day' });
         }
 
-        // Get current time
-        const currentTime = moment(); // Get the current time
-        const tomorrow = moment().add(1, 'day').startOf('day'); // Start of tomorrow
-        const after5PM = moment().hour(17).minute(0); // 5 PM today
+        // Get the current time and the end of today's day
+        const currentTime = moment();
+        const tomorrow = moment().add(1, 'day').startOf('day');
+        const after5PM = moment().hour(17).minute(0);
 
-        // Check if the booking date is for tomorrow
-        if (bookingMoment.isSame(tomorrow, 'day')) {
-            // Allow booking only if it's before 5 PM today
-            if (currentTime.isAfter(after5PM)) {
-                return res.status(400).json({ message: 'Cannot book tokens for tomorrow after 5 PM' });
-            }
+        // Check if booking date is tomorrow and if it's after 5 PM today
+        if (bookingMoment.isSame(tomorrow, 'day') && currentTime.isAfter(after5PM)) {
+            return res.status(400).json({ message: 'Cannot book tokens for tomorrow after 5 PM' });
         }
 
         // Calculate the total amount
-        const totalAmount = foodItem.price * quantity; // Price multiplied by quantity
-
-        // Convert student.amount from string to number
-        const studentBalance = parseFloat(student.amount); // Ensure to handle NaN if conversion fails
+        const totalAmount = foodItem.price * quantity;
+        const studentBalance = parseFloat(student.amount);
 
         // Check if the student has sufficient balance
         if (studentBalance < totalAmount) {
@@ -55,13 +50,13 @@ exports.bookFoodToken = async (req, res) => {
         }
 
         // Deduct the amount from the student's balance
-        student.amount = (studentBalance - totalAmount).toString(); // Convert back to string before saving
-        await student.save(); // Save the updated student
+        student.amount = (studentBalance - totalAmount).toString();
+        await student.save();
 
         // Create a new food token
         const token = new FoodToken({
-            student: student._id, // Use student._id
-            foodItemName: foodItemName, // Store food item name
+            student: student._id,
+            foodItemName: foodItemName,
             quantity: quantity,
             bookingDate: bookingDate
         });
@@ -75,7 +70,6 @@ exports.bookFoodToken = async (req, res) => {
 };
 
 
-
 exports.cancelFoodToken = async (req, res) => {
     try {
         const { tokenId } = req.params;
@@ -83,30 +77,22 @@ exports.cancelFoodToken = async (req, res) => {
 
         // Find the token to get details about the food item and quantity
         const token = await FoodToken.findOne({ _id: tokenId, student: studentId });
-        
         if (!token) {
             return res.status(404).json({ message: 'Token not found or not authorized to cancel' });
         }
 
-        // Get the current date and time
-        const currentDate = new Date();
-        
-        // Parse the token's booking date (assuming the token has a 'bookingDate' field)
-        const bookingDate = new Date(token.bookingDate);
-        
-        // Set the cutoff time for cancellation to 5:00 PM the day before the booking
-        const cancellationCutoff = new Date(bookingDate);
-        cancellationCutoff.setDate(bookingDate.getDate() - 1); // Set to the day before
-        cancellationCutoff.setHours(17, 0, 0, 0); // Set to 5:00 PM
-        
-        // Check if the current time is past the cutoff time
-        if (currentDate > cancellationCutoff) {
+        const currentDate = moment();
+        const bookingDate = moment(token.bookingDate);
+        const tomorrow = moment().add(1, 'day').startOf('day');
+        const after5PM = moment().hour(17).minute(0);
+
+        // If the token is booked for tomorrow, cancel only if it's before 5 PM today
+        if (bookingDate.isSame(tomorrow, 'day') && currentDate.isAfter(after5PM)) {
             return res.status(403).json({ message: 'Cancellation is no longer allowed after 5:00 PM the day before' });
         }
 
         // Find the food item to get its price
         const foodItem = await FoodItem.findOne({ name: token.foodItemName });
-        
         if (!foodItem) {
             return res.status(404).json({ message: 'Food item not found' });
         }
@@ -120,12 +106,9 @@ exports.cancelFoodToken = async (req, res) => {
             return res.status(404).json({ message: 'Student not found' });
         }
 
-        // Convert student.amount from string to number
         const studentBalance = parseFloat(student.amount);
-        
-        // Update the student's amount
-        student.amount = (studentBalance + totalAmountToAddBack).toString(); // Convert back to string before saving
-        await student.save(); // Save the updated student
+        student.amount = (studentBalance + totalAmountToAddBack).toString();
+        await student.save();
 
         // Remove the token
         await FoodToken.findByIdAndDelete(tokenId);
@@ -136,7 +119,6 @@ exports.cancelFoodToken = async (req, res) => {
         res.status(500).json({ message: 'Error canceling food token', error: err.message || 'Unknown error' });
     }
 };
-
 
 // Generate QR code for a food token
 exports.generateQRCode = async (req, res) => {
@@ -248,5 +230,74 @@ exports.getTokenDetails = async (req, res) => {
     } catch (err) {
         console.error('Error fetching token details:', err);
         res.status(500).json({ message: 'Error fetching token details', error: err.message || 'Unknown error' });
+    }
+};
+
+// Admin - Get billing information: total quantity and cost per food item for tomorrow's bookings
+exports.adminBilling = async (req, res) => {
+    try {
+        // Get tomorrow's date (assuming bookingDate is stored as a Date object)
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0); // Set time to 00:00:00 for start of the day
+        const dayAfterTomorrow = new Date(tomorrow);
+        dayAfterTomorrow.setDate(tomorrow.getDate() + 1); // Get day after tomorrow to use as end boundary
+
+        // Aggregate food tokens to calculate total quantity and total cost per food item for tomorrow's bookings
+        const billingData = await FoodToken.aggregate([
+            {
+                $match: {
+                    bookingDate: { 
+                        $gte: tomorrow, // Only include bookings from the start of tomorrow
+                        $lt: dayAfterTomorrow // Exclude bookings after tomorrow
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'fooditems', // Join with FoodItem collection
+                    localField: 'foodItemName',
+                    foreignField: 'name', // Assuming 'name' is the field in FoodItem schema
+                    as: 'foodDetails'
+                }
+            },
+            {
+                $unwind: '$foodDetails' // Unwind the foodDetails array to get individual item details
+            },
+            {
+                $group: {
+                    _id: "$foodItemName", // Group by foodItemName
+                    totalQuantity: { $sum: "$quantity" }, // Sum the quantity for each food item
+                    price: { $first: "$foodDetails.price" }, // Get the price from the FoodItem collection
+                }
+            },
+            {
+                $project: {
+                    foodItemName: "$_id", // Rename _id to foodItemName
+                    totalQuantity: 1, // Include the total quantity
+                    price: 1, // Include the price of the food item
+                    totalCost: { $multiply: ["$totalQuantity", "$price"] } // Calculate total cost per item
+                }
+            },
+            {
+                $group: {
+                    _id: "$foodItemName", // Ensure final grouping by food item
+                    totalQuantity: { $sum: "$totalQuantity" }, // Sum quantities across potential duplicates
+                    price: { $first: "$price" }, // Use the first price (should be the same for all)
+                    totalCost: { $sum: "$totalCost" } // Sum the total costs across duplicates
+                }
+            }
+        ]);
+
+        if (billingData.length === 0) {
+            return res.status(404).json({ message: 'No billing data found for tomorrow' });
+        }
+
+        // Respond with the billing data for tomorrow's bookings
+        res.status(200).json({ billingData });
+    } catch (err) {
+        console.error('Error fetching billing data:', err);
+        res.status(500).json({ message: 'Error fetching billing data', error: err.message || 'Unknown error' });
     }
 };

@@ -26,5 +26,7 @@ router.delete('/cleanup-expired-tokens', authAdmin, foodTokenControllers.cleanup
 // Admin token validation
 router.post('/admin/food-token/validate', auth, foodTokenControllers.adminValidateToken);
 
+// Admin billing route
+router.get('/admin/billing', authAdmin, foodTokenControllers.adminBilling);
 
 module.exports = router;

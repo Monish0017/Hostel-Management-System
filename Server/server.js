@@ -21,9 +21,6 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 
-// Serve static files
-app.use('/Assets', express.static(path.join(__dirname, 'Assets')));
-
 // Importing routes
 const studentRoutes = require('./routes/studentRoutes');
 const foodRoutes = require('./routes/foodRoutes');
