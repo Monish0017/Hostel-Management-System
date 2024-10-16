@@ -11,7 +11,7 @@
 .main1 {
   display: flex;
   flex: 1;
-  margin-top: 50px;
+  margin-top: 50px; /* This can also be adjusted if needed */
 }
 
 .content {
@@ -25,7 +25,7 @@
   width: 200px;
   background-color: var(--header);
   position: fixed;
-  top: 80px;
+  top: 80px; /* Adjust this if your header height changes */
   height: calc(100vh - 80px);
   left: 0;
   display: flex;
@@ -86,11 +86,8 @@
 
   .sidebar {
     width: 100%;
-    /* Sidebar takes full width */
-    height: auto;
-    /* Sidebar height adjusts to content */
-    position: static;
-    /* No fixed position for easier scrolling */
+    height: auto; /* Sidebar height adjusts to content */
+    position: static; /* No fixed position for easier scrolling */
     top: 0;
   }
 
@@ -105,16 +102,57 @@
   }
 
   .content {
-    margin-left: 0;
-    /* Remove margin to align content */
-    padding: 10px;
-    /* Reduce padding for smaller screens */
+    margin-left: 0; /* Remove margin to align content */
+    padding: 10px; /* Reduce padding for smaller screens */
   }
 
   .logout-button {
-    width: 100%;
-    /* Full width button for smaller screens */
+    width: 100%; /* Full width button for smaller screens */
     margin: 10px 0;
   }
 }
 
+/* For screens with a width of 480px or less */
+@media (max-width: 480px) {
+  .sidebar {
+    height: auto; /* Sidebar adjusts to content height */
+    padding: 10px 0; /* Add padding for better spacing */
+    margin-top: 80px; /* Prevent overlap with the header */
+    position: relative; /* Change to relative position */
+  }
+
+  .sidebar li {
+    padding: 10px; /* Adjust padding for touch targets */
+    font-size: 14px; /* Slightly smaller font size */
+  }
+
+  .content {
+    padding: 5px; /* Reduce padding for even smaller screens */
+  }
+
+  .logout-button {
+    width: 100%; /* Full width button */
+    padding: 0.7rem 1rem; /* Increase padding for better touch area */
+  }
+}
+
+/* For screens with a width of 360px or less */
+@media (max-width: 360px) {
+  .sidebar {
+    padding: 5px 0; /* Less padding for very small screens */
+    margin-top: 80px; /* Prevent overlap with the header */
+    position: relative; /* Change to relative position */
+  }
+
+  .sidebar li {
+    font-size: 12px; /* Further reduce font size */
+  }
+
+  .content {
+    padding: 5px; /* Maintain reduced padding */
+  }
+
+  .logout-button {
+    padding: 0.5rem 1rem; /* Adjust padding for the button */
+  }
+}
