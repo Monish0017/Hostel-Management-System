@@ -7,7 +7,7 @@ const AdminBilling = () => {
   const [billingData, setBillingData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const serverBaseUrl = 'http://localhost:3000'; 
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; 
   
   useEffect(() => {
     const fetchBillingData = async () => {

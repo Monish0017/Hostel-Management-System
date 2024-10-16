@@ -5,7 +5,7 @@ const StudentComplaints = () => {
   const [complaints, setComplaints] = useState([]);
   const [complaintText, setComplaintText] = useState('');
   const token = localStorage.getItem('token'); // Assuming JWT is stored in localStorage
-  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   useEffect(() => {
     // Fetch the complaints submitted by the student
