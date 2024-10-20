@@ -11,11 +11,6 @@
 .main1 {
   display: flex;
   flex: 1;
-<<<<<<< HEAD
-  margin-top: 100px;
-=======
-  margin-top: 80px;
->>>>>>> be3fd733b27bf4c344741b0c97a1d70e2efc1a17
 }
 
 .content {
