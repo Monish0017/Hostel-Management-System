@@ -73,7 +73,7 @@ const processApplication = async (req, res) => {
       console.log(`Processing application for rollNo: ${application.rollNo}`);
 
       // Find the payment record for the student using rollNo
-      const paymentRecord = await Payment.findOne({ studentRollNo: application.rollNo, status: 'paid' });
+      const paymentRecord = await Payment.findOne({ studentrollNo: application.rollNo, status: 'paid' });
       console.log(paymentRecord);
       
       if (paymentRecord) {
@@ -145,7 +145,7 @@ const deleteUnpaidApplications = async (req, res) => {
       console.log(`Processing application for rollNo: ${application.rollNo}`);
 
       // Find the payment record for the student using rollNo
-      const paymentRecord = await Payment.findOne({ studentRollNo: application.rollNo, status: 'paid' });
+      const paymentRecord = await Payment.findOne({ studentrollNo: application.rollNo, status: 'paid' });
 
       if (!paymentRecord) {
         // If payment is not completed, delete the image from Firebase Storage

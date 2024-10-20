@@ -6,7 +6,12 @@ import { useNavigate } from 'react-router-dom';
 function Fee() {
   const [rollNo, setRollNo] = useState('');
   const [block, setBlock] = useState('');
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+
+  // Convert rollNo to uppercase as user types
+  const handleRollNoChange = (e) => {
+    setRollNo(e.target.value.toUpperCase());
+  };
 
   return (
     <div className='payment-container'>
@@ -16,7 +21,7 @@ function Fee() {
         <input
           type="text"
           value={rollNo}
-          onChange={(e) => setRollNo(e.target.value)}
+          onChange={handleRollNoChange} // Apply the handler
           placeholder="Enter your roll number"
         />
       </div>

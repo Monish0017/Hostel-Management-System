@@ -87,7 +87,7 @@ const Apply = () => {
           <input 
             type="text" 
             name="rollNo" 
-            value={formData.rollNo} 
+            value={formData.rollNo.toUpperCase()} 
             onChange={handleChange} 
             placeholder="Roll No" 
             required 

@@ -33,6 +33,11 @@ const Login = () => {
     }
   };
 
+  const handleRollNoChange = (e) => {
+    // Automatically convert input to uppercase
+    setRollNo(e.target.value.toUpperCase());
+  };
+
   return (
     <div className="full">
       <div className="main">
@@ -43,7 +48,7 @@ const Login = () => {
               <input
                 type="text"
                 value={rollNo}
-                onChange={(e) => setRollNo(e.target.value)}
+                onChange={handleRollNoChange} // Use the custom handler
                 placeholder="Roll Number"
                 required
               />
