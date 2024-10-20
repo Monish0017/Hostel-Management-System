@@ -99,51 +99,83 @@ body {
 }
 
 /* Media Query */
+/* Media Queries for Responsive Design */
+
+/* For screens with a width of 768px or less (tablets and mobiles) */
 @media (max-width: 768px) {
-  .landing-page {
-    padding: 30px;
-    top: 40%;
-    width: 90%; /* Adjust width for smaller screens */
-    transform: translate(-50%, -50%);
-  }
-
-  .landing-page h3 {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    white-space: nowrap; /* Prevent wrapping */
-  }
-
-  .button-container {
+  .main1 {
     flex-direction: column;
-    gap: 15px;
-    margin-top: 40px;
+    margin-top: 0;
   }
 
-  .btn {
+  .sidebar {
     width: 100%;
-    font-size: 14px;
-    padding: 8px 10px;
+    height: auto; /* Sidebar height adjusts to content */
+    position: static; /* No fixed position for easier scrolling */
+    top: 0;
+    margin-top: 50px; /* Add margin to push the sidebar below the header */
   }
 
-  .top-buttons {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    padding: 0;
+  .sidebar ul {
+    flex-direction: row;
+    justify-content: space-around;
   }
 
-  .top-btn1, .top-btn2 {
-    width: 90%;
+  .sidebar li {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .content {
+    margin-left: 0; /* Remove margin to align content */
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+
+  .logout-button {
+    width: 100%; /* Full width button for smaller screens */
     margin: 10px 0;
-    padding: 8px 15px;
-    font-size: 14px;
+  }
+}
+
+/* For screens with a width of 480px or less */
+@media (max-width: 480px) {
+  .sidebar {
+    height: auto; /* Sidebar adjusts to content height */
+    padding: 10px 0; /* Add padding for better spacing */
+    margin-top: 50px; /* Ensure sidebar is below the header */
   }
 
-  .top-btn1 {
-    margin-left: 0;
+  .sidebar li {
+    padding: 10px; /* Adjust padding for touch targets */
+    font-size: 14px; /* Slightly smaller font size */
   }
 
-  .top-btn2 {
-    margin-right: 0;
+  .content {
+    padding: 5px; /* Reduce padding for even smaller screens */
+  }
+
+  .logout-button {
+    width: 100%; /* Full width button */
+    padding: 0.7rem 1rem; /* Increase padding for better touch area */
+  }
+}
+
+/* For screens with a width of 360px or less */
+@media (max-width: 360px) {
+  .sidebar {
+    padding: 5px 0; /* Less padding for very small screens */
+    margin-top: 50px; /* Ensure sidebar is below the header */
+  }
+
+  .sidebar li {
+    font-size: 12px; /* Further reduce font size */
+  }
+
+  .content {
+    padding: 5px; /* Maintain reduced padding */
+  }
+
+  .logout-button {
+    padding: 0.5rem 1rem; /* Adjust padding for the button */
   }
 }

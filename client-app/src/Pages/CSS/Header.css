@@ -25,3 +25,59 @@
     display: flex;
     align-items: center; /* Aligns text and logo vertically center */
 }
+
+/* For screens with a width of 768px or less (tablets and mobiles) */
+@media (max-width: 768px) {
+    .header {
+      padding: 10px; /* Reduce padding for smaller screens */
+      height: 60px; /* Increase height slightly for better spacing */
+    }
+  
+    .header .logo {
+      width: 30px; /* Smaller logo for smaller screens */
+      height: 40px; /* Adjust height for smaller screens */
+      margin-right: 5px; /* Reduce spacing between logo and title */
+    }
+  
+    .header h1 {
+      font-size: 20px; /* Reduce font size for heading */
+    }
+  }
+  
+  /* For screens with a width of 480px or less */
+  @media (max-width: 480px) {
+    .header {
+      padding: 5px; /* Further reduce padding */
+      height: 50px; /* Keep height consistent */
+    }
+  
+    .header .logo {
+      width: 25px; /* Even smaller logo for very small screens */
+      height: 35px; /* Adjust height accordingly */
+      margin-right: 3px; /* Tighten spacing between logo and title */
+    }
+  
+    .header h1 {
+      font-size: 18px; /* Further reduce font size for heading */
+      text-align: center; /* Ensure text is centered */
+    }
+  }
+  
+  /* For screens with a width of 360px or less */
+  @media (max-width: 360px) {
+    .header {
+      padding: 5px; /* Maintain reduced padding */
+      height: 50px; /* Keep height consistent */
+    }
+  
+    .header .logo {
+      width: 20px; /* Minimum logo size for tiny screens */
+      height: 30px; /* Adjust height for very small screens */
+      margin-right: 2px; /* Minimal spacing between logo and title */
+    }
+  
+    .header h1 {
+      font-size: 16px; /* Minimal font size for small devices */
+    }
+  }
+  
