@@ -11,6 +11,7 @@
 .main1 {
   display: flex;
   flex: 1;
+  margin-top: 90/100;
 }
 
 .content {
