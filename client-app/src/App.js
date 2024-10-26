@@ -20,6 +20,7 @@ import Apply from './Pages/Apply';
 import StudentApplication from './Pages/StudentApplication';
 import EmployeeLogin from './Pages/EmployeeLogin'; 
 import EmployeeQrScanner from './Pages/EmployeeQrScanner';
+import ResetPassword from './Pages/ResetPassword';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/apply" element={<Apply />} />

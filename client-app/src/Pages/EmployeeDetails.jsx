@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import profile from '../assets/profile.jpg';
 
 const EmployeeDetails = () => {
-  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
+  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isEditing, setIsEditing] = useState(false);

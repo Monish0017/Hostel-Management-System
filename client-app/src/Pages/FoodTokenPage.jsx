@@ -15,7 +15,7 @@ const FoodTokenPage = () => {
   const [qrCode, setQrCode] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
-  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com';
+  const serverBaseUrl = 'http://localhost:3000';
   const authToken = localStorage.getItem('token');
 
   // Fetch food items from backend
