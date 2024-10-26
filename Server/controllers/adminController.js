@@ -375,6 +375,37 @@ const removeStudent = async (req, res) => {
   }
 };
 
+const reduceMoneyFromAccounts = async (req, res) => {
+  const { amount } = req.body; // The amount to reduce from each student's account
+
+  try {
+    // Check if the amount is valid
+    if (amount <= 0) {
+      return res.status(400).json({ message: 'Amount must be greater than zero.' });
+    }
+
+    // Find all students and reduce the specified amount
+    const students = await Student.find({});
+
+    const updatePromises = students.map(async (student) => {
+      const currentAmount = parseFloat(student.amount);
+      const newAmount = currentAmount - amount;
+
+      // Update student's amount if the new amount is not negative
+      if (newAmount >= 0) {
+        student.amount = newAmount.toString();
+        await student.save();
+      }
+    });
+
+    await Promise.all(updatePromises);
+
+    res.status(200).json({ message: 'Money successfully reduced from all student accounts.' });
+  } catch (error) {
+    console.error('Error reducing money from accounts:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 
 // Fetch all applications
 const getAllApplications = async (req, res) => {
@@ -703,6 +734,7 @@ module.exports = {
   registerEmployee,
   removeEmployee,
   modifyEmployee,
+  reduceMoneyFromAccounts,
   getAllEmployees,
   addRoom,
   getRoomDetailsWithStudents,

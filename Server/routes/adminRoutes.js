@@ -27,6 +27,7 @@ const {
   getAllComplaints,
   deleteComplaint,
   deleteAllComplaints,
+  reduceMoneyFromAccounts,
 } = require('../controllers/adminController');
 
 const authMiddleware = require('../middleware/adminAuth');
@@ -70,5 +71,9 @@ router.delete('/remove-employee/:employeeId', authMiddleware ,removeEmployee);
 router.get('/complaints' , authMiddleware , getAllComplaints);
 router.delete('/complaints/:id' , authMiddleware , deleteComplaint);
 router.delete('/delete-complaints' , authMiddleware , deleteAllComplaints);
+
+// POST route to reduce money from all student accounts
+router.post('/reduce-money',authMiddleware, reduceMoneyFromAccounts);
+
 
 module.exports = router;

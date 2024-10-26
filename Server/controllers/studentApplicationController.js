@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const { ref, uploadBytes, getDownloadURL, deleteObject } = require('firebase/storage'); 
 const { storage } = require('../firebaseConfig'); 
 
-
 // Submit a new student application
 const submitApplication = async (req, res) => {
   const { fullName, email, rollNo, contactPhone, programme, classYear, fatherName, residentialAddress, primaryMobileNumber, secondaryMobileNumber } = req.body;
@@ -191,6 +190,7 @@ const getAllApplications = async (req, res) => {
       res.status(500).json({ message: 'Error fetching student applications', error });
     }
   };
+
 
 module.exports = {
   submitApplication,

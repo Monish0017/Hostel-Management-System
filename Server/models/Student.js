@@ -58,6 +58,12 @@ const studentSchema = new mongoose.Schema({
   payment: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Payment' // This will hold a single payment reference
+  },
+  resetPasswordToken: { 
+    type: String 
+  },
+  resetPasswordExpires: { 
+    type: Date 
   }
 });
 
