@@ -12,7 +12,7 @@ const AdminFood = () => {
   const [reduceAmount, setReduceAmount] = useState(''); // State for the amount to reduce
 
   const token = localStorage.getItem('token');
-  const serverBaseUrl = 'http://localhost:3000';
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com';
 
   const fetchFoodItems = async () => {
     try {
@@ -160,7 +160,6 @@ const AdminFood = () => {
       </div>
       <button className='cancel' onClick={handleCleanupExpiredTokens}>Cancel Expired Tokens</button>
 
-      {/* Reduce Money Section */}
       <div className="reduce-money-section">
         <h3>Reduce Money for Daily Mess</h3>
         <input

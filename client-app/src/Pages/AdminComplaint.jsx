@@ -5,7 +5,7 @@ const AdminComplaints = () => {
   const [complaints, setComplaints] = useState([]);
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const token = localStorage.getItem('token'); // Assuming JWT for admin is stored
-  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
 
   useEffect(() => {
     fetch(`${serverBaseUrl}/admin/complaints`, {

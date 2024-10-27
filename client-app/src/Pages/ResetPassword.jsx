@@ -12,7 +12,7 @@ function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:3000/student/reset-password/${token}`, { newPassword });
+      const response = await axios.post(`https://hostel-management-system-api.onrender.com/student/reset-password/${token}`, { newPassword });
       setMessage(response.data.message);
       setTimeout(() => navigate('/login'), 3000); // Redirect to login after 3 seconds
     } catch (error) {

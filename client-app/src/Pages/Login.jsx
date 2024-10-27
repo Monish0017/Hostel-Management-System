@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './CSS/Login.css';
 
 const Login = () => {
-  const serverBaseUrl = 'http://localhost:3000'; // Adjust based on your server's URL
+  const serverBaseUrl = 'https://hostel-management-system-api.onrender.com'; // Adjust based on your server's URL
   const [rollNo, setRollNo] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
