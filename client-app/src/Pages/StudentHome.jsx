@@ -95,7 +95,7 @@ const StudentHome = () => {
               className={activeComponent === 'Complaint' ? 'active' : ''} // Add Complaint to sidebar
               onClick={() => handleSidebarClick('Complaint')}
             >
-              Make Complaint
+              Make Suggestion
             </li>
           </ul>
           <button

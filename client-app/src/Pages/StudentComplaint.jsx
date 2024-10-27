@@ -56,7 +56,7 @@ const StudentComplaints = () => {
 
   return (
     <div className='comp'>
-      <h2>Submit a Complaint</h2>
+      <h2>Submit a Suggestion</h2>
       <form>
         <textarea
           value={complaintText}
@@ -65,12 +65,12 @@ const StudentComplaints = () => {
           required
         />
       </form>
-      <button type="submit" onClick={handleSubmit}>Submit Complaint</button> {/* Move the button inside the form */}
+      <button type="submit" onClick={handleSubmit}>Submit Suggestion</button> {/* Move the button inside the form */}
 
 
-      <h3>Your Complaints</h3>
+      <h3>Your Suggestions</h3>
       {complaints.length === 0 ? (
-        <p>No complaints submitted yet.</p>
+        <p>No suggestions submitted yet.</p>
       ) : (
         <div className="complaint-grid">
           {complaints.map((complaint) => (
