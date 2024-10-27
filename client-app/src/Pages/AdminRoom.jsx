@@ -270,7 +270,7 @@ const AdminRoom = () => {
               {selectedRoom.students.map((student) => (
                 <li key={student}>
                   {student}
-                  <button className="remove-btn" onClick={() => handleRemoveStudentFromRoom(student)}>
+                  <button className="remove-btn1" onClick={() => handleRemoveStudentFromRoom(student)}>
                     Remove
                   </button>
                 </li>

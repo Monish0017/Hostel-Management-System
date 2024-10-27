@@ -138,3 +138,17 @@
   transform: scale(1.05);
 }
 
+.remove-btn1 {
+  background-color: var(--rest-but);
+  color: white; 
+  border: none;
+  padding: 8px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.remove-btn1:hover {
+  transform: scale(1.05);
+}

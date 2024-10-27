@@ -86,7 +86,7 @@ exports.assignRoomIfPaid = async (req, res) => {
 
           // Send success email to roommate
           await transporter.sendMail({
-            from: 'your-email@gmail.com', // Sender address
+            from: `Hostel Management System <${process.env.EMAIL_USER}>`, // Sender address
             to: roommate.email, // Recipient email from roommate model
             subject: 'Room Assignment Successful',
             text: `Dear ${roommate.name},\n\nYou have been successfully assigned to share a room with ${student.name} in ${blockName}. Your remaining balance is now ${newRoommateAmount}.\n\nBest Regards,\nHostel Management`
@@ -103,7 +103,7 @@ exports.assignRoomIfPaid = async (req, res) => {
     
     // Send failure email
     await transporter.sendMail({
-      from: 'your-email@gmail.com', // Sender address
+      from: `Hostel Management System <${process.env.EMAIL_USER}>`, // Sender address
       to: student.email, // Recipient email from student model
       subject: 'Room Assignment Failed',
       text: `Dear ${student.name},\n\nThere was an error assigning your room. Please contact the administration for assistance.\n\nBest Regards,\nHostel Management`
