@@ -95,25 +95,46 @@
   color: #050A44;
 }
 
-.but-can {
-  background-color: var(--rest-but);
-  color: white;
+.res1 {
+  display: flex;
+  flex-direction: column; /* Stack the elements vertically */
+}
+
+.res {
   border: none;
-  padding: 0.5rem 1rem;
+  font-size: 16px;
+  background-color: white; /* Ensure the background is transparent */
+  color: #0A21C0; /* Text color */
+  text-decoration: none; /* No underline by default */
+  margin-bottom: 10px; /* Space between .res and .but-can */
+}
+
+.res:hover {
+  text-decoration: underline; /* Underline on hover */
+  color: #050A44; /* Darker color on hover */
   cursor: pointer;
-  border-radius: 4px;
-  margin-left: 20px;
-  margin-bottom: 20px;
+}
+
+.but-can {
+  background-color: var(--rest-but); 
+  color: white; 
+  border: none; 
+  padding: 0.5rem 1rem; 
+  cursor: pointer; 
+  border-radius: 4px; 
+  margin: 10px auto;
   font-size: 14px;
-  width: 50%;
+  width: 50%; 
 }
 
 .but-can:hover {
-  background-color: var(--hov-but); /* Hover background color */
-  color: black; /* Hover text color */
+  background-color: var(--hov-but); /* Background color on hover */
+  color: black; /* Text color on hover */
   border: 1.5px solid transparent; 
-  border-color: var(--rest-but); /* Change border color without changing width */
+  border-color: var(--rest-but); /* Change border color on hover */
 }
+
+
 
 .but {
   background-color: var(--rest-but);
