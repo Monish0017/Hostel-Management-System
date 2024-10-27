@@ -28,11 +28,11 @@ function Fee() {
       <div className='form-group'>
         <select value={block} onChange={(e) => setBlock(e.target.value)}>
           <option value="">Select Block</option>
-          <option value="K-Block">K-Block</option>
-          <option value="L-Block">L-Block</option>
-          <option value="M-Block">M-Block</option>
-          <option value="N-Block">N-Block</option>
-          <option value="Q-Block">Q-Block</option>
+          <option value="Block 1">Block 1</option>
+          <option value="Block 2">Block 2</option>
+          <option value="Block 3">Block 3</option>
+          <option value="Block 4">Block 4</option>
+          <option value="Block 5">Block 5</option>
         </select>
       </div>
 
