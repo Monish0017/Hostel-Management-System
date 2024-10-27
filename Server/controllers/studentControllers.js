@@ -101,7 +101,7 @@ const forgotPassword = async (req, res) => {
     student.resetPasswordExpires = Date.now() + 3600000; // 1 hour
     await student.save();
 
-    const resetUrl = `http://localhost:3001/reset-password/${token}`;
+    const resetUrl = `https://hostel-management-system-api.onrender.com/reset-password/${token}`;
     const mailOptions = {
       from: `"Hostel Management System" <${process.env.EMAIL_USER}>`,
       to: student.email,
