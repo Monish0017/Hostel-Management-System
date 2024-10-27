@@ -7,15 +7,15 @@ const Payment = ({ rollNo, block }) => {
   const getFee = (block) => {
     switch (block) {
       case 'Block 1':
-        return 23000;
+        return 20000;
       case 'Block 2':
-        return 25000;
+        return 20000;
       case 'Block 3':
-        return 67000;
+        return 20000;
       case 'Block 4':
-        return 34000;
+        return 20000;
       case 'Block 5':
-        return 99000;
+        return 20000;
       default:
         return 0;
     }
