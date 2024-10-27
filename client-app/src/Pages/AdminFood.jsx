@@ -151,7 +151,7 @@ const AdminFood = () => {
                 className="food-image" 
               />
             <div>
-              Price: ${item.price}
+              Price: Rs.{item.price}
             </div>
             <div>Available Days: {item.availableDays.join(', ')}</div>
             <button onClick={() => handleDeleteFoodItem(item._id)}>Delete</button>
@@ -168,7 +168,7 @@ const AdminFood = () => {
           onChange={(e) => setReduceAmount(e.target.value)}
           placeholder="Enter amount to reduce"
         />
-        <button className='cancel' onClick={handleReduceMoney}>Reduce Money</button>
+        <button className='cancel-mon' onClick={handleReduceMoney}>Reduce Money</button>
       </div>
     </div>
   );

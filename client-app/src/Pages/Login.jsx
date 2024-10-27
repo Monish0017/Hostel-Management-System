@@ -103,8 +103,11 @@ const Login = () => {
                 required
               />
             </div>
-            <button type="submit" className="but-can">Send Reset Link</button>
+            <div className='res1'>
+            <button type="submit" className="res">Send Reset Link</button>
             <button type="button" className="but-can" onClick={() => setShowForgotPassword(false)}>Cancel</button>
+            </div>
+            
           </form>
         )}
         {error && <div className="error-popup">{error}</div>}

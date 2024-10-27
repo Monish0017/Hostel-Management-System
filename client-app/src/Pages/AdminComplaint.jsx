@@ -47,14 +47,14 @@ const AdminComplaints = () => {
 
   return (
     <div>
-      <h2>All Complaints</h2>
+      <h2>All Suggestions</h2>
       <button onClick={handleDeleteAll} className="delete-all-button">Delete All Complaints</button>
       {selectedComplaint ? (
         <div className="complaint-details1">
-          <h3>Complaint Details</h3>
+          <h3>Suggestion Details</h3>
           <p>{selectedComplaint.complaintText}</p>
           <p>Status: {selectedComplaint.status}</p>
-          <button onClick={() => handleDelete(selectedComplaint._id)}>Delete Complaint</button>
+          <button onClick={() => handleDelete(selectedComplaint._id)}>Delete Suggestion</button>
           <button onClick={() => setSelectedComplaint(null)}>Back to List</button>
         </div>
       ) : (

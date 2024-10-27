@@ -64,6 +64,25 @@
   border-color: var(--rest-but);
 }
 
+.cancel-mon {
+  background-color: var(--rest-but); 
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.cancel-mon:hover {
+  background-color: var(--hov-but); 
+  color: black; 
+  font-weight: 600; 
+  border: 1.5px solid transparent; 
+  border-color: var(--rest-but);
+}
+
 
 .food-list {
   background-color: white;

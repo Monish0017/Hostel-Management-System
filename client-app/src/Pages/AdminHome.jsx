@@ -78,7 +78,7 @@ const AdminHome = () => {
               className={activeComponent === 'Complaint' ? 'active' : ''}
               onClick={() => handleSidebarClick('Complaint')}
             >
-              Complaints
+              Suggestions
             </li>
             <li
               className={activeComponent === 'Billing' ? 'active' : ''} // Add Billing section
